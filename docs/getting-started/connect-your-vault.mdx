@@ -1,0 +1,54 @@
+---
+title: Connect your vault
+description: Set up the Markdown vault where Dori stores everything it captures — plain files on your device, optionally synced to a remote provider.
+---
+
+Everything Dori captures — notes, meeting summaries, tasks, decisions, people — is stored as plain Markdown files in a **vault** that you own, not a proprietary database.
+
+## Local by default
+
+By default, your vault lives on your device — nothing leaves it. On your phone or another computer, you reach that same local vault through [Tailscale](/getting-started/secure-remote-access-with-tailscale): a private, end-to-end encrypted connection straight to your machine, not a separate cloud copy of your files. A remote sync provider (below) is optional, for backup or for editing your vault outside Dori.
+
+## Add a remote sync provider (optional)
+
+During setup, Dori asks whether you'd also like your vault synced to a remote — useful for off-device backup, or for editing your vault from outside Dori:
+
+![Markdown Vault Settings & Sync Status](/images/getting-started/vault-settings.png)
+
+<Tabs inline param="vault-provider">
+  <Tab title="GitHub">
+    The most tested remote option — pick this if you're unsure.
+
+    Dori installs the Dori GitHub App on the repository you choose (or a new one it creates for you), syncs your vault as a Git-backed Markdown tree, and keeps it in sync in the background.
+  </Tab>
+  <Tab title="Google Drive">
+    Sign in with your Google account, then pick (or create) a folder in Drive. Dori syncs your vault to that folder instead of a Git repo — no GitHub account required.
+  </Tab>
+  <Tab title="OneDrive">
+    Sign in with your Microsoft account, then pick (or create) a folder in OneDrive. Works the same way as Google Drive, for accounts already on Microsoft 365.
+  </Tab>
+</Tabs>
+
+Whichever you choose — or none at all, staying local-only — the result is the same shape: a folder tree of `.md` files you can open with any text editor, outside of Dori, at any time.
+
+## Version history, on every provider
+
+Every document you edit in Dori keeps a version history you can browse and restore from, Google-Docs-style — open **Version history** from the document toolbar. This works the same way regardless of which provider you chose: GitHub, Google Drive, and OneDrive each surface their own native revision history, and local-only vaults get an equivalent history captured automatically by Dori. Restoring an old version never deletes anything newer — it just makes that version current again.
+
+## What setup looks like
+
+1. Pick a remote provider, or skip this and stay local-only.
+2. For GitHub: authorise the Dori GitHub App and choose (or create) the repository that will hold your vault. For Drive/OneDrive: sign in and choose a folder.
+3. Dori runs an initial sync, then keeps your local copy and the remote in sync automatically from then on.
+
+## Why a vault, not a database
+
+Because your vault is plain Markdown, you can open, search, back up, or migrate it independently of Dori at any time — nothing about your data is locked to the app.
+
+## If a sync conflict happens
+
+If you (or another device) edit the same file both locally and remotely before a sync catches up, Dori can't always fast-forward merge automatically. When that happens, it keeps *both* versions instead of guessing — you'll see them under **Sync Conflicts**, where you pick which one to keep for each file. Nothing is silently overwritten or lost.
+
+## Next step
+
+Continue to [Choose your AI provider](/getting-started/choose-your-ai-provider).

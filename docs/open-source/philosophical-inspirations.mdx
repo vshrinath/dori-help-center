@@ -1,0 +1,102 @@
+---
+title: Philosophical Inspirations
+description: Standing on the shoulders of giants — the architectural ideas, products, and design philosophies that inspired Dori.
+sidebar:
+  label: Philosophical Inspirations
+---
+
+*Dori was built by standing on the shoulders of groundbreaking software concepts, local-first principles, open protocols, and executive UX patterns.*
+
+<Callout type="note">
+**In short:** Dori bridges the gap between local-first data ownership, code-driven video synthesis, open agentic protocols, unix simplicity, and multi-agent critique. Here are the core inspirations that shaped how Dori is built.
+</Callout>
+
+---
+
+## 1. Obsidian & The Local-First Software Movement
+
+### The Philosophy
+The local-first software movement — championed by tools like [Obsidian](https://obsidian.md) — introduced a radical idea: user data should be stored in standard, plain-text Markdown files (`.md`) on your local hard drive rather than trapped inside a cloud database. If an application disappears tomorrow, your Markdown files remain 100% accessible to you forever.
+
+### How Dori Extends It
+Dori embraces the local Markdown vault as its primary record of truth. We take Obsidian's data ownership philosophy and wrap it with **background autonomous AI agents, on-device audio transcription via [whisper.cpp](/open-source/open-source-foundations), local OCR via [RapidOCR](/open-source/open-source-foundations), and automatic entity classification**. Your notes aren't just passive text files — they form an active, compounding intelligence layer on your Mac that auto-links meeting decisions, client accounts, and relationships.
+
+---
+
+## 2. Remotion & HyperFrames
+
+### The Philosophy
+[Remotion](https://remotion.dev) proved that visual video production and motion graphics could be written as clean, deterministic code compositions. Rather than dragging elements around keyframe timelines in heavy video editing software, creators could describe motion programmatically using web technologies.
+
+### How Dori Extends It
+Dori's document drafting pipeline extends this concept to presentation slides and executive video briefs. Through our **HyperFrames engine**, Dori projects approved narrative Markdown files into rendered MP4 motion video slide decks. By treating visual presentations as code compositions, Dori transforms raw vault research into polished video deliverables in minutes.
+
+---
+
+## 3. Claude Code & Model Context Protocol (MCP)
+
+### The Philosophy
+Anthropic's [Model Context Protocol (MCP)](https://modelcontextprotocol.io) and CLI agentic workflows (like Claude Code) established an open standard for how AI clients discover tools, inspect local context, and execute agentic tasks without proprietary API locks.
+
+### How Dori Extends It
+Dori uses MCP to decouple its memory vault from any specific AI chat interface. Dori acts as a universal MCP server on your Mac. Whether you are using Claude Code in your terminal, Cursor in your IDE, or custom agent scripts, you can query Dori's local memory vault directly without re-uploading files or burning extra tokens.
+
+---
+
+## 4. The Unix Philosophy
+
+### The Philosophy
+> *"Do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface."* — Doug McIlroy
+
+### How Dori Extends It
+Dori avoids monolithic, opaque AI architecture. Instead, Dori is built as a set of small, single-purpose services that communicate through standard interfaces:
+- **Audio Service**: Focuses purely on local [whisper.cpp](/open-source/open-source-foundations) speech transcription.
+- **OCR Service**: Focuses purely on local [RapidOCR](/open-source/open-source-foundations) text extraction.
+- **Folder Watcher**: Focuses purely on filesystem change detection and [Markitdown](/open-source/open-source-foundations) normalization.
+- **Search Engine**: Focuses purely on local [SQLite FTS5](/open-source/open-source-foundations) indexing on Mac CPU.
+- **Narrative Domain**: Focuses purely on context assembly and drafting.
+
+---
+
+## 5. Tailscale & WireGuard Zero-Trust Mesh
+
+### The Philosophy
+[Tailscale](https://tailscale.com) revolutionized private networking by making WireGuard® zero-trust mesh networks effortless. It allowed devices to communicate securely peer-to-peer without opening public firewall ports or routing traffic through central cloud servers.
+
+### How Dori Extends It
+Dori leverages Tailscale mesh networking to give you **secure remote access to your Mac vault from your phone or laptop anywhere in the world**. You can record a voice note on your phone or query your vault remotely while keeping 100% of your data encrypted on your own hardware.
+
+---
+
+## 6. Open Design & Multi-Agent Critique Theater (The Council)
+
+### The Philosophy
+Pioneered by advanced AI evaluation frameworks and design critique systems, "Critique Theater" introduces structured multi-persona reviews (such as Legal, Financial, Executive, and Strategic advisors) that score, debate, and refine drafts before publication.
+
+### How Dori Extends It
+Dori integrates **[The Council](/features/council)** directly into your drafting workflow. Before sending a high-stakes proposal or client email, Dori's Council runs a multi-agent review loop, scoring your draft against historical writing styles, tone guidelines, and strategic risks — giving you executive confidence before hitting send.
+
+---
+
+## 7. Bento Grid & Command-K Keyboard Workflows
+
+### The Philosophy
+Modern executive tools revolutionized UI scannability through modular **Bento Grid** dashboard layouts and instant, keyboard-driven navigation (`Cmd+K`).
+
+### How Dori Extends It
+Dori combines a unified Bento layout with an instant `Cmd+K` command palette, allowing business leaders to search vaults, trigger workflows, and switch client account contexts in milliseconds without touching a mouse.
+
+---
+
+## Summary
+
+Dori is the synthesis of these core ideas:
+- **Local Markdown Vaults** from Obsidian.
+- **Code-Driven Video Composition** from Remotion & HyperFrames.
+- **Open Agentic Protocols** from MCP & Claude Code.
+- **Single-Purpose Utility Composition** from the Unix Philosophy.
+- **Encrypted Private Mesh Networking** from Tailscale.
+- **Multi-Agent Critique Theater** from Open Design & The Council.
+- **Fast Keyboard & Bento Interaction** from modern executive UI patterns.
+
+Together, these principles make Dori a persistent, user-owned, and future-proof personal intelligence system.

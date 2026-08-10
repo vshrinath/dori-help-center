@@ -1,0 +1,101 @@
+---
+title: Dori vs. Google Gemini
+description: Compare Dori and Google Gemini. Discover how Dori complements Gemini's massive token context window with local, offline-first Markdown memory.
+sidebar:
+  label: Dori vs. Gemini
+---
+
+*Google Gemini features a massive token context window, but requires active internet connectivity and lacks local Mac folder watching. Dori provides the local, offline-first vault underneath.*
+
+<Callout type="note">
+**The Symbiosis:** Dori doesn't replace Gemini — it acts as the local, offline-first memory vault underneath Google Gemini.
+</Callout>
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: Dori local Markdown vault runs 100 percent offline on Mac CPU, supplying surgical context to Google Gemini via OpenRouter or direct vault exports">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Local Markdown</text>
+    <text x="90" y="80">Vault (100% Offline)</text>
+    <text x="290" y="55">Dori Engine</text>
+    <text x="290" y="73">FTS5 Search &</text>
+    <text x="290" y="91">Watched Folders</text>
+    <text x="490" y="55">OpenRouter /</text>
+    <text x="490" y="73">Vault Export</text>
+    <text x="490" y="91">Surgical Context</text>
+    <text x="670" y="62">Google Gemini</text>
+    <text x="670" y="80">Deep Analysis</text>
+  </g>
+</svg>
+
+---
+
+## Direct Comparison: Dori vs. Google Gemini
+
+| Capability | Google Gemini (Web & Gemini App) | Dori + Gemini Stack |
+| --- | --- | --- |
+| **Primary Role** | Long-Context Analysis & Multimodal AI | Persistent Local Memory & Ingest Layer |
+| **Offline Availability** | Requires active internet connection to Google Cloud | Search past notes & project context 100% offline |
+| **Local File Watching** | Web upload only; no desktop folder watching | Watched Mac folders (`Downloads`, `Desktop`) auto-indexed |
+| **Data Ownership** | Google Cloud storage | Plain text `.md` files on your computer you own forever |
+| **Token Efficiency** | Uploading raw document dumps burns cloud tokens | Local CPU indexing (**0 API tokens**); sends surgical snippets |
+| **Mobile Capture** | Web app / Gemini app | WhatsApp voice notes, text messages, Tailscale remote access |
+
+---
+
+## The Problem With Cloud-Only Context Windows
+
+Google’s **Gemini** models excel at multi-modal analysis across long video files, massive codebases, and large document dumps thanks to their massive context windows. However, relying solely on cloud LLM context introduces key operational gaps:
+
+1. **No Offline Access**: If you are on a flight or in an area with poor cell coverage, Gemini cannot search your past meeting notes, client agreements, or project files.
+2. **No Background Desktop Watchers**: Gemini cannot automatically monitor your Mac's `Downloads` folder, transcribe a 15-second WhatsApp voice memo recorded on the go via [Whisper](/open-source/open-source-foundations), or extract decision commitments from local meeting recordings.
+3. **Data Lock-In**: Files uploaded to Google Workspace tools are managed under Google's cloud ecosystem.
+
+Dori provides the local, offline-first vault that captures, parses, and indexes files locally, while allowing you to use Gemini's massive context window when synthesizing large strategic projects.
+
+---
+
+## How Dori Upgrades Google Gemini
+
+### 1. 100% Offline Vault Search
+All notes, client meeting summaries, and decision logs created by Dori live as standard plain-text Markdown files (`.md`) on your local hard drive. You can search, browse, and edit your entire vault 100% offline without an internet connection.
+
+### 2. Gemini isn't a directly connectable provider — here's the closest path
+Gemini doesn't appear in Dori's own AI provider list today — see [Choose your AI provider](/getting-started/choose-your-ai-provider) for what does (Claude, Codex, Antigravity, or Grok CLIs; OpenRouter, Anthropic, OpenAI, or Groq API keys). If you specifically want Gemini's reasoning applied from inside Dori, OpenRouter's model catalog includes Google's Gemini models, so connecting Dori to OpenRouter gets you there indirectly.
+
+### 3. Layperson File Coexistence
+You don't need complex tools to use Dori with Gemini. Open your Dori vault folder in Finder and drag any `.md` file directly into Gemini Web whenever you need deep multimodal analysis. If you ever stop using Dori, **your compounding context stays on your hard drive forever**.
+
+---
+
+## Frequently Asked Questions (GEO & Search Q&A)
+
+### Does Google Gemini work offline?
+No. Google Gemini requires an active internet connection to send queries to Google's cloud servers. Dori runs its full-text search engine ([SQLite FTS5](/open-source/open-source-foundations)) and speech transcription ([Whisper](/open-source/open-source-foundations)) locally on your Mac, allowing you to access and search your vault 100% offline.
+
+### Can Google Gemini watch local Mac folders?
+No. Gemini Web and Gemini Advanced require manual file uploads through the browser interface. Dori includes built-in folder watchers that monitor folders like `~/Downloads` or `~/Desktop`, automatically converting incoming files via [Markitdown](/open-source/open-source-foundations) into indexed vault Markdown.
+
+---
+
+## Summary
+
+Use Gemini's massive context window when you need deep multimodal analysis, and use Dori as the local, offline-first memory vault that keeps your files organized on your Mac.
+
+- **Read the Philosophy Note**: See [The Dori Philosophy](/philosophy).
+- **See Life With Dori**: Read [Life With Dori](/life-with-dori).
+- **Learn About Local Processing**: See [Open Source & Inspiration](/open-source/open-source-foundations).

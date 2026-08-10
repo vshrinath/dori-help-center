@@ -1,0 +1,66 @@
+---
+title: MCP servers
+description: Connect external MCP servers — Firecrawl, custom HTTP endpoints, local CLI tools — so Dori can call out to them as extra tools.
+---
+
+Dori can act as an MCP *client*, calling out to external MCP servers as extra tools available to workflows and chat. Set these up under **Settings → Connections → MCP Servers**.
+
+## One-click presets
+
+<Tabs inline param="mcp-preset">
+  <Tab title="Firecrawl">
+    Search the web and turn pages into clean text for research, capture, and agent use. Runs over HTTP — no local package install needed. Get a free API key at firecrawl.dev (starts with `fc-`) and paste it as the bearer token; leave the URL as-is.
+  </Tab>
+  <Tab title="Custom HTTP">
+    For any other MCP server you already have a URL for. Paste the URL and an optional `Authorization` header — ask whoever runs that server for both.
+  </Tab>
+  <Tab title="Custom stdio">
+    For local CLI-based MCP tools. Provide the binary command (e.g. `npx -y @modelcontextprotocol/server-memory`) and environment variables.
+  </Tab>
+</Tabs>
+
+## Adding a server manually
+
+Beyond the presets, you can add any MCP server by hand:
+
+- **stdio** — a local command plus arguments (for MCP servers distributed as CLI packages, e.g. via `npx`), with environment variables for secrets.
+- **http** — a remote URL, with optional headers for auth.
+
+For each server, you also choose which of its tools Dori is allowed to call — nothing is auto-granted just because a server is connected.
+
+![AI Model & MCP Server Connections](/images/features/connections-overview.png)
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Configuration: Add MCP Server, discover available tools, configure permission allowlist, safe execution during workflow runs">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Add MCP Server</text>
+    <text x="90" y="80">(Preset / Custom)</text>
+    <text x="290" y="55">Discover Tool</text>
+    <text x="290" y="73">Capabilities &</text>
+    <text x="290" y="91">Signatures</text>
+    <text x="490" y="55">Configure Explicit</text>
+    <text x="490" y="73">Tool Permission</text>
+    <text x="490" y="91">Allowlist</text>
+    <text x="670" y="62">Safe Tool Call</text>
+    <text x="670" y="80">during Workflows</text>
+  </g>
+</svg>
+
+## First-party connections aren't listed here
+
+Gmail, Calendar, and Fathom are handled as their own Connections cards (see [Meeting notes](/features/meeting-notes) and [Connections](/features/connections)), not as generic MCP servers — you won't find them in this list.

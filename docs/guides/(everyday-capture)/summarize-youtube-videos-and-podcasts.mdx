@@ -1,0 +1,67 @@
+---
+title: An hour of video in ten minutes
+description: Turn long video links and audio recordings into searchable chapter summaries, key takeaways, and notes you can query later.
+---
+
+**For:** founders and researchers who consume a lot of long-form video and audio for work
+
+*If you're tired of spending an hour watching a webinar or listening to a podcast just to pull out ten minutes of key insights — this is for you.*
+
+<Callout type="note">
+**In short:** drop a YouTube link, video file, or podcast recording into Dori. Dori transcribes the audio, organizes it into structured chapter summaries, extracts key takeaways, and saves a searchable Markdown note in your vault.
+</Callout>
+
+Long-form video and audio — keynotes, industry webinars, competitor demos, and technical podcasts — contain valuable insights. But watching a 60-minute video just to find a 2-minute answer is inefficient. Bookmark bars and video playlists become archives of content you never have time to watch — a 60-minute webinar you'll never fully rewatch, versus a 5-minute read of what actually mattered in it.
+
+## How the transcript becomes a note
+
+Dori converts long video and audio links into structured, readable text. When you share a YouTube URL or drop an audio file into Dori, its background engine fetches the transcript, breaks it into logical chapters, extracts core takeaways, and indexes the entire transcript into your local vault.
+
+## What's actually driving this, and what it costs
+
+Transcript fetching and timestamp chapter generation run via Dori's local background engine, at zero API cost. Generating executive summaries and extracting core takeaways is the part that uses your connected [AI provider](/getting-started/choose-your-ai-provider).
+
+## What your video note looks like
+
+When Dori processes a YouTube video, it generates a clean Markdown note containing:
+
+1. **Executive Summary**: A 3-sentence summary of the main arguments.
+2. **Key Takeaways**: Bulleted list of actionable facts and data points.
+3. **Chapter Breakdown**: Timestamped sections matching the flow of the talk.
+4. **Full Searchable Transcript**: The complete transcript indexed for local search.
+
+<Callout type="tip">
+**Pro Tip: Add a user note before Dori saves it**  
+When you share a YouTube link, Dori asks whether to just transcribe it, or add context first. Add a note (e.g. *"Focus on what they say about API pricing at minute 14"*) and Dori saves it as a **User note** alongside the video, so your reason for saving it isn't lost. Works the same way whether you share the link in-app or over [WhatsApp (Experimental)](/guides/use-dori-over-whatsapp).
+</Callout>
+
+## Questions you can ask across video transcripts
+
+Once a video transcript is saved to your vault, you can query its contents just like any text document:
+
+- "What did the speaker in Tuesday's keynote say about AI model latency?"
+- "Summarize the technical recommendations from the saved system design video."
+- "Find all YouTube transcripts tagged under the Market Competitors project."
+- "What pricing figures were cited in the podcast I saved yesterday?"
+
+See [Ask anything](/features/ask-anything) for search options.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Paste a Video Link">
+    In Dori Desktop, open the Command Palette (or use your linked WhatsApp) and paste a YouTube URL.
+  </Step>
+  <Step title="Select a Project Scope">
+    Choose which **Project** or **Account** the video note should be filed under (e.g. `projects/competitor-analysis`).
+  </Step>
+  <Step title="Read the Summary">
+    Dori processes the audio, builds chapter timestamps, extracts takeaways, and files the Markdown note in your vault.
+  </Step>
+</Steps>
+
+## Go further
+
+- **Want to send video links from your phone?** See [Capture on the go with WhatsApp](/guides/use-dori-over-whatsapp).
+- **Need to synthesize video notes into a research paper?** See [Build a research brief from months of scattered notes](/guides/build-a-research-brief-from-months-of-notes).
+- **Watching local video files on disk?** Learn how [Keep your local folders in sync](/guides/keep-local-folders-in-sync) processes local video recordings automatically.

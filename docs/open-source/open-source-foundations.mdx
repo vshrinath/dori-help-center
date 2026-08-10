@@ -1,0 +1,91 @@
+---
+title: Open Source Foundations
+description: A comprehensive, exhaustive list of the open-source libraries, OCR engines, media tools, and frameworks that power Dori.
+sidebar:
+  label: Open Source Foundations
+---
+
+*A comprehensive breakdown of the open-source software tools, OCR engines, media processors, and libraries that form Dori's technical foundation.*
+
+<Callout type="note">
+**Our Commitment:** We believe in open standards, data transparency, and supporting open-source software. Every layer of Dori — from our desktop shell and local OCR processors to speech recognition engines and UI components — is powered by world-class open-source projects.
+</Callout>
+
+---
+
+## Desktop Shell & Native Runtime
+
+| Project | Role in Dori | License / Maintainers |
+| --- | --- | --- |
+| **[Tauri](https://tauri.app)** | High-performance, lightweight Rust + Webview desktop framework for macOS. Replaces heavy Electron bundles with system webviews. | MIT / Apache 2.0 |
+| **[Rust Language](https://www.rust-lang.org)** | Safe, memory-efficient concurrency driving Dori's background job queue processor, folder watchers, and file diffing. | MIT / Apache 2.0 |
+
+---
+
+## Media Processing, OCR & Document Ingestion
+
+Dori runs document conversion, optical character recognition (OCR), and audio transcription **locally on your Mac at 0 API token cost**:
+
+| Tool / Engine | Role in Dori | License / Origin |
+| --- | --- | --- |
+| **[RapidOCR](https://github.com/RapidAI/RapidOCR)** | High-speed local OCR engine for extracting text from images, scanned PDFs, receipts, and business cards. | Apache 2.0 |
+| **[Apple Vision Framework](https://developer.apple.com/documentation/vision)** | On-device macOS hardware-accelerated text recognition for instant OCR without cloud network calls. | Native macOS API |
+| **[whisper.cpp](https://github.com/ggerganov/whisper.cpp)** | High-performance C/C++ port of OpenAI Whisper running locally on Apple Silicon Metal GPU and Mac CPU. | MIT (Georgi Gerganov) |
+| **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** | Command-line media downloader for extracting audio streams from YouTube videos, podcasts, and webinars. | Unlicense |
+| **[ffmpeg](https://ffmpeg.org)** | Industry-standard audio/video decoding, waveform generation, and media extraction suite. | LGPL / GPL |
+| **[Markitdown](https://github.com/microsoft/markitdown)** | Microsoft utility converting PDFs, Word documents, Excel spreadsheets, and web links into clean Markdown. | MIT (Microsoft) |
+| **[Turndown](https://github.com/mixmark-io/turndown)** | Fast HTML-to-Markdown conversion engine for web clippings and email imports. | MIT |
+
+---
+
+## User Interface & Design System
+
+Dori's executive aesthetic — vibrant dark mode, responsive layouts, glassmorphism, and micro-animations — relies heavily on modern frontend open-source standards:
+
+| Package | Role in Dori | License / Origin |
+| --- | --- | --- |
+| **[shadcn/ui](https://ui.shadcn.com)** | Beautiful, accessible, unstyled component patterns that form Dori's core UI design system. | MIT (shadcn) |
+| **[Tailwind CSS](https://tailwindcss.com)** | Utility-first CSS engine powering Dori's design tokens, responsive breakpoints, and dark mode parity. | MIT (Tailwind Labs) |
+| **[Lucide Icons](https://lucide.dev)** | Clean, consistent, lightweight SVG icon library used across navigation and command palettes. | ISC |
+| **[CmdK](https://cmdk.paco.me)** | Fast, accessible command palette component driving Dori's keyboard shortcuts (`Cmd+K`). | MIT (Paco Coursey) |
+| **[Vaul](https://vaul.emilkowal.ski)** | Drawer component primitive for mobile-first popups and sliding panels. | MIT (Emil Kowalski) |
+| **[Sonner](https://sonner.emilkowal.ski)** | An opinionated, elegant toast notification library. | MIT (Emil Kowalski) |
+| **[Base UI](https://base-ui.com)** | Unstyled, accessible UI component primitives for dropdowns, popovers, and tooltips. | MIT (MUI) |
+
+---
+
+## Content Editing & Document Processing
+
+| Package | Role in Dori | License / Origin |
+| --- | --- | --- |
+| **[TipTap](https://tiptap.dev)** | Headless, extensible rich-text and live Markdown editor framework powering meeting notes and document drafting, with table support via its table extensions. | MIT |
+| **[React Markdown & Remark GFM](https://github.com/remarkjs/react-markdown)** | GitHub Flavored Markdown parser and renderer with full table support. | MIT (Unified) |
+
+---
+
+## AI, Messaging & Local Data Layer
+
+| Package | Role in Dori | License / Origin |
+| --- | --- | --- |
+| **[Baileys](https://github.com/WhiskeySockets/Baileys)** | Open-source WhatsApp Web API client powering Dori's 24/7 WhatsApp mobile capture channel. | MIT |
+| **[SQLite & FTS5](https://www.sqlite.org)** | Embedded SQL database engine providing full-text search indexing on Mac CPU at **0 token cost**. | Public Domain |
+| **[Model Context Protocol (MCP)](https://modelcontextprotocol.io)** | Open standard standardizing tool calls, context sharing, and agentic workflows between AI clients and servers. | MIT (Anthropic) |
+| **[Drizzle ORM](https://orm.drizzle.team)** | Type-safe SQL schema definition and migration engine for local data persistence. | MIT |
+| **[Better Auth](https://better-auth.com)** | Modern authentication framework supporting session management and multi-tenant org routing. | MIT |
+| **[Zod](https://zod.dev)** | TypeScript-first schema declaration and validation library enforcing boundary safety. | MIT (Colin McDonnell) |
+
+---
+
+## Drag-and-Drop & High-Performance Data Views
+
+| Package | Role in Dori | License / Origin |
+| --- | --- | --- |
+| **[Dnd Kit](https://dndkit.com)** | Lightweight, accessible drag-and-drop toolkit powering Kanban boards and file staging. | MIT (Clauderic Demers) |
+| **[TanStack Table & Virtual](https://tanstack.com)** | Headless, high-performance table virtualization handling large lists without UI lag. | MIT (Tanner Linsley) |
+| **[React Resizable Panels](https://github.com/bvaughn/react-resizable-panels)** | Flexible, accessible multi-pane layouts for split workspace views. | MIT (Brian Vaughn) |
+
+---
+
+## Expressing Our Gratitude
+
+Without these open-source projects and their maintainers, building Dori would have required reinventing foundational infrastructure. We encourage all Dori users to support open-source maintainers through GitHub Sponsors and community contributions.

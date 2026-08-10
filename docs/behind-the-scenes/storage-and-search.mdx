@@ -1,0 +1,22 @@
+---
+title: "Hybrid SQLite Storage & Local Vector Search"
+description: "How Dori combines relational database models with local semantic search."
+---
+
+Dori bridges the gap between structured relational data (projects, tasks, meetings) and unstructured knowledge (notes, transcripts, documents).
+
+## Storage & Search Architecture
+
+### 1. Embedded Relational SQLite DB
+Relational entities, workflow states, and system projections live in an embedded SQLite database running locally within the desktop process space:
+- Low latency queries for UI rendering.
+- Foreign key constraints and transactional integrity.
+
+### 2. SQLite FTS5 + Local Vector Search
+Searching personal data requires precision for exact names as well as recall for conceptual topics:
+- **BM25 Exact Match (FTS5):** Instant keyword lookup for specific names, tags, and titles.
+- **Semantic Vector Indexing:** Computes vector embeddings locally to match related concepts even when keywords differ.
+- **Hybrid Ranker:** Combines keyword score and vector similarity to return highly relevant results.
+
+### 3. Content Fingerprinting
+Files are tracked via SHA-256 content hashes. Idle editing overhead is minimal because unchanged files bypass re-indexing and vector re-embedding.

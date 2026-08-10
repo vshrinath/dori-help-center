@@ -1,0 +1,77 @@
+---
+title: "Graph Engineering in Dori"
+description: "How Dori models AI agents, data transformations, and workflows as deterministic DAGs with edge contracts and verifier nodes."
+---
+
+Complex AI applications break when built as simple linear prompt chains. Dori uses **Graph Engineering**—treating execution steps as graph nodes connected by explicit data contracts and runtime verifiers.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graph engineering DAG diagram showing parallel worker fan-out, fan-in barrier, edge verifiers, and CQRS snapshot persistence">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="130" height="80" rx="10" />
+    <rect x="180" y="10" width="130" height="60" rx="10" />
+    <rect x="180" y="90" width="130" height="60" rx="10" />
+    <rect x="350" y="40" width="120" height="80" rx="10" />
+    <rect x="500" y="40" width="110" height="80" rx="10" />
+    <rect x="640" y="40" width="110" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <path d="M140 80 L160 80 L160 40 L176 40" marker-end="url(#arrow)" />
+    <path d="M140 80 L160 80 L160 120 L176 120" marker-end="url(#arrow)" />
+    <path d="M310 40 L330 40 L330 80 L346 80" marker-end="url(#arrow)" />
+    <path d="M310 120 L330 120 L330 80 L346 80" marker-end="url(#arrow)" />
+    <line x1="470" y1="80" x2="496" y2="80" marker-end="url(#arrow)" />
+    <line x1="610" y1="80" x2="636" y2="80" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="75" y="73">Zero-Token</text>
+    <text x="75" y="93">Ingest Node</text>
+
+    <text x="245" y="35">OCR Worker</text>
+    <text x="245" y="53">Pool</text>
+
+    <text x="245" y="115">Whisper Pool</text>
+    <text x="245" y="133">(Speech)</text>
+
+    <text x="410" y="73">Sync Barrier</text>
+    <text x="410" y="93">(Aggregate)</text>
+
+    <text x="555" y="73">Edge Verifier</text>
+    <text x="555" y="93">(@guard)</text>
+
+    <text x="695" y="73">CQRS Snapshot</text>
+    <text x="695" y="93">& SSE Stream</text>
+  </g>
+</svg>
+
+---
+
+## Core Graph Engineering Principles
+
+### 1. Edge Contracts & Zero-Token Transformations
+Data passed between nodes is governed by strict Zod schema contracts.
+- **Zero-Token Edge Transforms:** Data normalization (deduplication, date parsing, structure cleaning) runs in pure TypeScript code on the edge before calling LLM models, eliminating wasted token spend.
+- **Contract Enforcement:** Every tool call and engine action validates input and output payloads against strict Zod definitions (`guardrails.ts`).
+
+### 2. Parallel Fan-Out & Fan-In Barriers
+To eliminate sequential latency bottlenecks:
+- **Parallel Fan-Out:** Document parsing, OCR, and audio transcription fan out concurrently across worker pools.
+- **Fan-In Synchronization Barriers:** Parent synthesis nodes wait at explicit barrier nodes to aggregate payloads before running state updates.
+
+### 3. Edge Verifiers & Cyclic Convergence Loops
+Outputs are never assumed to be valid without empirical verification:
+- **Verifier Nodes:** Structured outputs and code edits must pass mandatory review (`@guard`) and testing (`@qa`) verifiers before state transition commits.
+- **Convergence Loops:** If a verifier node rejects an output, the workflow cycles back to the execution node with specific error logs, repeating until criteria pass.
+
+### 4. Content-Addressable Short-Circuiting
+To minimize unnecessary re-indexing:
+- Files are fingerprinted using SHA-256 content hashes.
+- Unchanged files short-circuit downstream parsing and vector embedding nodes entirely.
+
+### 5. CQRS & Reactive Event Streaming
+- **Read/Write Decoupling:** Vault file edits and database writes update raw state. The engine projects read-optimized query snapshots (`domain-records.ts`) for the UI.
+- **Server-Sent Events (SSE):** Workflow state updates stream directly to UI components (`live-events.ts`), updating indicators and attention badges reactively without polling.

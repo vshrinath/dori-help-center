@@ -1,0 +1,5 @@
+node_modules/
+.blume/
+dist/
+.blume-verify/
+.DS_Store

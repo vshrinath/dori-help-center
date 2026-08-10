@@ -1,0 +1,61 @@
+---
+title: Handoffs
+description: Portable context bundles you can hand to any AI model — ChatGPT, Claude, or otherwise — without re-explaining the background by hand.
+---
+
+This is the mechanism behind Dori's context traveling with you across models: a handoff bundles vault files and an instruction into a portable pack that any AI model with GitHub MCP access — ChatGPT, Grok, Claude, whatever you're using — can pick up and continue from.
+
+## Creating a handoff
+
+From the **Add** screen (or the execute modal wherever you attach files), attach the files relevant to what you're handing off, then click **Create Handoff** and give it a name. Dori bundles the attached files and your instruction into a manifest under a new entry in **Handoffs**.
+
+## What's in it
+
+Each handoff is a small folder in your vault (`context-packs/<name>/MANIFEST.md`) listing:
+
+- The files it bundles.
+- When it was created.
+- The instruction you gave it.
+
+Because it's plain files in your vault, sharing a handoff is just sharing that folder — no export step, no proprietary format.
+
+![Portable Context Pack Handoffs](/images/features/handoffs-list.png)
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Structure: Select vault files and prompt instruction, bundle into context-packs/name/MANIFEST.md, accessible via GitHub MCP or REST proxy to external AI models">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Select vault files</text>
+    <text x="90" y="80">& task instruction</text>
+    <text x="290" y="55">Bundled into</text>
+    <text x="290" y="73">context-packs/</text>
+    <text x="290" y="91">MANIFEST.md</text>
+    <text x="490" y="55">GitHub MCP /</text>
+    <text x="490" y="73">REST proxy endpoint</text>
+    <text x="490" y="91">reads manifest</text>
+    <text x="670" y="62">Claude Code, Cursor,</text>
+    <text x="670" y="80">ChatGPT continue</text>
+  </g>
+</svg>
+
+## Where to find it
+
+**Handoffs** isn't in the main sidebar — open it from the [command palette](/features/ask-anything) (press **/** and type "Handoffs"), or follow the link Dori shows right after you create one.
+
+## Why it matters
+
+Without this, switching AI models means re-explaining everything from scratch. A handoff is the portable version of "here's exactly what you need to know to keep going" — built from files you already have, not a summary you have to write by hand.

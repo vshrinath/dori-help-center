@@ -1,0 +1,56 @@
+---
+title: Threads
+description: A persistent record of an ongoing situation Dori is tracking across multiple captures, meetings, and updates over time.
+---
+
+A thread is Dori's record of an ongoing situation — not a single message, but everything connected to it over time: the tasks, captures, and people involved, and a running conversation attached to all of it.
+
+## Starting a thread
+
+From the **Add** screen, switch to intent mode ("I need to prepare for…", "I'm working on…") instead of a plain capture, and Dori starts a thread rather than filing a one-off note. Threads also form naturally as Dori links related captures and tasks together over time.
+
+## What's on a thread
+
+- **Members** — the tasks and captures that belong to this situation.
+- **People** — anyone involved, pulled from those members.
+- **Status** — active or paused, so you can tell what's still live at a glance.
+- **A conversation** — you can keep talking to Dori inside the thread itself, with full context of everything attached to it.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Container: Thread links captures, tasks, meeting notes, and people into an active situation workspace with full conversation context">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Captures, Notes &</text>
+    <text x="90" y="80">Voice Memos</text>
+    <text x="290" y="55">Action Items &</text>
+    <text x="290" y="73">Tasks Linked</text>
+    <text x="290" y="91">to Situation</text>
+    <text x="490" y="55">People & Contacts</text>
+    <text x="490" y="73">Associated</text>
+    <text x="490" y="91">with Goal</text>
+    <text x="670" y="62">Unified Thread</text>
+    <text x="670" y="80">& Persistent Chat</text>
+  </g>
+</svg>
+
+## Where to find it
+
+Go to **Library → Threads**, or open one directly from a task or capture that's linked to it.
+
+## Why it matters
+
+This is what turns a scattered pile of related captures into one place you can actually work from, instead of you reconstructing the situation from memory every time it comes back up. If you want to hand that context to another AI model, attach the relevant files and create a [handoff](/features/handoffs) — a separate, file-based mechanism, not something a thread exports automatically.

@@ -1,0 +1,81 @@
+---
+title: "Universal Screen Drag-and-Drop Catching"
+description: "How to drop files, images, PDFs, or web links anywhere on your screen for instant local parsing, auto-sorting, or triage."
+---
+
+Opening app file pickers or dragging files into specific UI upload boxes breaks your mental flow. Dori turns your entire desktop into a **Universal Catch Target**.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow chart showing universal screen drop target processing and confidence-based auto-sorting versus triage review">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="160" height="80" rx="10" />
+    <rect x="210" y="40" width="160" height="80" rx="10" />
+    <rect x="420" y="10" width="160" height="60" rx="10" />
+    <rect x="420" y="90" width="160" height="60" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="170" y1="80" x2="206" y2="80" marker-end="url(#arrow)" />
+    <path d="M370 80 L395 80 L395 40 L416 40" marker-end="url(#arrow)" />
+    <path d="M370 80 L395 80 L395 120 L416 120" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="73">Drag File/URL</text>
+    <text x="90" y="93">on macOS Screen</text>
+
+    <text x="290" y="65">Local Processing</text>
+    <text x="290" y="83">& Confidence Score</text>
+    <text x="290" y="101">(Markitdown/Whisper)</text>
+
+    <text x="500" y="35">High Conf (≥0.85)</text>
+    <text x="500" y="53">Silent Auto-Sort</text>
+
+    <text x="500" y="115">Lower Conf (&lt;0.85)</text>
+    <text x="500" y="133">Needs-You Triage</text>
+  </g>
+</svg>
+
+---
+
+## 1. How Universal Catching Works
+
+Dori runs a lightweight, native screen listener on macOS (`app/floating-capture.tsx`). Whenever you drag a file or web link across your screen:
+
+1. A sleek drop overlay automatically appears: **`📥 Drop file to capture into Dori`**.
+2. Release the file anywhere over your screen.
+3. Dori catches the item and executes local processing:
+   - **PDFs / Word Docs / Spreadsheets:** Processed locally via embedded Markitdown into clean Markdown.
+   - **Audio Files & Voice Memos:** Transcribed locally via embedded Whisper models.
+   - **Web Links & YouTube URLs:** Extracted into searchable notes with key takeaways.
+   - **Images & Screenshots:** Parsed via local OCR or multi-modal vision.
+
+---
+
+## 2. High-Confidence Auto-Sorting vs. Triage
+
+Once parsed, Dori evaluates the content against your active vault memory and projects:
+
+* **High Confidence ($\ge 0.85$):** If the file strongly matches a specific project or client account (e.g. mentions a project key or known client), Dori **automatically files and indexes it silently** into that project's Markdown folder.
+* **Ambiguous or Low Confidence ($< 0.85$):** If Dori isn't completely certain where the file belongs, it routes it to the **Needs You / Triage** bar on your home screen. Dori suggests its best recommendation so you can confirm or re-route it with a single click.
+
+---
+
+## 3. Zero File Picker Dialogs
+
+With Universal Drag-and-Drop:
+* **No `File → Open` modals.**
+* **No navigating finder folder hierarchies.**
+* **No copy-pasting raw text.**
+
+Just grab any file from your desktop, browser, or Slack and drop it onto Dori.
+
+---
+
+## Related Guides
+
+- **[Automated Triage & Confidence Thresholds](/behind-the-scenes/triage-and-thresholds)** — deep dive into confidence routing algorithms.
+- **[The Floating Action Bar](/getting-started/floating-action-bar)** — system-wide hotkeys and quick capture HUD.
+- **[Local Folder Sync](/guides/keep-local-folders-in-sync)** — automatically monitoring folders like `~/Downloads`.

@@ -1,0 +1,59 @@
+---
+title: Capture on the go with WhatsApp
+description: Send voice notes, text decisions, and query your vault from WhatsApp — with strict local privacy boundaries you control.
+---
+
+**For:** WhatsApp-first teams and consultants capturing decisions on the move
+
+*If you want to capture commitments, voice notes, and meeting decisions directly from WhatsApp without installing an extra mobile app — this is for you.*
+
+<Callout type="warning">
+**Experimental Integration & Privacy Notice:** WhatsApp integration is currently experimental. Your WhatsApp session credentials live encrypted on your local Mac (`dori-engine`), never on central servers. Dori only reads messages explicitly sent to it or where it is tagged, preserving complete privacy.
+</Callout>
+
+Taking out your laptop to log a quick thought, task, or meeting decision while on the move is inconvenient — the 20 seconds it takes to open WhatsApp instead is usually the difference between a decision getting logged and it not. WhatsApp is already on your phone, but business users need absolute confidence that private chat histories won't leak or be scanned indiscriminately.
+
+## How the WhatsApp link works
+
+Dori pairs with WhatsApp using a local QR-code connection — the exact same mechanism used by WhatsApp Web. Your desktop Mac manages the session locally. You choose the exact listening scope: keep it restricted strictly to 1:1 messages between you and Dori, or enable group mentions so Dori only wakes up when explicitly tagged.
+
+## What's actually driving this, and what it costs
+
+Session management, message receiving, and speech-to-text audio transcription run locally on your Mac's background engine, at zero API cost. Extracting key decisions and linking named contacts to your vault is the part that uses your connected [AI provider](/getting-started/choose-your-ai-provider).
+
+## Strict Privacy & Security Guarantees
+
+Because business communication contains sensitive financial and client information, Dori enforces four strict security boundaries:
+
+1. **Local Session Credentials**: Pairing credentials and session keys are stored locally on your Mac (`dori-engine`). No third-party SaaS server holds your WhatsApp login.
+2. **End-to-End Encryption Maintained**: Messages travel via WhatsApp's standard end-to-end encryption directly to your local Mac. Decryption happens locally inside your Dori app.
+3. **"Just Me" Default Mode**: Out of the box, Dori only reads messages sent directly to your Dori contact number. It cannot read your other personal or group chats.
+4. **Group Mention Triggers**: If you add Dori to a team group chat, set the listening policy to **Mention Only**. Dori ignores all general chat and only processes messages where `@Dori` is explicitly tagged.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Open WhatsApp Connections">
+    In Dori Desktop, navigate to **Settings → Connections → WhatsApp**.
+  </Step>
+  <Step title="Scan the QR Code">
+    Click **Connect** to display a QR code. Open WhatsApp on your phone, go to **Settings → Linked Devices**, and scan the code.
+  </Step>
+  <Step title="Choose Listening Mode">
+    Select **Just me** for private 1:1 captures, or select **Groups** to specify team chats with mention-only rules.
+  </Step>
+</Steps>
+
+## Real-World Workflows
+
+### 1. The Walk-and-Talk Voice Note
+After a coffee meeting with a partner, record a 20-second voice memo in your 1:1 chat with Dori: *"Agreed with Marcus on a 10% volume discount for Q4. Follow up by Friday."* Dori transcribes the audio, tags Marcus, creates an action item, and appends it to Marcus's account note.
+
+### 2. Group Chat Decision Logging
+In a project team group chat, send: *"@Dori record decision: We are postponing the database migration to Q4 due to client launch timelines."* Dori parses the tagged message, extracts the decision, and logs it under the active Project folder in your vault while ignoring un-tagged chatter.
+
+## Go further
+
+- **Want to track all captured commitments?** See [Never lose a decision or commitment](/guides/never-lose-a-decision-or-commitment).
+- **Need to access Dori via a private network link?** See [Capture it before you lose it](/guides/reach-dori-from-your-phone).
+- **Reviewing captured notes?** Open the **Inbox** in Dori Desktop to review auto-tagged notes before they commit to your vault.

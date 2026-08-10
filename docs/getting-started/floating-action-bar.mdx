@@ -1,0 +1,57 @@
+---
+title: "The Floating Action Bar"
+description: "How to use Dori's system-wide Floating Action Bar for 1-second captures, voice dictation, and drag-and-drop parsing without switching apps."
+---
+
+The **Floating Action Bar** is Dori's elevated quick-access HUD on macOS. Designed to eliminate context-switching, it lets you capture thoughts, record voice memos, drop files, and execute universal actions from anywhere on your desktop without opening the main portal window.
+
+<svg viewBox="0 0 760 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UI mockup of the Floating Action Bar showing prompt input line, voice dictation trigger button, and drop target zone">
+  <g fill="none" stroke="currentColor" stroke-opacity="0.3">
+    <rect x="40" y="30" width="680" height="60" rx="30" fill="currentColor" fill-opacity="0.03" stroke-width="1.5" />
+    <circle cx="75" cy="60" r="14" stroke-opacity="0.4" />
+    <rect x="635" y="44" width="70" height="32" rx="16" fill="currentColor" fill-opacity="0.08" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit">
+    <text x="75" y="65" text-anchor="middle" font-weight="bold">📥</text>
+    <text x="105" y="65" opacity="0.65">Ask Dori, drop a file, or type a quick capture...</text>
+    <text x="670" y="65" text-anchor="middle" font-size="11" opacity="0.8" font-weight="bold">⌘ShiftV</text>
+  </g>
+</svg>
+
+---
+
+## 1. Global Hotkeys & Access
+
+You can trigger the Floating Action Bar from any application or workspace:
+
+| Shortcut | Action | Scope |
+| --- | --- | --- |
+| **`⌘ + Shift + Space`** | Toggle Floating Action Bar | Global (System-wide anywhere on macOS) |
+| **`⌘ + J`** | Toggle Floating Action Bar | Inside Dori Desktop App |
+| **`⌘ + Shift + V`** | Start Voice Dictation | Global (Instant local Whisper recording) |
+| **`Esc`** | Dismiss Floating Action Bar | Returns focus to previous application |
+
+---
+
+## 2. Instant Drag-and-Drop Catching
+
+You don't need to manually upload files or copy-paste text:
+1. **Drag any file or web URL** (PDF, image, document, YouTube link) over your screen.
+2. The Floating Action Bar presents a visual drop overlay: `📥 Drop file to capture into Dori`.
+3. Drop the file—Dori automatically runs local parsing via Markitdown or Whisper and indexes the content into your vault.
+
+---
+
+## 3. Hands-Free Voice Dictation
+
+Press **`⌘+Shift+V`** to record quick thoughts on the go:
+* Voice audio is transcribed locally using embedded **Whisper models** on your Mac CPU at **$0 token cost**.
+* Structured commitments, meeting notes, or tasks are automatically extracted and indexed into your active vault.
+
+---
+
+## 4. Steering & Universal Actions
+
+The Floating Action Bar doubles as a **steering bar**:
+* Type a natural language command (e.g. *"Prep for my 3 PM meeting with Alex"* or *"Draft update to investor project"*).
+* Executes unified **Universal Actions** across your vault without breaking your active flow.

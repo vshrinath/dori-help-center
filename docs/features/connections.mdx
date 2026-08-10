@@ -1,0 +1,24 @@
+---
+title: Connections
+description: Everything Dori is allowed to read from, write to, or act through — WhatsApp, meeting sources, MCP servers, and your vault provider.
+---
+
+**Settings → Connections** is the full list of what Dori can reach — channels, meeting sources, external tools, your devices, and read-only sources like email. Voice/WhatsApp and meeting notetakers get their own pages ([Voice & WhatsApp](/features/voice-and-whatsapp), [Meeting notes](/features/meeting-notes)); connecting external MCP servers or using Dori from another tool has its own section too (see [MCP](/mcp)). This page covers the rest.
+
+![AI Models & Connected External Tools](/images/features/connections-overview.png)
+
+## Connect your devices
+
+If you're running Dori Desktop, **Settings → Connections → Connect your devices** lets your phone or another device reach this instance over [Tailscale](https://tailscale.com/download):
+
+1. Install Tailscale on the machine running Dori, if you haven't already.
+2. Once Tailscale shows connected, click **Enable remote access**.
+3. Scan the QR code (or copy the URL) from another device on your Tailscale network — no Tailscale install needed on that device, since it goes through a funnel.
+
+## Sources
+
+A few read-only sources beyond meetings, also listed under Connections:
+
+- **Google** — reads your Calendar events and Meet transcripts (shared with the meeting-notes setup — see [Meeting notes](/features/meeting-notes)).
+- **Microsoft** — reads your Outlook calendar and Teams transcripts, same as above.
+- **Gmail** — reads only the emails you label **DORI**; nothing else in your inbox is touched.

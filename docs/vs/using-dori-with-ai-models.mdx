@@ -1,0 +1,110 @@
+---
+title: Dori with Claude, ChatGPT & Gemini
+description: Why pairing Dori with your favorite AI model is 10x better than using any chat box alone — explained in simple layperson terms.
+sidebar:
+  label: Using Dori With AI Models
+---
+
+*Why pairing Dori with Claude, ChatGPT, or Gemini is 10x more powerful than using any AI chat box alone.*
+
+<Callout type="note">
+**The Simple Analogy:** Using Claude, ChatGPT, or Gemini alone is like hiring a brilliant consultant who gets amnesia between every meeting. Pairing them with Dori gives that consultant a chief of staff who holds your entire company memory, client files, and past decisions on your own Mac.
+</Callout>
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparison: AI Alone (amnesiac chat box with isolated vendor cloud memory) vs AI + Dori (local chief of staff vault memory feeding Claude/ChatGPT/Gemini)">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Local Vault Data</text>
+    <text x="90" y="80">(Notes, Transcripts)</text>
+    <text x="290" y="55">Dori Engine</text>
+    <text x="290" y="73">Local CPU Search</text>
+    <text x="290" y="91">& Entity Linking</text>
+    <text x="490" y="55">Exact Context Snippet</text>
+    <text x="490" y="73">Pipelined to Model</text>
+    <text x="490" y="91">(Claude / GPT / Gemini)</text>
+    <text x="670" y="62">Grounded Answer &</text>
+    <text x="670" y="80">Desktop Action Draft</text>
+  </g>
+</svg>
+
+---
+
+## The Core Difference: AI Alone vs. AI With Dori
+
+| What You Experience | Using Claude / ChatGPT / Gemini Alone | Pairing Them With Dori |
+| --- | --- | --- |
+| **Starting a New Chat** | Blank slate. You must re-explain your business, paste background notes, and upload files repeatedly. | Dori automatically supplies past meeting decisions, account terms, and project history. |
+| **Finding Information** | You manually search folders, copy-paste snippets, or re-upload 100-page PDFs into the chat box. | Dori's local search engine scans your Mac in milliseconds and hands the model only the exact 2 paragraphs needed. |
+| **Writing & Tone** | Sounds like generic corporate fluff unless you spend 10 minutes prompt-engineering. | Grounds drafts in your actual background and accomplishments via [My Profile](/getting-started/my-profile). |
+| **Taking Action** | Gives you text on a screen. You still have to manually copy, format, file, and send follow-ups. | Drives real work: generates follow-up email drafts, creates slide decks, logs commitments, and files documents. |
+| **Data & Cost** | Burns thousands of expensive cloud tokens on every PDF upload. Trapped inside vendor cloud databases. | Local indexing runs on your Mac at **$0 token cost**. Files live in plain-text Markdown (`.md`) you own forever. |
+
+---
+
+## 4 Big Advantages of Pairing Dori With Your AI
+
+### 1. Automatic Memory Retrieval (No More Copy-Pasting)
+When you use ChatGPT or Claude alone, you spend half your time acting as a human copy-paste bridge. You search through old emails, dig through Google Drive, download PDFs, and paste them into the chat window.
+
+**How Dori changes this:**
+Dori maintains a high-speed search index locally on your Mac's CPU. When you ask Dori a question — like *"Draft an executive summary for the Meridian project"* — Dori automatically performs a semantic vector search across your local vault. It instantly retrieves the exact past meeting notes, pricing proposals, and client emails, feeding them directly to your AI model behind the scenes. You never have to copy-paste background context again.
+
+---
+
+### 2. Instant Project & Account Context
+AI models are incredible at writing and reasoning, but they don't know your business context. If you ask ChatGPT to write a contract extension without background files, it will invent generic placeholder terms.
+
+**How Dori changes this:**
+Dori organizes your scattered notes into clear **[Accounts](/features/accounts)** and **[Projects](/features/projects)**. When your AI model drafts a proposal, it grounds its response in your actual commercial constraints, team relationships, and historical project milestones. The result is a precise, tailored document that looks like it took hours of preparation.
+
+---
+
+### 3. Driving Real Work (Not Just Chat)
+Standard AI web apps are chat boxes: they give you text on a screen, leaving the administrative burden of filing, formatting, and executing on your shoulders.
+
+**How Dori changes this:**
+Dori uses your AI model as an active thinking engine to drive real desktop workflows:
+- **Meeting Follow-ups**: Local speech transcription ([whisper.cpp](/open-source/open-source-foundations)) extracts decisions and places ready-to-send email drafts in your inbox.
+- **Document Creation**: Dori converts raw research into structured project briefs, financial ledgers, or presentation slide decks via [HyperFrames](/open-source/philosophical-inspirations).
+- **Automated Filing**: Incoming PDFs dropped into your `Downloads` folder are automatically indexed, converted into Markdown via [Markitdown](/open-source/open-source-foundations), and linked to the correct client account.
+
+---
+
+### 4. Zero Token Waste & Total Model Freedom
+Uploading heavy PDFs or re-sending long chat histories to cloud AI providers burns tens of thousands of API tokens on every prompt, inflating subscription and API costs.
+
+**How Dori changes this:**
+- **Token Consciousness**: Dori performs full-text indexing and search **locally on your Mac CPU for $0 free**. It only sends the exact relevant snippets to the AI model, saving up to 90% of your token usage.
+- **Model Independence**: Because Dori holds your entire company memory in plain-text Markdown files (`.md`) on your computer, you aren't locked into any single AI provider. Your memory stays on your Mac forever, whichever model reads it next.
+
+---
+
+## How to Get Started
+
+You don't need developer skills to pair Dori with your favorite AI model:
+- **Using Dori Desktop**: Pick a provider under **Settings → Intelligence** — see [Choose your AI provider](/getting-started/choose-your-ai-provider) for the full list.
+- **Using Outbound CLI / MCP**: Power users can connect Dori directly to **Claude Code** or **Cursor** via [Model Context Protocol (MCP)](/mcp/use-dori-elsewhere) with **$0 extra API charges**.
+
+---
+
+## Learn More
+
+- **[Dori vs. Claude](/vs/dori-vs-claude)** — see how Dori acts as persistent local memory for Claude 3.7 & Claude Code.
+- **[Dori vs. ChatGPT](/vs/dori-vs-chatgpt)** — see how Dori upgrades ChatGPT with portable Markdown vaults.
+- **[Dori vs. Gemini](/vs/dori-vs-gemini)** — see how Dori complements Gemini's context window with offline vault search.
+- **[Read The Dori Philosophy](/philosophy)** — understand our core principles on model independence and token consciousness.

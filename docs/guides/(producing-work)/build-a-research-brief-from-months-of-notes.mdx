@@ -1,0 +1,71 @@
+---
+title: One brief from months of interviews
+description: Synthesize months of interview transcripts, articles, and research notes into a structured, sourced brief with citations back to the source file.
+---
+
+**For:** researchers, analysts, and product managers synthesizing many interviews or sources
+
+*If you're a researcher, journalist, analyst, or product manager sitting on dozens of interview transcripts, PDFs, and notes — this is for you.*
+
+<Callout type="note">
+**In short:** group your research notes, interview transcripts, and saved files into a Dori **Project**. Ask Dori to extract themes, cross-reference findings, and synthesize a structured research brief — with citations linking back to your exact source files.
+</Callout>
+
+Conducting deep research leaves you with a mess of raw material: hour-long interview transcripts, downloaded PDF reports, web clips, and quick voice memos. Synthesizing all of this into a clear research brief traditionally requires re-reading dozens of documents, copy-pasting quotes by hand, and risking missing key evidence buried in old files — re-reading a dozen interview transcripts alone can eat the better part of a day.
+
+## How the synthesis works
+
+Dori connects all your research material inside a single Markdown project folder (`projects/{research_topic}/`). Rather than treating files as isolated documents, Dori indexes the full text across transcripts and notes — allowing you to query recurring themes, compare viewpoints across sources, and draft a synthesis brief backed by source citations.
+
+## What's actually driving this, and what it costs
+
+File indexing, full-text searching, and vault source linking run locally on Dori's background engine, at zero API cost. Thematic clustering, multi-document synthesis, and prose drafting is the part that uses your connected [AI provider](/getting-started/choose-your-ai-provider).
+
+## Questions you can ask across your research
+
+Once your research material is inside a Dori Project, you can ask deep synthesis questions:
+
+- "What were the top 3 recurring pain points mentioned across all 12 user interviews?"
+- "Summarize everything interviewees said about onboarding friction, with quotes."
+- "Compare how Expert A and Expert B view market expansion in Europe."
+- "Which research notes mention security compliance risks?"
+- "Draft a 2-page research synthesis summarizing key findings and recommendations."
+
+See [Ask anything](/features/ask-anything) and [Projects](/features/projects) for more examples.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Create a Research Project">
+    Go to **Projects → New Project** and name it after your topic (e.g. *Q3 Customer Discovery* or *AI Security Market Study*).
+  </Step>
+  <Step title="Add Research Files">
+    Drop interview transcripts, PDFs, or text notes into the project folder (or configure [Folder watching](/features/folder-watching) to sync them automatically).
+  </Step>
+  <Step title="Synthesize & Draft">
+    Query your project knowledge base or open **Create & share** to generate a comprehensive research brief.
+  </Step>
+</Steps>
+
+## A real-world walkthrough: Synthesizing 15 customer interviews
+
+Imagine you're conducting a 2-month customer research project:
+
+1. **Capturing Interviews**: As interviews take place, meeting recordings and transcriptions are automatically saved under `projects/customer-discovery/`.
+2. **Asking Dori to Synthesize**: At the end of the research phase, you ask Dori: *"Draft a research brief summarizing key user needs, feature requests, and workflow blockers across all 15 interview notes."*
+3. **The Sourced Output**: Dori generates a structured Markdown brief featuring:
+   * Executive summary of core takeaways.
+   * Categorized findings with verbatim quotes.
+   * **Citations**: Every insight includes a link back to the exact interview transcript file in your vault (e.g. `[Interview #4 - Marcus](file:///path/to/note)`).
+
+## Why this changes research workflows
+
+- **Traceable Evidence**: Every claim in Dori's research brief is tied to a specific note or transcript, making it easy to verify source material.
+- **Never Forget B-Side Findings**: Insights mentioned in passing during early interviews aren't lost — Dori cross-references the entire corpus regardless of when notes were added.
+- **Continuous Updating**: As you conduct 5 more interviews next month, add them to the Project folder — Dori updates its synthesis without requiring you to start over.
+
+## Go further
+
+- **Have incoming research papers or PDFs?** Set up [Keep your local folders in sync](/guides/keep-local-folders-in-sync) to auto-file new documents into your research project.
+- **Want to stress-test your research conclusions?** Use [Council](/features/council) to run your synthesis past an advisor persona.
+- **Need to draft a formal presentation from your brief?** Use [Create & share](/features/create-and-share) to format your research into a executive slide deck or memo.

@@ -1,0 +1,56 @@
+---
+title: Connect external tools to Dori
+description: Connect Firecrawl, custom HTTP servers, and local CLI tools to Dori with strict per-tool allowlists you control entirely.
+---
+
+**For:** technical users who want Dori to pull live web research or call external tools
+
+*If you want Dori to pull live web research or interface with external tools without manually copy-pasting data — this is for you.*
+
+<Callout type="note">
+**In short:** Dori acts as an MCP client, allowing you to connect external Model Context Protocol (MCP) servers (like Firecrawl web research or custom HTTP tools). You control the exact tool allowlist for every connected server, ensuring Dori only calls tools you've approved.
+</Callout>
+
+Isolated AI assistants are limited by their static training data. When you need live web research, current market statistics, or custom internal data, you're forced to switch windows, run searches manually, and copy-paste text back into the chat — a few minutes of tab-switching for every fact you need mid-conversation.
+
+## How external tools plug in
+
+Dori connects to external Model Context Protocol (MCP) servers. You can add one-click presets like Firecrawl for web scraping, or point Dori at custom local CLI tools (`stdio`) and HTTP endpoints. Dori calls these external tools inside workflows while enforcing strict tool allowlists and risk controls.
+
+## What's actually driving this, and what it costs
+
+MCP transport, tool allowlist enforcement, and risk verification run locally on Dori's background engine, at zero API cost. External MCP servers (such as Firecrawl) may have their own separate API key quotas or credit usage.
+
+## What you can do with external MCP servers
+
+- **Live Web Research**: Connect Firecrawl to search the web, scrape articles, and clean web pages into Markdown for instant research notes.
+- **Custom Internal Tools**: Connect an HTTP MCP endpoint from your company's infrastructure to fetch internal metrics or database records.
+- **Local CLI Packages**: Run local `stdio` packages (e.g. via `npx`) to process files or format data.
+
+See [MCP servers](/mcp/mcp-servers) for technical setup details.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Open MCP Settings">
+    In Dori Desktop, navigate to **Settings → Connections → MCP Servers**.
+  </Step>
+  <Step title="Select a Preset or Add Server">
+    Choose a preset (e.g. **Firecrawl**) and paste your API key, or select **Custom HTTP** / **stdio** for your own server.
+  </Step>
+  <Step title="Configure Tool Allowlist">
+    Select exactly which tools Dori is allowed to call. Unchecked tools remain completely blocked.
+  </Step>
+</Steps>
+
+## Security & Permission Controls
+
+- **Explicit Tool Allowlist**: Connecting a server does not grant automatic permission to all its tools. You explicitly check which individual capabilities Dori can use.
+- **Risk Overrides**: High-risk tool executions require explicit human approval in your **Inbox**.
+- **Audit Logging**: Every external MCP tool call is recorded in the [Audit Trail](/guides/see-exactly-what-dori-did-and-why).
+
+## Go further
+
+- **Want to use Dori from Claude Code or Cursor?** See [Use Dori elsewhere](/mcp/use-dori-elsewhere).
+- **Inspect tool execution logs?** See [See exactly what Dori did and why](/guides/see-exactly-what-dori-did-and-why).
+- **Save research into project memory?** See [Turn web research into actionable knowledge](/guides/turn-web-research-into-actionable-knowledge).

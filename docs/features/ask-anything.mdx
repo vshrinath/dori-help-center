@@ -1,0 +1,48 @@
+---
+title: Ask anything
+description: Find anything you've ever captured — a meeting, a decision, a file — by asking in plain language, the same way you'd ask a colleague.
+---
+
+Made a decision three months ago? Ask in plain language and Dori finds it instantly — not just the note, but who it involved and what happened around it.
+
+![Ask Anything Vault Search](/images/features/ask-anything-search.png)
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: user query, local SQLite FTS5 index search, vault note matches retrieved, AI synthesis with source citations">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Natural language</text>
+    <text x="90" y="80">query submitted</text>
+    <text x="290" y="55">Local SQLite FTS5</text>
+    <text x="290" y="73">& BM25 hybrid</text>
+    <text x="290" y="91">vault search</text>
+    <text x="490" y="55">Relevant note</text>
+    <text x="490" y="73">chunks & entity</text>
+    <text x="490" y="91">context retrieved</text>
+    <text x="670" y="62">AI answer with</text>
+    <text x="670" y="80">exact source links</text>
+  </g>
+</svg>
+
+## Two ways to search
+
+- **Command palette** — press **/** anywhere in Dori to open it. It searches across routes, tasks, projects, captures, notes, people, and more as you type, ranked by relevance.
+- **Chat dock** — press **⌘/Ctrl + J** to open a conversational panel. Ask a question in plain language ("what did we agree with Acme last quarter?") instead of searching by keyword, and Dori answers using your actual captured context, with links back to the source notes.
+
+## Why this works across tools, not just inside Dori
+
+Because Dori's memory is permanent, searchable, and stored as plain Markdown in your own vault rather than locked inside a chat session, the same context is available no matter which AI model you're talking to elsewhere — it doesn't reset every time you switch tools the way in-app model memory does.

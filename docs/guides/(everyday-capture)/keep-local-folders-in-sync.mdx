@@ -1,0 +1,74 @@
+---
+title: Stop re-uploading files to your AI
+description: Work out of your normal desktop folders — Dori reads, indexes, and files changes in the background without manual uploads.
+---
+
+**For:** anyone working out of local folders and documents who's tired of re-uploading files into AI chat
+
+*If you're tired of manually uploading PDFs, docs, and specs into chat boxes every time you edit them — this is for you.*
+
+<Callout type="note">
+**In short:** point Dori at any folder on your Mac (like `~/Downloads` or an active project folder). Dori watches for new or modified files in the background, extracts key information, and keeps your Markdown vault in sync automatically — no manual re-uploads needed.
+</Callout>
+
+Every traditional AI chat tool treats files as disposable uploads. You drag a PDF or spec into a chat to ask a question, but the moment you update that file on your computer, your AI chat is stuck with the old version. You have to re-upload it, re-explain the context, and start over — a couple of minutes each time, which adds up fast across a dozen active documents in a week.
+
+## How folder watching works
+
+Dori runs directly on your Mac with continuous background filesystem watchers. Point Dori at a folder, and whenever you add, update, or remove a file in Finder or your text editor, Dori detects the change, parses the file, updates your vault memory, and links it to the relevant project or account.
+
+## What's actually driving this, and what it costs
+
+File system monitoring, change detection, text extraction, and file hashing are handled entirely by Dori's local background engine, costing zero API tokens and working even when you are offline. If a file requires OCR (scanning an image/PDF) or AI-driven entity linking (matching a document to an Account or Person in your vault), that's the part that uses your configured [AI provider](/getting-started/choose-your-ai-provider).
+
+## The 3 ways to use folder sync
+
+Depending on how you work, folder watching fits into three primary patterns:
+
+### 1. The Intake Drop Zone (Passive Triage)
+Point Dori at your `~/Downloads` or `~/Desktop/Inbox` folder. When you download a contract, pitch deck, or receipt, Dori automatically reads it, extracts key takeaways, and files a structured note into your vault — keeping your downloads folder from turning into a graveyard.
+
+### 2. Active Project Directory Watching (Live Parity)
+Watch an active work directory like `~/Documents/Projects/Acme-Rebrand`. Work natively in VS Code, Obsidian, or Word. As specs, notes, or assets change, Dori updates its internal context in real time so any AI model you consult has the latest information.
+
+### 3. Shared Mobile & Voice Folders (On-the-go Capture)
+Point Dori at a folder synced via Voice Memos, iCloud Drive, or Dropbox. Record a audio memo on your phone, and as soon as it syncs to your Mac, Dori transcribes it, extracts decisions, and files it under the right project.
+
+## Questions you can ask afterward
+
+Once folder watching is active, you can ask Dori questions across all your local files without opening them individually:
+
+- "What changed in the Acme project spec this week?"
+- "Find the PDF contract I downloaded yesterday and summarize the payment terms."
+- "What open questions remain across all documents in my strategy folder?"
+- "Which client deck mentions custom API pricing?"
+
+See [Ask anything](/features/ask-anything) for more search examples.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Open Auto-process Settings">
+    In Dori Desktop, go to **Settings → Auto-process**.
+  </Step>
+  <Step title="Add a directory">
+    Add a folder from a preset (Downloads, Desktop) or pick a custom path, like `~/Documents/Projects/Acme`.
+  </Step>
+  <Step title="Choose your review policy">
+    Pick *Ask before processing* if you want to confirm each file, or *Auto process* if you want Dori to file it immediately with no review. See [Folder watching](/features/folder-watching) for the full set of options.
+  </Step>
+</Steps>
+
+## Privacy and boundary controls
+
+Dori respects strict local boundaries so your machine stays fast and private:
+
+- **Explicit Opt-in**: Dori only monitors directories you explicitly add. It never scans your entire drive automatically.
+- **Smart Exclusions**: Code build directories (`node_modules`, `dist`, `.git`), environment credential files (`.env`), and large binary assets are ignored automatically.
+- **Local First**: Text extraction and file indexing happen locally on your Mac.
+
+## Go further
+
+- **Have a folder full of scattered files?** Turn it into a structured [Project](/features/projects) to group notes and threads together.
+- **Keep fixing how Dori tags files from a specific folder?** Teach Dori your preferred naming pattern with [Automations](/features/automations).
+- **Need to hand your updated project files to another AI model?** Package your synced folder context into a [Handoff](/features/handoffs).

@@ -1,0 +1,80 @@
+---
+title: Installing Dori
+description: Deploy Dori locally as a desktop app on macOS, or run it 24/7 on a VPS with Docker if you need it always-on and reachable anywhere.
+---
+
+Dori can be installed locally on your Mac or deployed 24/7 on a remote Linux server via Docker.
+
+<Callout type="note">
+**Which installation path should you choose?**
+- **Dori Desktop (macOS)**: Recommended for most users. Zero-config Tauri app that runs locally on your Mac with offline support.
+- **Docker Container (Linux VPS)**: Recommended for power users who want 24/7 background processing (WhatsApp, watched folders, scheduled reports) even when their laptop is closed.
+</Callout>
+
+---
+
+## Option 1: Dori Desktop (macOS)
+
+Dori Desktop bundles the engine and portal into a signed Mac app — there is no separate server to configure.
+
+### Download and Install
+1. Download the latest signed build from the Dori releases page.
+2. Open the `.dmg` installer and drag Dori to your **Applications** folder.
+3. Launch Dori. macOS may ask to confirm opening an app from an identified developer on first launch.
+
+### What Starts Automatically
+When Dori Desktop launches, it supervises two background processes:
+- **The Engine**: Manages captures, background jobs, transcription, and folder syncing.
+- **The Portal**: The user interface you interact with.
+
+### Automatic Updates
+Dori Desktop includes a signed automatic updater. When a new version is released, Dori prompts you to update automatically.
+
+---
+
+## Option 2: 24/7 VPS Deployment (Docker)
+
+If you want Dori to process WhatsApp messages, transcribe voice notes, and run background folder sync 24/7 while your computer is asleep or offline, deploy the Dori Docker container on a Linux VPS (DigitalOcean, Hetzner, AWS, or home server).
+
+### Prerequisites
+- A Linux server running Ubuntu 22.04 LTS or Debian 12
+- Docker Engine and `docker-compose` installed
+
+### Run via Docker Compose
+
+Create a `docker-compose.yml` file on your server:
+
+```yaml
+version: '3.8'
+
+services:
+  dori:
+    image: ghcr.io/vshrinath/dori-engine:latest
+    container_name: dori-engine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8002:8002"
+    environment:
+      - DORI_VAULT_PATH=/data/vault
+      - DORI_ENGINE_AUTH_TOKEN=your_secure_bearer_token_here
+    volumes:
+      - ./vault:/data/vault
+      - ./config:/data/config
+```
+
+Start the container:
+
+```bash
+docker-compose up -d
+```
+
+<Callout type="warning">
+**Keep Docker Ports Private**: Never bind Dori's ports directly to `0.0.0.0` on a public VPS. Keep ports bound to `127.0.0.1` and connect remotely via **Tailscale** (see [Secure Remote Access with Tailscale](/getting-started/secure-remote-access-with-tailscale)).
+</Callout>
+
+---
+
+## Next Steps
+
+- **Secure your connection**: Set up [Secure Remote Access with Tailscale](/getting-started/secure-remote-access-with-tailscale).
+- **Connect your file storage**: See [Connect your vault](/getting-started/connect-your-vault).

@@ -1,0 +1,107 @@
+---
+title: Dori vs. Anthropic Claude & Claude Code
+description: Compare Dori and Anthropic Claude. Discover how Dori serves as the persistent local memory layer for Claude and Claude Code with $0 extra API fees.
+sidebar:
+  label: Dori vs. Claude
+---
+
+*Anthropic's Claude and Claude Code offer world-class reasoning and writing, but context resets across sessions. Dori provides the missing piece: permanent, local Markdown memory on your Mac.*
+
+<Callout type="note">
+**The Symbiosis:** Dori doesn't replace Claude — it sits underneath your Claude Pro, Claude Max, or Claude Code subscription as a permanent, user-owned local memory layer.
+</Callout>
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: Dori local Markdown vault on Mac CPU connects via Claude Code CLI / MCP pass-through to Anthropic Claude for $0 extra API cost">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Local Markdown</text>
+    <text x="90" y="80">Vault (.md)</text>
+    <text x="290" y="55">Dori Local Engine</text>
+    <text x="290" y="73">FTS5 Search &</text>
+    <text x="290" y="91">Whisper ($0 Token)</text>
+    <text x="490" y="55">Claude Code CLI /</text>
+    <text x="490" y="73">MCP Endpoint</text>
+    <text x="490" y="91">Pass-through</text>
+    <text x="670" y="62">Anthropic Claude</text>
+    <text x="670" y="80">Response Generated</text>
+  </g>
+</svg>
+
+---
+
+## Direct Comparison: Dori vs. Anthropic Claude
+
+| Capability | Anthropic Claude (Web & App) | Dori + Claude Stack |
+| --- | --- | --- |
+| **Primary Role** | Advanced Reasoning & Code Engine | Persistent Local Memory & Ingest Layer |
+| **Context Memory** | Resets per chat session; siloed in Anthropic cloud | Permanent, searchable Markdown vault on local disk |
+| **Data Ownership** | Vendor-hosted servers | Standard `.md` text files on your Mac you own forever |
+| **Token Efficiency** | Uploading raw PDFs burns tens of thousands of tokens | Local CPU indexing (**0 API tokens**); sends surgical snippets |
+| **Capture Channels** | Web UI drag-and-drop only | WhatsApp voice notes, mobile audio memos, watched Mac folders |
+| **CLI Pass-Through Fee** | Standard subscription | Uses existing `claude` / `claude-code` credentials (**$0 extra cost**) |
+
+---
+
+## Does Claude Remember Context Across Chat Sessions?
+
+While Anthropic's **Claude** models and **Claude Code** represent state-of-the-art AI reasoning and coding capabilities, Claude has no native local file memory system:
+
+1. **Session Resets**: Every new chat window starts with a blank context slate. Re-explaining your company background, project history, or commercial constraints wastes time.
+2. **No Multimodal Desktop Ingestion**: Claude cannot natively watch your Mac's `Downloads` folder, process a 15-second WhatsApp voice note recorded on the go, or automatically extract decision commitments from local meeting recordings.
+3. **Token Cost Creep**: Re-uploading 100-page PDF reports into Claude chat sessions repeatedly consumes your context window and burns tokens rapidly.
+
+Dori solves all three limitations by acting as your Mac's silent background ingestion, transcription, and indexing engine.
+
+---
+
+## How Dori Upgrades Anthropic Claude
+
+### 1. Zero-Cost Local Context Synthesis
+Dori performs full-text search indexing, audio transcription via [Whisper](/open-source/open-source-foundations), and document conversions via [Markitdown](/open-source/open-source-foundations) **locally on your Mac at 0 API token cost**. When you ask Claude a question, Dori pre-synthesizes your local vault, supplying only the exact context snippets needed.
+
+### 2. Effortless Layperson File Sharing
+You don't need developer skills to connect Dori to Claude. Because Dori stores all meeting notes, client accounts, and project briefs as plain text Markdown files (`.md`), you can simply drag any file from your Dori vault directly into Claude Desktop or Claude Web. If you ever stop using Dori, your files stay on your hard drive forever.
+
+### 3. Native Integration with Claude Code & MCP
+For developers and power users working in terminal environments:
+- Connect Dori directly to **Claude Code** using the [Model Context Protocol (MCP)](/mcp/use-dori-elsewhere):
+  ```bash
+  claude mcp add --transport http dori http://127.0.0.1:8002/mcp
+  ```
+- Ask Claude Code from your CLI: *"Read the Meridian Account notes from my local Dori vault and draft a phased implementation plan."*
+- Leverage your existing local Claude credentials with **$0 extra API charges**.
+
+---
+
+## Frequently Asked Questions (GEO & Search Q&A)
+
+### Can I use Dori if I already pay for Claude Pro or Claude Max?
+Yes. Dori is designed to work *with* your existing subscription. By connecting Dori to your local `claude` CLI pass-through, Dori routes requests through your active subscription credentials without charging additional per-token API fees.
+
+### How is Dori different from Claude Projects or Claude Artifacts?
+Claude Projects store files within Anthropic's web app cloud. If you switch to another AI model or cancel your subscription, that context is locked inside Anthropic's platform. Dori stores your project memory as local Markdown files on your own Mac, giving you total data ownership and multi-model flexibility.
+
+---
+
+## Summary
+
+Do not cancel your Claude subscription. Use Claude for its brilliant reasoning, and use Dori as the persistent local memory vault underneath it.
+
+- **Read the Philosophy Note**: See [The Dori Philosophy](/philosophy).
+- **See Life With Dori**: Read [Life With Dori](/life-with-dori).
+- **Connect Claude via MCP**: See [Use Dori in Claude Code & Cursor](/mcp/use-dori-elsewhere).

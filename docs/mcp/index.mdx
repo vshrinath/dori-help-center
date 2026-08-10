@@ -1,0 +1,44 @@
+---
+title: MCP
+description: Connect external tools to Dori, like Firecrawl for web research, or use Dori's own memory from other AI tools entirely.
+sidebar:
+  label: Overview
+---
+
+[MCP](https://modelcontextprotocol.io) (Model Context Protocol) is the open standard Dori uses to talk to external tools — in both directions.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Protocol: Two-way Model Context Protocol: Dori as MCP Client calling external web research tools AND Dori as MCP Memory Server serving Claude Code and Cursor">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">External Tools</text>
+    <text x="90" y="80">(Firecrawl, APIs)</text>
+    <text x="290" y="55">Dori as Client</text>
+    <text x="290" y="73">Calls MCP Tools</text>
+    <text x="290" y="91">& Ingests Results</text>
+    <text x="490" y="55">Dori as Server</text>
+    <text x="490" y="73">Exposes Vault</text>
+    <text x="490" y="91">Memory Endpoint</text>
+    <text x="670" y="62">Claude Code, Cursor</text>
+    <text x="670" y="80">& External AI</text>
+  </g>
+</svg>
+
+- **[Connect web research & workspace tools](/mcp/mcp-servers)** — pull live web search, articles, and external tools into Dori's memory.
+- **[Use Dori in your coding IDE or chatbot](/mcp/use-dori-elsewhere)** — access your Dori vault memory straight from Claude Code, Cursor, or other AI clients.
+
+Both live under **Settings → Connections** in the app; they're split out here because they answer two different questions (what external tools can Dori reach, vs. which AI tools can reach Dori's memory).

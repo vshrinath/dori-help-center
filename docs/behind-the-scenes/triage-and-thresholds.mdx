@@ -1,0 +1,83 @@
+---
+title: "Automated Triage & Confidence Thresholds"
+description: "How Dori uses confidence scoring, severity levels, and the Attention Model to filter noise and surface 'Needs You' items."
+---
+
+One of the biggest failures of traditional notification systems is **alert fatigue**. Every incoming message, email, or capture triggers a ding, forcing humans to act as manual triage routers.
+
+Dori solves this with an **Automated Triage & Confidence Threshold Engine**. Instead of notifying you about every raw event, Dori categorizes incoming captures along strict confidence thresholds.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Triage and confidence threshold routing flow chart showing high confidence silent auto-sort, medium confidence Needs-You approval, and low confidence triage review">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="130" height="80" rx="10" />
+    <rect x="180" y="40" width="140" height="80" rx="10" />
+    <rect x="370" y="10" width="115" height="40" rx="8" />
+    <rect x="370" y="60" width="115" height="40" rx="8" />
+    <rect x="370" y="110" width="115" height="40" rx="8" />
+    <rect x="520" y="10" width="220" height="40" rx="8" />
+    <rect x="520" y="60" width="220" height="40" rx="8" />
+    <rect x="520" y="110" width="220" height="40" rx="8" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="140" y1="80" x2="176" y2="80" marker-end="url(#arrow)" />
+    <path d="M320 80 L345 80 L345 30 L366 30" marker-end="url(#arrow)" />
+    <line x1="320" y1="80" x2="366" y2="80" marker-end="url(#arrow)" />
+    <path d="M320 80 L345 80 L345 130 L366 130" marker-end="url(#arrow)" />
+    <line x1="485" y1="30" x2="516" y2="30" marker-end="url(#arrow)" />
+    <line x1="485" y1="80" x2="516" y2="80" marker-end="url(#arrow)" />
+    <line x1="485" y1="130" x2="516" y2="130" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="75" y="73">Incoming Event</text>
+    <text x="75" y="93">/ Capture</text>
+
+    <text x="250" y="73">Confidence</text>
+    <text x="250" y="93">Scoring Engine</text>
+
+    <text x="427" y="35">High (≥0.85)</text>
+    <text x="427" y="85">Med (0.5-0.84)</text>
+    <text x="427" y="135">Low (&lt;0.50)</text>
+
+    <text x="630" y="35">Silent Vault Auto-Filing</text>
+    <text x="630" y="85">Needs-You Approval Strip</text>
+    <text x="630" y="135">Triage Review Queue</text>
+  </g>
+</svg>
+
+---
+
+## 1. The Attention Model & Severity Levels
+
+Dori evaluates every situation across three severity states:
+
+- **`quiet`**: High-confidence routine actions (e.g. automatically transcribing a note, linking a file to a project, updating indexes). Runs 100% silently in the background.
+- **`waiting`**: Asynchronous tasks executing on your behalf (e.g. background document parsing, research bundle generation).
+- **`needs_you`**: Items that require explicit human judgment, confirmation, or decision approval.
+
+---
+
+## 2. Confidence Threshold Routing
+
+When a voice memo, document, or capture enters Dori, the classification engine assigns a **Confidence Score ($0.00$ to $1.00$)** based on entity matching, project affinity, and historical filing patterns:
+
+### High Confidence ($\ge 0.85$): Silent Auto-Filing
+If Dori is highly confident about entity mapping (e.g. a meeting transcript matching an existing calendar event and project folder), it files the note directly into your Markdown vault without interrupting you.
+
+### Medium Confidence ($0.50 - 0.84$): "Needs You" Approval Strip
+If an item has ambiguity (e.g. a decision note mentioning two potential client accounts), Dori routes it to the **Needs You** strip on your home dashboard. It prepares a draft recommendation so you can approve it with one click (`⌘+Enter`).
+
+### Low Confidence ($< 0.50$): Misfile Triage Queue
+If a capture cannot be mapped to any known entity, Dori holds it in the **Triage Inbox** so you can assign it manually or dismiss it.
+
+---
+
+## 3. Self-Correction & Pattern Absorb
+
+Dori monitors manual triage corrections:
+* If you manually move a file from Project A to Project B, Dori's **Pattern Absorb Engine** updates its local routing heuristics.
+* Future captures with matching attributes automatically hit the high-confidence auto-filing threshold, reducing manual triage effort over time.

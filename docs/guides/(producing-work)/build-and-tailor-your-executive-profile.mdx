@@ -1,0 +1,94 @@
+---
+title: Never write your bio from scratch again
+description: Import your LinkedIn profile and CV to generate tailored executive bios, speaker intros, and updated resumes in seconds.
+---
+
+**For:** founders, executives, and consultants who need a bio, intro, or resume on short notice
+
+*If you frequently need to send tailored speaker bios, podcast intros, "About Me" blurbs, or updated executive resumes — this is for you.*
+
+<Callout type="note">
+**In short:** Import your LinkedIn PDF export or existing resume into Dori to create a permanent **My Profile** memory file. Dori uses this profile to generate tailored executive bios and updated CVs instantly.
+</Callout>
+
+As a founder, executive, or consultant, you constantly need different versions of your bio: a 50-word intro for a podcast host, a 200-word bio for a conference brochure, or a 2-page executive resume for a board seat application. Manually editing your CV or writing new bios from scratch every time is tedious — 20-30 minutes you didn't plan for, usually right before a deadline.
+
+## How your profile becomes a bio
+
+Dori maintains your career history, achievements, and writing preferences in a central vault profile (`work-style/my-profile.md`). When you need a bio or resume, Dori drafts it in seconds tailored to the exact word count, tone, and audience required.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: LinkedIn PDF or CV dropped, Dori parses career history into My Profile, tailored bios or resumes generated on demand">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="55">LinkedIn PDF or CV</text>
+    <text x="90" y="73">dropped into Dori</text>
+    <text x="290" y="55">Dori parses timeline,</text>
+    <text x="290" y="73">metrics, & skills into</text>
+    <text x="290" y="91">My Profile note</text>
+    <text x="490" y="55">Query for specific</text>
+    <text x="490" y="73">audience or word count</text>
+    <text x="490" y="91">(e.g. 100-word bio)</text>
+    <text x="670" y="55">Polished, tailored bio</text>
+    <text x="670" y="73">or resume generated</text>
+    <text x="670" y="91">in seconds</text>
+  </g>
+</svg>
+
+## What's actually driving this, and what it costs
+
+Parsing your LinkedIn PDF or CV into a structured profile note runs locally on Dori's background engine, at zero API cost. Drafting a bio, resume, or questionnaire answer tailored to a specific audience and word count is the part that uses your connected [AI provider](/getting-started/choose-your-ai-provider).
+
+---
+
+## Step-by-step: Importing your LinkedIn data
+
+<Steps>
+  <Step title="Download LinkedIn Profile PDF">
+    Open your LinkedIn profile page -> Click **More** -> Select **Save to PDF**.
+  </Step>
+  <Step title="Drop into Dori">
+    Drag the downloaded PDF into Dori Desktop or paste the file path into the Command Palette (**⌘/Ctrl + J**).
+  </Step>
+  <Step title="Verify Your Profile">
+    Dori creates your `work-style/my-profile.md` vault note with structured sections: Executive Summary, Work History, Education, Key Achievements, and Media Mentions.
+  </Step>
+</Steps>
+
+---
+
+## Example Prompts You Can Ask Dori
+
+Once your profile is set up, you can ask Dori to generate tailored outputs on demand:
+
+- *"Draft a 150-word speaker bio for a keynote on AI operations, highlighting my founder background."*
+- *"Create a 1-page executive CV tailored for an advisory board application."*
+- *"Fill in the 'Founder Story' section of this investor questionnaire using My Profile."*
+- *"Draft a 50-word podcast guest intro focusing on my enterprise software experience."*
+
+<Callout type="tip">
+**Pro Tip: Combine My Profile with Council**  
+Before submitting a high-stakes board resume or keynote pitch, run the draft past [Council](/features/council) to get it reviewed before it goes out.
+</Callout>
+
+---
+
+## Go further
+
+- **Want to learn more about My Profile features?** See [My Profile & Executive Bio](/getting-started/my-profile).
+- **Need a second opinion on a draft?** See [Get a second opinion before you hit send](/guides/get-a-second-opinion-before-you-hit-send).
+- **Drafting client proposals?** See [Draft anything Dori already knows](/guides/draft-anything-from-what-dori-knows).

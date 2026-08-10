@@ -1,0 +1,60 @@
+---
+title: Voice & WhatsApp
+description: Capture on the go by voice note or WhatsApp message — Dori transcribes, extracts the decision, and files it automatically.
+---
+
+Send a voice note on the go, or message Dori on WhatsApp — it transcribes, tags, and connects it to what you're already working on. No editing, no app-switching.
+
+## Connecting WhatsApp
+
+Go to **Settings → Connections → WhatsApp** and click Connect. You'll pair by scanning a QR code with your phone, the same way you'd link WhatsApp Web.
+
+Once paired, choose how Dori listens:
+
+- **Just me** — Dori reads messages you send directly to it.
+- **Groups** — pick specific WhatsApp groups for Dori to follow. For each group, choose whether Dori acts on every message ("always listen") or only when it's mentioned/triggered.
+
+You can revisit this setup at any time to add or remove groups, or switch modes.
+
+![WhatsApp & Channel Connections](/images/features/connections-overview.png)
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: voice note or message sent via WhatsApp, local engine decrypts and transcribes audio, tags entities & links vault context, files organized note">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Voice note / text</text>
+    <text x="90" y="80">sent on WhatsApp</text>
+    <text x="290" y="55">Local engine</text>
+    <text x="290" y="73">transcribes audio</text>
+    <text x="290" y="91">(whisper.cpp)</text>
+    <text x="490" y="55">Entity extraction</text>
+    <text x="490" y="73">& vault linking</text>
+    <text x="490" y="91">(person, project)</text>
+    <text x="670" y="62">Organized note</text>
+    <text x="670" y="80">filed in vault</text>
+  </g>
+</svg>
+
+## What Dori does with a voice note or message
+
+- Transcribes audio automatically.
+- Tags the capture and links it to related people, projects, or prior context already in your vault.
+- Runs any automation rules that match the incoming message (see **Settings → Automations**).
+
+## Try it
+
+Send yourself a voice note or a WhatsApp message to Dori, then open the app — it should already show up organised. See [Your first capture](/getting-started/your-first-capture) for more ways to try this.

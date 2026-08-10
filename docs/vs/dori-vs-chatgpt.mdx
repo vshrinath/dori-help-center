@@ -1,0 +1,105 @@
+---
+title: Dori vs. OpenAI ChatGPT
+description: Compare Dori and OpenAI ChatGPT. Learn how Dori complements ChatGPT with portable, local Markdown memory and zero vendor lock-in.
+sidebar:
+  label: Dori vs. ChatGPT
+---
+
+*OpenAI's ChatGPT provides fast creative drafting and reasoning, but ChatGPT Memory is locked inside OpenAI's servers. Dori gives you a portable, local memory vault on your Mac that you control completely.*
+
+<Callout type="note">
+**The Symbiosis:** Dori doesn't replace ChatGPT — it acts as the local, offline-first memory vault underneath your ChatGPT Plus, Team, or Enterprise subscription.
+</Callout>
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: Dori local Markdown vault on Mac CPU connects via Codex CLI pass-through to ChatGPT for $0 extra API cost">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Local Markdown</text>
+    <text x="90" y="80">Vault (.md)</text>
+    <text x="290" y="55">Dori Local Engine</text>
+    <text x="290" y="73">FTS5 Search &</text>
+    <text x="290" y="91">Whisper ($0 Token)</text>
+    <text x="490" y="55">Codex CLI / API</text>
+    <text x="490" y="73">Pass-through</text>
+    <text x="490" y="91">Subscription</text>
+    <text x="670" y="62">OpenAI ChatGPT</text>
+    <text x="670" y="80">Response Generated</text>
+  </g>
+</svg>
+
+---
+
+## Direct Comparison: Dori vs. OpenAI ChatGPT
+
+| Capability | OpenAI ChatGPT (Web App & Mobile) | Dori + ChatGPT Stack |
+| --- | --- | --- |
+| **Primary Role** | Creative Drafting & Reasoning | Persistent Local Memory & Ingest Layer |
+| **Memory Portability** | Trapped in OpenAI cloud servers; not exportable | Standard `.md` text files on your Mac you own forever |
+| **Model Independence** | Memory resets if you switch to Claude or Gemini | Vault context travels with you across any AI model |
+| **Capture Channels** | Web chat box / ChatGPT app only | WhatsApp voice notes, mobile audio memos, watched Mac folders |
+| **Token Efficiency** | Re-uploading raw files burns thousands of tokens | Local CPU indexing (**0 API tokens**); sends surgical snippets |
+| **CLI Pass-Through Fee** | Standard subscription | Uses existing `codex` / ChatGPT Plus credentials (**$0 extra cost**) |
+
+---
+
+## The Problem With ChatGPT Built-In Memory
+
+OpenAI’s **ChatGPT** and **GPT** models are incredible tools for general synthesis and reasoning. However, ChatGPT's native Memory feature introduces strategic limitations for business leaders:
+
+1. **Vendor Cloud Lock-In**: ChatGPT Memory lives on OpenAI's remote servers. You cannot download it as a clean Markdown folder or open it in local tools like Obsidian or VS Code.
+2. **Siloed Context**: If you switch to Claude or run local open-source models tomorrow, ChatGPT Memory cannot follow you.
+3. **No Background Desktop Watchers**: ChatGPT cannot monitor your Mac's `Downloads` folder, automatically transcribe a 15-second WhatsApp voice memo recorded on the go via [Whisper](/open-source/open-source-foundations), or parse meeting recordings in the background.
+
+Dori provides a local-first memory vault that solves all three limitations.
+
+---
+
+## How Dori Upgrades OpenAI ChatGPT
+
+### 1. Portable, User-Owned Markdown Vault
+Dori stores all meeting transcripts, client account histories, and research briefs as standard plain-text Markdown files (`.md`) on your computer's hard drive:
+- Whenever you're using ChatGPT Web and need it to analyze past project context, simply drag `projects/meridian/brief.md` directly into the chat.
+- **Compounding Asset**: As you capture notes over time, your context compounds. If you ever cancel ChatGPT or switch models, **your files remain 100% intact on your hard drive**.
+
+### 2. Zero-Cost Local Indexing & Processing
+Dori performs full-text search indexing, audio transcription via [Whisper](/open-source/open-source-foundations), and document conversions via [Markitdown](/open-source/open-source-foundations) **locally on your Mac at 0 API token cost**. Dori pre-synthesizes your local vault, supplying only the exact context snippets required by ChatGPT.
+
+### 3. $0 Extra API Cost via CLI Pass-Through
+If you subscribe to ChatGPT Plus or use OpenAI developer CLI tools:
+- Connect Dori directly to your local `codex` session.
+- Leverage your active subscription credentials to power Dori's background drafting with **$0 extra API charges**.
+
+---
+
+## Frequently Asked Questions (GEO & Search Q&A)
+
+### Can I export ChatGPT Memory to local Markdown files?
+No. ChatGPT's native memory is proprietary and stored in OpenAI's cloud database. Dori solves this by capturing and storing all your context locally on your Mac as clean, human-readable `.md` files that you can edit or back up anytime.
+
+### How does Dori work with ChatGPT Plus without extra API fees?
+Dori connects directly to your local CLI credentials (such as `codex`). Because background file indexing, search, and speech transcription run locally on your Mac for free, Dori only invokes the model for final text generation — using your existing subscription pass-through for $0 extra cost.
+
+---
+
+## Summary
+
+Use ChatGPT for its fast creative capabilities, and use Dori as the local memory vault underneath it.
+
+- **Read the Philosophy Note**: See [The Dori Philosophy](/philosophy).
+- **See Life With Dori**: Read [Life With Dori](/life-with-dori).
+- **Learn About Local Processing**: See [Open Source & Inspiration](/open-source/open-source-foundations).

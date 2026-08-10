@@ -1,0 +1,26 @@
+---
+title: Folder watching
+description: Point Dori at a folder on your Mac and it reads, extracts, and files whatever lands there — no manual uploads, no re-explaining context.
+---
+
+Point Dori at a folder — Downloads, Desktop, or any folder you choose — and files that land there get read and filed automatically, every time, without you doing anything.
+
+## Setting up a watched folder
+
+Go to **Settings → Auto-process**. You can add a folder from a preset (Downloads, Desktop, "Received files") or pick a custom path. For each folder you set:
+
+![Auto-Process & Watched Folder Settings](/images/features/auto-process-settings.png)
+
+- **Recursive** — whether subfolders are watched too.
+- **File types** — which extensions Dori picks up (documents, spreadsheets, images, and more; you choose the list).
+- **Exclude patterns** — files to ignore, like partial downloads (`*.crdownload`, `*.part`) or temp/lock files (`*.tmp`, `~$*`).
+- **Review policy** — how much Dori decides on its own:
+  - *Ask before processing* — Dori waits for you to confirm each file.
+  - *Ask before processing (triage filing)* — Dori suggests where a file should go, you confirm.
+  - *Auto process* — no review; Dori files it immediately.
+
+You can add multiple watched folders, each with its own settings, and turn any of them off without deleting the configuration.
+
+## What counts as "processed"
+
+Depending on the file type, Dori extracts text, runs OCR or transcription, tags it, and links it into your vault the same way a manual capture would — see [Ask anything](/features/ask-anything) for how to find it afterward.

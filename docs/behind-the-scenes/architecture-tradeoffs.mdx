@@ -1,0 +1,81 @@
+---
+title: "Alternatives Considered & Refused"
+description: "Architectural Retrospectives: Technologies and design paths we tested and ultimately rejected in favor of simpler, local-first choices."
+---
+
+Great system design is as much about what you **refuse to build** as what you include. During Dori's engineering evolution, we evaluated several popular technologies before rejecting them in favor of simpler, zero-lock-in local alternatives.
+
+Here is our record of architectural decisions, benchmark findings, and refused paths.
+
+---
+
+## 1. Standalone Vector Databases (LanceDB / Qdrant) → Refused
+
+### What We Tried
+We initially evaluated dedicated vector engines (such as LanceDB and Qdrant) for indexing personal vault notes, transcripts, and web captures.
+
+### Why We Refused
+* **Memory & Binary Footprint:** Running a separate vector DB daemon added 200MB+ of background RAM usage and increased desktop installer size.
+* **The Proper Noun Problem:** Vector-only semantic search frequently fails on exact proper nouns (e.g. searching for a specific client name like `"Shrinath"` or project tag `"PRJ-402"` returns conceptually similar notes rather than the exact match).
+* **Schema Migration Complexity:** Synchronizing vector indexes with relational task/project states across app upgrades required complex dual-database migrations.
+
+### What We Built Instead
+We combined **SQLite FTS5 (BM25 keyword search)** with a lightweight **in-process vector cosine similarity index**.
+* **Result:** Exact proper noun recall via FTS5 + semantic discovery via embeddings in a single embedded SQLite database with **zero extra background memory overhead**.
+
+---
+
+## 2. Serverless Cloud Edge Workers → Refused
+
+### What We Tried
+We explored offloading workflow background jobs, OCR parsing, and channel monitoring to serverless edge workers (Cloudflare Workers / AWS Lambda).
+
+### Why We Refused
+* **Privacy & Data Locality:** Sending personal vault notes, transcripts, and captures to cloud workers breaks Dori's core guarantee that personal data never leaves your device.
+* **Compound API Costs:** Background monitoring loops (e.g. tracking local folder changes or polling tasks) incur recurring cloud execution charges that grow over time.
+* **Offline Vulnerability:** When disconnected from Wi-Fi, cloud-dependent workflows freeze completely.
+
+### What We Built Instead
+A local **Tauri v2 + Node 24 engine daemon (`./dori`)** running background jobs directly on host machine CPU/GPU cores.
+* **Result:** $0 cloud execution bill, sub-millisecond local response times, and 100% offline capability.
+
+---
+
+## 3. Electron Desktop Framework → Refused
+
+### What We Tried
+We benchmarked Electron as the desktop wrapper for the Next.js portal frontend.
+
+### Why We Refused
+* **Resource Bloat:** Electron bundles an entire Chromium browser instance and Node runtime per window, pushing baseline RAM consumption past **500 MB** at idle.
+* **Slow Cold Boots:** Startup latency averaged 1.8 to 3.2 seconds.
+
+### What We Built Instead
+Migrated to **Tauri v2** with a native Rust desktop shell.
+* **Result:** Total memory footprint dropped to **<120 MB RAM**, installer size shrank by 80%, and cold boot latency dropped to **<250 ms**.
+
+---
+
+## 4. `better-sqlite3` Native C++ Addon → Refused
+
+### What We Tried
+We initially used `better-sqlite3` as the database driver for the engine runtime.
+
+### Why We Refused
+* **Cross-Compilation Headaches:** `better-sqlite3` contains native C++ bindings that require per-architecture binary builds (`x86_64-apple-darwin`, `aarch64-apple-darwin`, `x86_64-pc-windows-msvc`, `x86_64-unknown-linux-gnu`).
+* **Packaging Overhead:** Rebuilding native C++ modules during CI/CD releases frequently caused cross-compilation failures and native segfault risks.
+
+### What We Built Instead
+Migrated engine runtime to **Node 24 native `node:sqlite`**.
+* **Result:** The engine dropped its only native C++ binary module dependency, packaging as **pure JavaScript** across all operating systems without native build tools.
+
+---
+
+## Summary Matrix of Refused Paths
+
+| Component | Refused Option | Refused Reason | Production Choice | Production Benefit |
+| --- | --- | --- | --- | --- |
+| **Search** | Standalone Vector DBs | Heavy RAM, weak proper-noun recall | SQLite FTS5 + Local Vector | Zero RAM bloat, exact BM25 + semantic recall |
+| **Execution** | Serverless Edge Workers | High API costs, privacy leakage | Local `./dori` Engine Daemon | 100% offline, $0 execution bill |
+| **Desktop Host** | Electron Framework | >500 MB idle RAM, slow boot | Tauri v2 (Rust Shell) | <120 MB idle RAM, <250ms boot |
+| **Database Driver** | `better-sqlite3` | Native C++ cross-compile pain | Node 24 native `node:sqlite` | Pure JS engine, zero native dependencies |

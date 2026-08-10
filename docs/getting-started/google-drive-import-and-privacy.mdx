@@ -1,0 +1,72 @@
+---
+title: "Google Drive Integration & Privacy Controls"
+description: "What happens when you connect your Google Account: explicit 1-click file picking, zero background drive scanning, and zero cloud lock-in."
+---
+
+Connecting your Google Account to Dori gives you a fast way to import Google Docs, Spreadsheets, and Drive PDFs into your local vault.
+
+However, privacy and data ownership come first: **Dori never scans, reads, or indexes your Google Drive automatically.**
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Privacy flow chart showing explicit Google Drive file picker selection, local Markitdown conversion, and vault note creation with zero automated drive crawling">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="210" height="80" rx="10" />
+    <rect x="270" y="40" width="220" height="80" rx="10" />
+    <rect x="530" y="40" width="220" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="220" y1="80" x2="266" y2="80" marker-end="url(#arrow)" />
+    <line x1="490" y1="80" x2="526" y2="80" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="115" y="65" font-weight="bold">Google Account Connect</text>
+    <text x="115" y="85">Scoped `drive.file` / Picker</text>
+    <text x="115" y="105">0 Auto-Crawling</text>
+
+    <text x="380" y="60" font-weight="bold">User Picks Specific File</text>
+    <text x="380" y="80">Explicit 1-Click Selection</text>
+    <text x="380" y="100">Via Drive Picker Modal</text>
+
+    <text x="640" y="60" font-weight="bold">Local Markdown Vault</text>
+    <text x="640" y="80">Converted via Markitdown</text>
+    <text x="640" y="100">+ Original Drive Link Embedded</text>
+  </g>
+</svg>
+
+---
+
+## 1. Our Privacy Guarantee: Zero Automatic Scanning
+
+When you connect Google to Dori:
+* **No Bulk Reading:** Dori does **not** scan your entire Google Drive or index your personal folders in the background.
+* **No Cloud Data Harvesting:** Dori does not copy your Google files to an external server or cloud database.
+* **Scoped OAuth Permissions:** Dori only requests file-level access (`drive.file` / `drive.readonly` per user pick). Dori cannot see or read files you haven't explicitly chosen to import.
+
+---
+
+## 2. How Google Drive File Import Works
+
+Importing a document from Google Drive is 100% user-directed:
+
+1. **Trigger Drive Picker:** In Dori Portal or via command palette (`⌘+K`), select **Import from Google Drive**.
+2. **Select Specific File:** The native Google Drive File Picker opens, allowing you to choose a specific Google Doc, Sheet, Slide, or PDF.
+3. **Local Conversion:** Once picked, Dori fetches that single file, runs local conversion via embedded **Markitdown**, embeds a direct reference link back to the Google Drive original, and saves the formatted Markdown file into your local vault.
+
+---
+
+## 3. Disconnecting & Revoking Access
+
+You remain in total control:
+* You can disconnect your Google Account at any time in **Settings → Connections → Google**.
+* Revoking access immediately halts the Drive Picker. All previously imported Markdown files remain 100% intact on your local hard drive.
+
+---
+
+## Related Guides
+
+- **[Local Folder Sync](/guides/keep-local-folders-in-sync)** — monitoring local Mac folders like `~/Downloads`.
+- **[Work 100% Offline](/guides/work-offline-with-zero-data-lock-in)** — local Markdown vault ownership.

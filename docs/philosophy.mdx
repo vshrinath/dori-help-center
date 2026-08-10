@@ -1,0 +1,72 @@
+---
+title: The Dori Philosophy
+description: A philosophy note on model independence, deterministic systems engineering, pattern recognition, and effort-free context switching.
+sidebar:
+  order: 7
+---
+
+*A note on why we built Dori, the engineering behind token consciousness, and how we decouple personal memory from proprietary AI models.*
+
+<Callout type="note">
+**The Core Premise:** Share on WhatsApp, drop a voice note, or save a file — Dori organizes it, remembers it, and has it ready the moment you need it. Your context stays on your computer in plain text files you own forever.
+</Callout>
+
+---
+
+## Model Independence & Future-Proofing
+
+The landscape of artificial intelligence is evolving at breakneck speed. The leading model today — whether Claude, ChatGPT, or Gemini — will inevitably be superseded by newer architectures tomorrow. Locking your company's long-term memory into a single vendor's cloud database or proprietary API is a strategic liability.
+
+Dori decouples your context from the underlying AI engine. Your files, meeting transcripts, client histories, and decisions are stored as standard plain-text Markdown files (`.md`) on your local hard drive. You remain primed to take advantage of whatever AI model wins the future, with zero vendor lock-in.
+
+If you ever decide to stop using Dori, you lose zero data. Every note and project history remains 100% accessible to you in plain text on your hard drive, allowing you to benefit from your accumulated work forever.
+
+---
+
+## Token Consciousness & Deterministic Engineering
+
+Mindlessly dumping raw 100-page files and multi-hour meeting transcripts into cloud LLMs on every query is wasteful, slow, and inefficient. True AI engineering is surgical and deterministic.
+
+Dori achieves **Token Consciousness** through deep local systems engineering. Rather than invoking expensive cloud neural networks for mundane tasks, Dori employs a hybrid architecture powered by **matching logic and deterministic rule execution** running locally, reserving the AI model for the parts that genuinely need judgment.
+
+On-device speech-to-text is handled by embedded [Whisper](/open-source/open-source-foundations) models. High-speed search and keyword indexing run locally on your Mac's CPU using [SQLite FTS5](/open-source/open-source-foundations) at zero token cost. Document conversions for PDFs, spreadsheets, and web links are normalized locally via [Markitdown](/open-source/open-source-foundations). Pre-built deterministic scripts execute routing, filing, and text transformations without making a single LLM API call.
+
+Furthermore, Dori constantly monitors workflow patterns. When it notices you repeatedly filing client memos into a specific project or formatting meeting summaries in a distinct style, Dori surfaces candidate patterns that convert your habits into deterministic code. You can refine and activate these rules through simple natural language chat — transforming expensive probabilistic AI calls into instant, zero-cost local automation.
+
+If you connect your existing Claude Pro or ChatGPT Plus CLI subscription, you pay **$0 extra in API fees**.
+
+---
+
+## Software Must Adapt to How You Work
+
+Dori is built on years of observing how founders, business leaders, and consultants operate. Busy professionals do not have time to spend two hours a day tagging, sorting, or filing notes into rigid database schemes. Most tools force you to change your habits to fit their software. Dori reverses this relationship completely: it adapts silently to how you already work.
+
+Folder watching (`~/Downloads`, `~/Desktop`), local directory sync, and WhatsApp voice capture exist so that AI conforms to your daily routine. When a PDF lands in your downloads or you drop a 15-second voice memo while walking between calls, Dori infers the client account, project, or relationship automatically. You don't put in effort to sort or classify — Dori handles categorization autonomously, learning your preferences over time with your explicit approval.
+
+---
+
+## Context Switching With Zero Cognitive Load
+
+Executives and consultants switch between dozens of client accounts, board updates, hiring decisions, and pitch decks every single day. The mental load of carrying all that context in your head — remembering who promised what, what was agreed to in March, and which commercial terms apply — leads to severe decision fatigue.
+
+Dori carries the context for you. When you switch from a client strategy call to an investor briefing, Dori presents the exact history, open threads, and commitments linked to that entity. You switch topics effortlessly because your context is safely captured, linked, and organized behind the scenes.
+
+---
+
+## You Are Always the Author and Decision Maker
+
+AI should synthesize, cross-reference, and draft — but it should never operate as an opaque, autonomous black box executing unauthorized changes to your work. In Dori, every learned rule and custom pipeline requires your explicit approval. Dori provides total transparency into what step ran, what sources were used, and why an output was generated. You remain the final author and decision maker.
+
+---
+
+## In Summary
+
+> **Dori ensures that as AI models evolve, your accumulated knowledge, decisions, and relationships remain a permanent, compounding asset under your complete control.**
+
+---
+
+## Where to go next
+
+- **[Life With Dori](/life-with-dori)** — an evocative story of how Dori transforms an executive's daily workflow.
+- **[Installing Dori](/getting-started/installation)** — set up Dori Desktop or 24/7 Linux VPS.
+- **[Dori vs. Claude](/vs/dori-vs-claude)** — see how Dori co-exists with Claude, ChatGPT, and Gemini as a persistent memory layer.

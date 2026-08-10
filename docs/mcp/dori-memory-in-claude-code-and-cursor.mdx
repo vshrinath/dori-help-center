@@ -1,0 +1,80 @@
+---
+title: "Using Dori Vault Memory in Claude Code & Cursor via MCP"
+description: "How to connect Dori's local vault memory to your developer IDE or coding CLI using the Model Context Protocol."
+---
+
+Dori doesn't just work inside its own desktop app—it acts as a **system-wide memory provider** for external AI tools via the open **Model Context Protocol (MCP)**.
+
+With Dori's MCP server, your coding assistants (Claude Code, Cursor, Windsurf, Roo Code) can search your business notes, meeting decisions, and product specs directly while writing code.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MCP integration flow chart showing developer IDEs connecting to Dori MCP Memory Server to access local vault files and SQLite domain records">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="220" height="80" rx="10" />
+    <rect x="270" y="40" width="220" height="80" rx="10" />
+    <rect x="530" y="40" width="220" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="230" y1="80" x2="266" y2="80" marker-end="url(#arrow)" />
+    <line x1="490" y1="80" x2="526" y2="80" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="120" y="65" font-weight="bold">Developer IDE / CLI</text>
+    <text x="120" y="85">Claude Code, Cursor,</text>
+    <text x="120" y="105">Windsurf, Roo Code</text>
+
+    <text x="380" y="60" font-weight="bold">Dori MCP Memory Server</text>
+    <text x="380" y="80">`search_vault`, `read_project`</text>
+    <text x="380" y="100">`get_meeting_decisions`</text>
+
+    <text x="640" y="65" font-weight="bold">Dori Local Vault</text>
+    <text x="640" y="85">Markdown Files &</text>
+    <text x="640" y="105">SQLite Domain DB</text>
+  </g>
+</svg>
+
+---
+
+## 1. Connecting Dori MCP to Claude Code
+
+Add Dori's MCP server configuration to your `~/.claude.json` or project `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "dori-memory": {
+      "command": "dori",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+```
+
+Now inside **Claude Code**, you can ask:
+> *"What were the key database performance constraints we agreed on in yesterday's meeting?"*
+
+Claude Code will query Dori's MCP memory server, pull the exact meeting transcript snippet from your local vault, and apply those constraints to your code without you copy-pasting notes!
+
+---
+
+## 2. Connecting Dori MCP to Cursor / Windsurf
+
+In Cursor settings (**Features → MCP Servers**):
+1. Name: `dori-memory`
+2. Type: `command`
+3. Command: `dori mcp serve`
+
+---
+
+## Available MCP Tools Exposed by Dori
+
+| MCP Tool Name | Description |
+| --- | --- |
+| `search_vault` | Runs hybrid FTS5 BM25 + vector search across all Markdown vault notes. |
+| `get_meeting_decisions` | Returns tracked commitments and decisions for a given person or project. |
+| `read_project_context` | Fetches active project specs, background briefs, and linked documents. |
+| `query_domain_records` | Queries local SQLite domain records for structured entity summaries. |

@@ -1,0 +1,81 @@
+---
+title: Work 100% offline with zero data lock-in
+description: Search past notes, browse project context, and own your files as plain Markdown on your Mac — no active internet required.
+---
+
+**For:** anyone who travels, works in low-connectivity settings, or wants zero vendor lock-in
+
+*If you've ever tried using cloud AI tools on a flight or in a low-coverage zone only to get blocked by connection errors — this is for you.*
+
+<Callout type="note">
+**In short:** Dori stores your entire history as plain Markdown files in a local directory on your Mac. Dori's background engine and SQLite full-text search run 100% locally, allowing you to search notes, browse project context, and organize files offline without vendor lock-in.
+</Callout>
+
+SaaS AI applications lock your notes, research, and conversation history inside proprietary cloud databases. When your internet drops, you can't search your files. Worse, if the vendor changes pricing, alters terms, or shuts down, your data is trapped in a format you don't own — a five-hour flight shouldn't be enough to lock you out of a fact you already knew.
+
+## How local-first actually works
+
+Dori operates local-first. Your notes, meeting summaries, project histories, and account files live in standard Markdown directories on your Mac. Dori's background engine (`dori-engine`) runs locally alongside a fast SQLite full-text search index. You can search, browse, and organize your vault offline at any time.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: local Markdown vault on Mac, Dori engine and SQLite search run locally, works 100% offline, zero vendor lock-in">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Local Markdown</text>
+    <text x="90" y="80">vault on Mac</text>
+    <text x="290" y="55">Dori Engine &</text>
+    <text x="290" y="73">SQLite search run</text>
+    <text x="290" y="91">on your computer</text>
+    <text x="490" y="55">Full search, browse,</text>
+    <text x="490" y="73">& organization</text>
+    <text x="490" y="91">works 100% offline</text>
+    <text x="670" y="62">Zero vendor lock-in,</text>
+    <text x="670" y="80">your files forever</text>
+  </g>
+</svg>
+
+## What's actually driving this, and what it costs
+
+Local file reading, vault indexing, and SQLite full-text searching are handled entirely by Dori's background engine — zero API tokens, zero internet required. Generating new AI syntheses or running LLM workflows is the part that needs an internet connection to reach your connected [AI provider](/getting-started/choose-your-ai-provider) (or a locally running CLI provider).
+
+## What works 100% offline
+
+Even when completely disconnected from the internet, Dori Desktop allows you to:
+
+- **Search Entire Vault History**: Instant full-text search across all meeting notes, project documents, and account files.
+- **Browse Accounts & Projects**: Navigate your client timelines, linked contacts, and project hierarchies.
+- **Read & Edit Markdown Files**: Open and edit notes in Dori, Obsidian, VS Code, or Mac Finder.
+- **Queue Offline Changes**: Any local edits or new files created offline are queued and synced automatically once your remote vault provider (GitHub/Drive) reconnects.
+
+## Freedom from Vendor Lock-in
+
+Because your vault is a directory of standard `.md` text files:
+
+- **Open in Any App**: Open your vault in Obsidian, iA Writer, VS Code, or Sublime Text without export scripts.
+- **Complete Portable Ownership**: You can back up your vault to an external drive, Git repository, or cloud provider of your choice.
+- **Future-Proof**: If you ever stop using Dori, every note, meeting summary, and project history remains fully readable and organized on your computer.
+
+<Callout type="tip">
+**Pro Tip: Flight Mode editing in Obsidian or VS Code**  
+On a long flight without Wi-Fi, open your vault folder in Obsidian, iA Writer, or VS Code. Write notes, edit project specs, or update account files as usual. When you land and reconnect to Wi-Fi, Dori's local engine re-indexes your file edits and syncs with your remote Git repository automatically.
+</Callout>
+
+## Go further
+
+- **Want to connect your vault to cloud backup?** See [Connect your vault](/getting-started/connect-your-vault).
+- **Work out of desktop directories?** See [Keep your local folders in sync](/guides/keep-local-folders-in-sync).
+- **Understand application security?** See [See exactly what Dori did and why](/guides/see-exactly-what-dori-did-and-why).

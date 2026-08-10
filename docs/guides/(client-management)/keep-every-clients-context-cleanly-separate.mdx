@@ -1,0 +1,101 @@
+---
+title: Keep every client's context separate
+description: Hold a dozen clients' worth of context in one app without notes, pricing, or AI memory ever bleeding together across accounts.
+---
+
+**For:** consultants, agency leads, and advisors juggling multiple client relationships at once
+
+*If you're a consultant, agency lead, or advisor managing multiple clients and terrified of mentioning Client A's strategy during a call with Client B — this is for you.*
+
+<Callout type="note">
+**In short:** use Dori's Accounts and Projects to isolate each client's vault folder (`accounts/{client_name}/`). When you query Dori, take notes, or run reviews, Dori scopes its context strictly to that client's account folder — guaranteeing zero context bleeding across accounts.
+</Callout>
+
+When you use generic AI tools (ChatGPT, Claude web) for multiple clients, context bleeding is a constant risk. If you upload pitch decks, pricing models, and strategy notes for five different clients into the same chat window or account memory, the AI can accidentally reference Client A's internal pricing while helping you draft a proposal for Client B. A slip like that takes a five-second copy-paste to cause and a lot more than five minutes to explain away.
+
+## How account isolation works
+
+Dori enforces strict local folder boundaries in your Markdown vault. Every client gets a dedicated **Account** folder (`accounts/{client_name}/`) containing their specific notes, contacts, meeting summaries, and linked projects. When you work inside an Account or ask Dori a question scoped to a client, Dori only reads files from that client's vault boundary.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: client accounts isolated in vault, query or task initiated, Dori scopes context strictly to account, zero context bleed">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Client Accounts</text>
+    <text x="90" y="80">isolated in vault</text>
+    <text x="290" y="55">Initiate query</text>
+    <text x="290" y="73">or draft task</text>
+    <text x="290" y="91">in Dori</text>
+    <text x="490" y="55">Dori scopes context</text>
+    <text x="490" y="73">strictly to targeted</text>
+    <text x="490" y="91">Account folder</text>
+    <text x="670" y="62">Zero context bleed,</text>
+    <text x="670" y="80">100% private</text>
+  </g>
+</svg>
+
+## What's actually driving this, and what it costs
+
+Directory isolation, account file scoping, and vault path filtering are enforced by Dori's local background engine at zero API cost — the isolation itself never touches your AI provider or its bill. Drafting deliverables or summarizing account histories is the part that does, using your connected [AI provider](/getting-started/choose-your-ai-provider), operating strictly on the scoped files you selected.
+
+## Scoped questions you can ask
+
+Because Dori understands account boundaries, you can query client information with total precision:
+
+- "Summarize all open action items for Meridian Corp only."
+- "What did we agree regarding Q4 pricing during my last call with Acme?"
+- "Draft a monthly status update using notes from the Zenith account."
+- "List all key stakeholders linked to the Apex account."
+
+See [Accounts](/features/accounts) for complete details.
+
+## Quick setup (one time, about two minutes)
+
+<Steps>
+  <Step title="Create an Account per Client">
+    Go to **Accounts → New Account** and create an entry for each client (e.g., *Meridian*, *Acme*, *Zenith*).
+  </Step>
+  <Step title="Link Contacts & Projects">
+    Assign client contacts to their respective Account under **People**, and assign client-specific work to their **Project**.
+  </Step>
+  <Step title="Work in Scoped Context">
+    Whenever you take notes or run queries from an Account page, Dori restricts its search and AI context to that client's files.
+  </Step>
+</Steps>
+
+## A real-world scenario: Managing 12 client accounts simultaneously
+
+1. **Client A Call**: You finish a meeting with Meridian. The meeting recording, extracted tasks, and follow-ups are automatically saved under `accounts/meridian/`.
+2. **Switching to Client B**: Ten minutes later, you hop on a call with Zenith. Open Zenith's Account page in Dori. Dori's interface displays Zenith's notes, history, and open tasks — completely isolated from Meridian's files.
+3. **Drafting a Client Deliverable**: You ask Dori to draft a proposal for Zenith. Dori reads only Zenith's vault documents, ensuring no proprietary terms or figures from Meridian ever enter the response.
+
+<Callout type="tip">
+**Pro Tip: Meeting prep happens without you asking**  
+For meetings on your connected calendar, Dori prepares a brief automatically ahead of time — scoped to that client's account. You can also just mention the meeting to Dori in chat ("I'm meeting Priya from Meridian tomorrow at 2pm") to trigger the same prep on demand.
+</Callout>
+
+## Why this is critical for advisors and agencies
+
+- **Data Privacy Compliance**: Client data remains in isolated Markdown directories on your Mac. Nothing is merged into a shared cloud AI memory pool.
+- **Instant Client Context Switching**: Walk into any client meeting with complete context ready in seconds, no matter how many accounts you manage.
+- **Clean Exportability**: If a client engagement ends, their entire history lives in one dedicated folder (`accounts/{client_name}/`) that you can easily archive or hand off.
+
+## Go further
+
+- **Want to track client pipeline stages?** See [Client relationships without a CRM](/guides/run-a-pipeline-without-a-separate-crm).
+- **Need to review a client proposal before sending?** Use [Council](/features/council) to run your draft through a specialized critique pipeline.
+- **Need to send a client bundle to another tool?** Create a scoped [Handoff](/features/handoffs) containing only that client's files.

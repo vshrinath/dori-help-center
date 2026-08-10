@@ -1,0 +1,41 @@
+---
+title: Use Dori in your coding IDE or chatbot
+description: Query your Dori vault memory directly from Claude Code, Cursor, or any other MCP-compatible AI tool you already use daily.
+---
+
+Dori runs as a local memory server, so your other coding tools and chatbots can query it directly — for example, asking Claude Code or Cursor to read your project decisions or vault notes while you're coding, without switching windows.
+
+Set this up under **Settings → Connections → Use Dori elsewhere**, which generates a ready-to-paste snippet for your client:
+
+<Tabs inline param="mcp-client">
+  <Tab title="Claude Code">
+    Copy the generated command and run it in a terminal:
+
+    ```bash
+    claude mcp add --transport http dori http://127.0.0.1:8002/mcp
+    ```
+  </Tab>
+  <Tab title="Cursor">
+    Copy the generated JSON and merge it into `~/.cursor/mcp.json` under `"mcpServers"`:
+
+    ```json
+    {
+      "mcpServers": {
+        "dori": {
+          "url": "http://127.0.0.1:8002/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Auth
+
+By default the engine binds to loopback (`127.0.0.1`) and no token is required — only processes on your own machine can reach it. If you've turned on engine host auth, the settings page also shows a bearer token field, and the generated snippet includes an `Authorization` header once you paste the token in.
+
+Treat that token like a password: it's the same bearer key that guards the whole engine, not a scoped MCP-only credential.
+
+## What external tools can actually do
+
+Whatever calls Dori through this MCP endpoint gets a curated subset of Dori's own actions — not raw database or filesystem access. This includes calendar and Gmail-backed tools once those are linked (see [Connections](/features/connections)).

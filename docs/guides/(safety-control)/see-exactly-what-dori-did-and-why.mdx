@@ -1,0 +1,82 @@
+---
+title: See exactly what Dori did and why
+description: Complete transparency with an immutable audit trail and human-in-the-loop approvals before Dori takes any high-risk action.
+---
+
+**For:** business leaders who want full visibility into what an AI assistant does on their behalf
+
+*If you're hesitant about AI taking automated actions behind the scenes and want 100% visibility and control — this is for you.*
+
+<Callout type="note">
+**In short:** Dori logs every action, automation, and AI execution into an immutable **Audit Trail**. High-risk operations (like sending public messages or altering key records) require explicit human approval in your **Inbox** before running.
+</Callout>
+
+Autonomous AI tools often feel like a black box. Business leaders worry that an AI assistant might silently send an email, overwrite a client contract, or alter records without permission. Without clear logging, you're left guessing why a file was modified or what an automation did while you were away — and it only takes one unreviewed action touching the wrong client file to lose your confidence in the whole system.
+
+## How the risk check works
+
+Dori enforces strict human-in-the-loop risk controls. Low-risk background tasks (indexing notes, generating summaries, tag matching) run smoothly in the background. High-risk operations (sending messages, modifying sensitive files) generate a pending approval item in your **Inbox**. Every execution — successful or blocked — is recorded in an immutable **Audit Trail**.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: action initiated, risk evaluation, low risk auto-executes or high risk requires Inbox approval, logged to Audit Trail">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Action or workflow</text>
+    <text x="90" y="80">initiated</text>
+    <text x="290" y="55">Dori evaluates</text>
+    <text x="290" y="73">operational risk</text>
+    <text x="290" y="91">& permission scope</text>
+    <text x="490" y="55">Low risk: executes</text>
+    <text x="490" y="73">High risk: requires</text>
+    <text x="490" y="91">Inbox approval</text>
+    <text x="670" y="62">Recorded in</text>
+    <text x="670" y="80">immutable Audit Trail</text>
+  </g>
+</svg>
+
+## What's actually driving this, and what it costs
+
+Audit logging, permission verification, and approval queue management are handled locally by Dori's background engine, at zero API cost. Generating summaries of audit traces is the part that uses your connected [AI provider](/getting-started/choose-your-ai-provider).
+
+## Transparency & Approval Controls
+
+Dori balances automation with safety:
+
+- **Immutable Audit Trail**: View a complete chronological log of every action Dori executed, which files were touched, and which AI provider processed the request.
+- **Inbox Approvals**: High-risk actions wait in your **Inbox** as pending approvals. You can inspect the proposed action, click **Approve** or **Reject**, and Dori proceeds accordingly.
+- **First-Responder Idempotency**: If an approval item is resolved on desktop or mobile, it resolves across all surfaces simultaneously so you never approve the same item twice.
+
+## How to inspect the Audit Trail
+
+1. Go to **Settings → Audit Trail** (or view **Audit** from the main navigation).
+
+![Immutable System Audit Trail Log](/images/features/audit-trail.png)
+
+2. Browse recent executions filtered by **Action Type**, **Status** (*Executed*, *Pending Approval*, *Rejected*), or **Timestamp**.
+3. Click any audit entry to see the full execution trace — including source files, input parameters, and exact timestamps.
+
+## Why this builds confidence for business teams
+
+- **No Hidden Mutations**: You can verify every edit Dori makes to your Markdown vault.
+- **Complete Accountability**: Clear evidence of what ran while you were out of the office.
+- **Total Operational Control**: Configure risk thresholds per tool or integration so you remain in complete command.
+
+## Go further
+
+- **Want to review pending approvals?** Open your [Inbox](/getting-started/finding-your-way-around) in Dori Desktop.
+- **Connecting external tools?** Learn how [Connect your tools with MCP](/guides/connect-your-tools-with-mcp) enforces per-tool permissions.
+- **Reviewing automated rules?** See [Audit trail](/features/audit) for technical details.

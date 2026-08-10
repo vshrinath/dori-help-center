@@ -1,0 +1,74 @@
+---
+title: Your first capture
+description: A step-by-step walkthrough of capturing your first note, voice memo, or file — and seeing exactly where Dori files it.
+---
+
+*Now that your vault is connected and your AI provider is set up, let's capture your very first note and watch Dori organize it in real time.*
+
+<Callout type="note">
+**In short:** Dori accepts input from anywhere — voice notes, dropped files, pasted links, or WhatsApp messages. You don't need to choose filenames or folder paths; Dori handles indexing and filing automatically.
+</Callout>
+
+---
+
+## Step 1: Choose Your First Capture Method
+
+Pick whichever capture method is easiest for you right now:
+
+<Tabs inline param="capture-method">
+  <Tab title="Option A: WhatsApp Voice Note">
+    If you've paired WhatsApp (under **Settings → Connections**), open WhatsApp on your phone and record a 15-second voice memo:
+
+    > *"Met with Alex today about the Q4 marketing campaign. We agreed to finalize the design mockups by next Wednesday."*
+  </Tab>
+  <Tab title="Option B: Command Palette Input">
+    In Dori Desktop, press **⌘/Ctrl + J** to open the Command Palette, select **New Capture**, and type or paste a note:
+
+    > *"Project Launch Note: Need to schedule security audit for Zenith account before October 15th."*
+  </Tab>
+  <Tab title="Option C: Drop a File into a Watched Folder">
+    Drop any PDF, document, or audio file into your desktop's watched folder (e.g. `~/Downloads` or `~/Desktop/Dori-Drop`).
+  </Tab>
+</Tabs>
+
+![Quick Capture Popover Modal](/images/getting-started/your-first-capture.png)
+
+---
+
+## Step 2: What Dori Does Behind the Scenes
+
+The moment your capture arrives, Dori's local background engine executes four automated steps:
+
+<Steps>
+  <Step title="Transcription & Parsing">
+    If you sent a voice note, Dori transcribes the audio locally using speech-to-text. If you dropped a PDF or web link, Dori extracts the text.
+  </Step>
+  <Step title="Entity & Relationship Matching">
+    Dori identifies names (*Alex*, *Priya*), dates (*next Wednesday*), and topics (*Q4 marketing*), matching them against existing contacts in your vault.
+  </Step>
+  <Step title="Action Item Extraction">
+    If your capture contains a promise or commitment, Dori extracts it as a task and adds it to your **Tasks & Commitments** list.
+  </Step>
+  <Step title="Vault Filing">
+    Dori saves a clean Markdown file in your vault under `captures/YYYY-MM-DD-note.md` — permanently owned by you.
+  </Step>
+</Steps>
+
+---
+
+## Step 3: See Your Organized Note
+
+Open **Inbox** or **Tasks** in Dori Desktop. Your new capture is ready:
+
+- The voice note transcript or text is cleanly formatted.
+- Mentioned contacts are linked to their **People** profile.
+- Extracted tasks appear in your task dashboard.
+
+---
+
+## What to Try Next
+
+Congratulations! You've completed your first capture. Here is where to explore next:
+
+- **[Using Dori Guides](/guides)** — Explore real-world workflows like [Meeting Prep & Follow-up](/guides/prep-for-and-follow-up-on-a-meeting) or [CRM-Free Relationship Tracking](/guides/run-a-pipeline-without-a-separate-crm).
+- **[Features Reference](/features)** — Learn more about [WhatsApp & Voice Capture](/features/voice-and-whatsapp), [Folder Watching](/features/folder-watching), and [Council Advisors](/features/council).

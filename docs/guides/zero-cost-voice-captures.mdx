@@ -1,0 +1,81 @@
+---
+title: "Zero-Cost Voice Captures Across Portal & WhatsApp"
+description: "How Dori processes voice notes locally at 0 API token cost using Whisper, and how to use voice for meeting debriefs, decision tracking, and task creation."
+---
+
+Speaking is 4x faster than typing. Dori turns raw voice memos into structured vault memory, project tasks, and decision tracking—processed 100% locally on your Mac at **$0 API token cost**.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   VOICE ENTRY CHANNELS                      │
+│                                                             │
+│  [ ⌘+Shift+V Hotkey ]  [ WhatsApp Voice Note ]  [ Portal ]  │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Audio Bytes
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│            LOCAL EMBEDDED WHISPER TRANSCRIPTION             │
+│  - Runs on Mac CPU/Metal  │  0 Cloud Recording Leakage      │
+│  - 0 API Tokens Spent     │  100% Private On-Device         │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ Clean Text Transcript
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 STRUCTURED VAULT ACTIONS                    │
+│  - Post-Meeting Debriefs   - Task & Commitment Extraction   │
+│  - Brain-Dump Journaling   - Second-Opinion Draft Critique    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 1. Zero-Cost, On-Device Transcription
+
+Most AI apps send your audio files to cloud APIs (like OpenAI Whisper API), charging per minute and transmitting raw voice files across the internet.
+
+Dori does the opposite:
+* **Embedded `whisper.cpp` Model:** Transcribes audio files directly on your Mac using native CPU and Apple Silicon GPU cores.
+* **$0 API Token Spend:** Transcription is completely local—saving you money on every voice note.
+* **100% Private:** Your raw voice recordings never leave your machine.
+
+---
+
+## 2. Multi-Channel Voice Entry Points
+
+Dori listens wherever you are:
+
+### A. System-Wide Hotkey (`⌘ + Shift + V`)
+Press **`⌘+Shift+V`** anywhere on macOS to open the Floating Action Bar in voice mode. Speak your thought, hit stop, and Dori immediately transcribes and files it into your active project context.
+
+### B. WhatsApp Voice Notes
+When you're walking between meetings or driving, send or forward a voice memo to Dori's WhatsApp channel. Dori decrypts the audio locally, transcribes it via Whisper, and links it to your vault.
+
+### C. Dori Desktop Portal Recorder
+Click the microphone icon inside any Dori Portal thread or document pane to record inline audio notes.
+
+---
+
+## 3. High-Value Functions Handled by Voice
+
+Voice notes in Dori aren't just converted to raw text—the engine extracts actionable intent:
+
+### 1. 30-Second Post-Meeting Debriefs
+Immediately after stepping out of a meeting, record a 30-second voice note summarizing key outcomes. Dori automatically links the debrief to the meeting record, tags participants, and updates project status.
+
+### 2. Decision & Commitment Tracking
+Say: *"Promised Alex I would send over the revised pricing deck by Thursday morning."*  
+Dori extracts the commitment, creates a tracked work item, and sets a reminder.
+
+### 3. Unstructured Brain Dumps & Journaling
+Dictate raw, rambling thoughts about a new strategy or project. Dori's structuring engine categorizes the ideas, extracts key takeaways, and updates your project vault.
+
+### 4. Verbal Second Opinions & Pitch Critiques
+Speak a rough email response or pitch idea out loud. Ask Dori: *"Critique this response before I hit send."* Dori evaluates your tone, identifies potential miscommunications, and suggests refinements.
+
+---
+
+## Related Guides
+
+- **[The Floating Action Bar](/getting-started/floating-action-bar)** — system-wide hotkeys and quick capture HUD.
+- **[Voice & WhatsApp Feature](/features/voice-and-whatsapp)** — connecting Dori to WhatsApp.
+- **[Never Lose Commitments](/guides/never-lose-a-decision-or-commitment)** — decision tracking workflows.

@@ -1,0 +1,58 @@
+---
+title: "Offline-First & Zero-Native Architecture"
+description: "How Dori achieves local-first isolation using Node 24 node:sqlite, Tauri v2, and crash-safe vault synchronization."
+---
+
+Building a true offline-first application requires avoiding heavy cloud reliance, avoiding brittle binary builds, and ensuring data integrity on disk.
+
+## 1. Zero-Native Binary Dependency Engine
+
+Most desktop Node.js background services rely on native C++ addons like `better-sqlite3` or `canvas`. This creates build fragmentation, cross-compilation headaches across macOS (ARM/x86), Linux, and Windows, and risk of native segfault crashes.
+
+Dori solved this by leveraging **Node.js 24's native `node:sqlite` module**:
+- **Pure JavaScript Package:** The engine dropped all native C++ build targets, allowing the daemon to be packaged as pure JavaScript/TypeScript.
+- **Embedded FTS5 Support:** Uses Node 24's bundled SQLite build including FTS5 full-text indexing out of the box.
+- **Zero Cross-Compilation Overhead:** Single artifact distribution across all OS targets.
+
+```typescript
+// dori-engine/src/sqlite.ts
+import { DatabaseSync } from 'node:sqlite';
+
+export default class Database {
+  private readonly db: DatabaseSync;
+
+  constructor(filePath: string) {
+    this.db = new DatabaseSync(filePath, {
+      timeout: 5_000,
+      enableForeignKeyConstraints: false,
+    });
+  }
+
+  transaction<A extends unknown[], R>(fn: (...args: A) => R): (...args: A) => R {
+    return (...args: A): R => {
+      this.db.exec('BEGIN');
+      try {
+        const result = fn(...args);
+        this.db.exec('COMMIT');
+        return result;
+      } catch (err) {
+        this.db.exec('ROLLBACK');
+        throw err;
+      }
+    };
+  }
+}
+```
+
+## 2. Tauri v2 Desktop IPC & `./dori` CLI
+
+Dori uses Tauri v2 as its native desktop host:
+- **Low Footprint:** Consumes `<120 MB RAM` total vs 500MB+ for standard Electron apps.
+- **Headless `./dori` CLI:** The engine daemon exposes a native CLI executable (`./dori`) for diagnostics (`doctor.ts`), domain queries, and script automation without spawning the visual UI.
+- **Fail-Fast Engine Guardrails:** Missing environment variables or corrupted DB schemas trigger explicit process termination with diagnostic logs rather than swallowing errors silently.
+
+## 3. Crash-Safe Vault Synchronization & Conflict Recovery
+
+User knowledge stays stored in plain Markdown files in a local directory or Git repo:
+- **Write-Ahead Logging (WAL):** SQLite operates in WAL mode with atomic transactional boundaries to ensure zero corruption on sudden process termination or lid closes.
+- **Conflict Handling:** When syncing across devices via Git or cloud backup providers, Dori treats raw disk Markdown files as source-of-truth, automatically re-projecting local SQLite indexes when file SHA-256 fingerprints change.

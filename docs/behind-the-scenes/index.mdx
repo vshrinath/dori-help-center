@@ -1,0 +1,60 @@
+---
+title: "Behind the Scenes"
+description: "Frugal AI, Harness Engineering, and system architecture behind Dori."
+---
+
+When engineers look under the hood of Dori, they find an application built with strict systems discipline: **Frugal AI**, **Harness Engineering**, **zero native binary dependencies**, **offline-first execution**, and **graph-engineered AI workflows**.
+
+Dori was built from day one refusing to treat personal memory or AI interaction as an ephemeral, wasteful cloud service.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Systems architecture overview showing Tauri v2 desktop shell, Node 24 engine daemon with node:sqlite, and local markdown vault">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="220" height="100" rx="10" />
+    <rect x="270" y="30" width="220" height="100" rx="10" />
+    <rect x="530" y="30" width="220" height="100" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="230" y1="80" x2="266" y2="80" marker-end="url(#arrow)" />
+    <line x1="490" y1="80" x2="526" y2="80" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="120" y="65" font-weight="bold">Tauri v2 Host Shell</text>
+    <text x="120" y="85">Next.js React Portal</text>
+    <text x="120" y="105">System Tray & IPC</text>
+
+    <text x="380" y="60" font-weight="bold">Dori Engine Daemon</text>
+    <text x="380" y="80">Node 24 `node:sqlite`</text>
+    <text x="380" y="100">Task Queue & DAG</text>
+
+    <text x="640" y="65" font-weight="bold">User Markdown Vault</text>
+    <text x="640" y="85">Plain Files on Disk</text>
+    <text x="640" y="105">Zero Lock-In</text>
+  </g>
+</svg>
+
+## Key Technical Benchmark & Design Highlights
+
+| Architectural Layer | Implementation Detail | Systems Benefit |
+| --- | --- | --- |
+| **Token-Conscious Engine** | **Frugal AI & Harness Engineering** pipeline wrapping pre-LLM, in-flight, and post-LLM turns. | **Up to 90% reduction in API token spend** and 80% lower latency via prompt caching & zero-token bypass. |
+| **Engine Runtime** | Replaced `better-sqlite3` native bindings with Node 24 built-in `node:sqlite`. | **Zero native C++ binary dependencies**. Engine packages as pure JS across all OS targets without cross-compilation builds. |
+| **Memory & Boot Latency** | Engine daemon consumes `<120 MB RAM` with a cold boot time of `<250 ms`. | Instant responsiveness on desktop startup without heavy Electron overhead. |
+| **Token Economy** | Markdown indexing, OCR, Whisper audio transcription, and hybrid search run at **0 API token cost**. | Sub-millisecond search without spending LLM tokens on parsing or formatting. |
+| **State Consistency** | Single-writer SQLite WAL (Write-Ahead Logging) mode with explicit `BEGIN/COMMIT/ROLLBACK` boundaries. | Crash-safe atomic mutations even during unexpected lid closes or process restarts. |
+
+---
+
+## Technical Deep Dives
+
+- **[The Token-Conscious Engine](/behind-the-scenes/token-conscious-engine)**: Frugal AI philosophy, Pre-LLM, In-Flight, and Post-LLM Harness Engineering.
+- **[Graph Engineering](/behind-the-scenes/graph-engineering)**: DAG topologies, zero-token edge contracts, fan-out/fan-in barriers, and cyclic verifiers.
+- **[Alternatives Considered & Refused](/behind-the-scenes/architecture-tradeoffs)**: Retrospectives on why we refused LanceDB, Cloudflare Workers, Electron, and `better-sqlite3`.
+- **[Automated Triage & Confidence Thresholds](/behind-the-scenes/triage-and-thresholds)**: Confidence thresholds, severity states, and pattern absorption.
+- **[Offline-First & Zero-Native Engine](/behind-the-scenes/offline-first-architecture)**: Node 24 native SQLite, Tauri IPC, `./dori` CLI, and vault synchronization.
+- **[LLM Cost & Context Optimization](/behind-the-scenes/llm-cost-optimization)**: Prompt caching, context pruning, model tiering (`flash` vs `pro`), and schema contracts.
+- **[Storage, Indexing & Hybrid Search](/behind-the-scenes/storage-and-search)**: Content-addressable SHA-256 fingerprinting, SQLite FTS5 BM25, and local vector embeddings.

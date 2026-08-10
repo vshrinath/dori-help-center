@@ -1,0 +1,71 @@
+---
+title: "GitHub Vault Sync & Privacy Controls"
+description: "How Dori uses private GitHub repositories for cloud backup, time-travel version control, and zero vendor lock-in."
+---
+
+Dori uses GitHub as its primary remote vault backup and synchronization provider. Your personal notes, project histories, and decisions stay synchronized to a repository you own on GitHub.
+
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram showing local Markdown vault syncing to a private GitHub repository with 100 percent private repository enforcement and Git version history">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="40" width="220" height="80" rx="10" />
+    <rect x="270" y="40" width="220" height="80" rx="10" />
+    <rect x="530" y="40" width="220" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="230" y1="80" x2="266" y2="80" marker-end="url(#arrow)" />
+    <line x1="490" y1="80" x2="526" y2="80" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
+    <text x="120" y="65" font-weight="bold">Local Markdown Vault</text>
+    <text x="120" y="85">Plain Files on Disk</text>
+    <text x="120" y="105">Offline Primary</text>
+
+    <text x="380" y="60" font-weight="bold">Engine Sync Driver</text>
+    <text x="380" y="80">Automated Git Commits</text>
+    <text x="380" y="100">Conflict Detection</text>
+
+    <text x="640" y="60" font-weight="bold">Private GitHub Repo</text>
+    <text x="640" y="80">Strictly Private Only</text>
+    <text x="640" y="100">Full Commit History</text>
+  </g>
+</svg>
+
+---
+
+## 1. Strict Privacy Rule: Private Repositories Only
+
+Dori enforces a strict security policy: **Vault repositories must be 100% Private.**
+
+* **No Public Repo Risk:** Dori will reject connecting to or bootstrapping a public GitHub repository. This prevents accidental exposure of client notes, meeting transcripts, or personal thoughts.
+* **You Own the Remote:** The repository is created under your personal GitHub account (`github.com/your-username/dori-vault`). Dori never stores your vault content in a central Dori server database.
+
+---
+
+## 2. Automatic Private Repo Bootstrapping
+
+Setting up GitHub sync requires zero Git commands:
+
+1. Go to **Settings → Connections → GitHub** and click Connect.
+2. Authenticate with your GitHub account.
+3. Dori automatically creates or connects a private repository (`dori-vault`) and bootstraps initial vault commit history.
+
+---
+
+## 3. Git-Backed Time-Travel History
+
+Because your remote vault is a standard Git repository:
+- **Complete Commit History:** Every note edit, meeting debrief, or project update creates clean Git commits. You can view past versions of any note at any point in time.
+- **Multi-Device Synchronization:** Connect Dori Desktop on your laptop and desktop Mac to keep your memory in sync across machines.
+- **Zero Lock-In:** If you ever stop using Dori, your full Markdown repository remains accessible on GitHub and locally on your hard drive forever.
+
+---
+
+## Related Guides
+
+- **[Google Drive Integration & Privacy Controls](/getting-started/google-drive-import-and-privacy)** — 1-click Google Drive document imports.
+- **[Work 100% Offline](/guides/work-offline-with-zero-data-lock-in)** — local Markdown vault ownership guarantees.

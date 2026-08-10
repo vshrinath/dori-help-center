@@ -1,7 +1,7 @@
 import { defineMeta } from "blume";
 
 export default defineMeta({
-  title: "MCP Integration",
+  title: "MCP",
   icon: "plug",
   order: 3,
   pages: [

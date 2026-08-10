@@ -47,7 +47,7 @@ export default class Database {
 ## 2. Tauri v2 Desktop IPC & `./dori` CLI
 
 Dori uses Tauri v2 as its native desktop host:
-- **Low Footprint:** Consumes `<120 MB RAM` total vs 500MB+ for standard Electron apps.
+- **Low Footprint:** Consumes **&lt;120 MB RAM** total vs 500MB+ for standard Electron apps.
 - **Headless `./dori` CLI:** The engine daemon exposes a native CLI executable (`./dori`) for diagnostics (`doctor.ts`), domain queries, and script automation without spawning the visual UI.
 - **Fail-Fast Engine Guardrails:** Missing environment variables or corrupted DB schemas trigger explicit process termination with diagnostic logs rather than swallowing errors silently.
 

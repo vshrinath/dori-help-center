@@ -52,7 +52,7 @@ We benchmarked Electron as the desktop wrapper for the Next.js portal frontend.
 
 ### What We Built Instead
 Migrated to **Tauri v2** with a native Rust desktop shell.
-* **Result:** Total memory footprint dropped to **<120 MB RAM**, installer size shrank by 80%, and cold boot latency dropped to **<250 ms**.
+* **Result:** Total memory footprint dropped to **&lt;120 MB RAM**, installer size shrank by 80%, and cold boot latency dropped to **&lt;250 ms**.
 
 ---
 
@@ -77,5 +77,5 @@ Migrated engine runtime to **Node 24 native `node:sqlite`**.
 | --- | --- | --- | --- | --- |
 | **Search** | Standalone Vector DBs | Heavy RAM, weak proper-noun recall | SQLite FTS5 + Local Vector | Zero RAM bloat, exact BM25 + semantic recall |
 | **Execution** | Serverless Edge Workers | High API costs, privacy leakage | Local `./dori` Engine Daemon | 100% offline, $0 execution bill |
-| **Desktop Host** | Electron Framework | >500 MB idle RAM, slow boot | Tauri v2 (Rust Shell) | <120 MB idle RAM, <250ms boot |
+| **Desktop Host** | Electron Framework | &gt;500 MB idle RAM, slow boot | Tauri v2 (Rust Shell) | &lt;120 MB idle RAM, &lt;250ms boot |
 | **Database Driver** | `better-sqlite3` | Native C++ cross-compile pain | Node 24 native `node:sqlite` | Pure JS engine, zero native dependencies |

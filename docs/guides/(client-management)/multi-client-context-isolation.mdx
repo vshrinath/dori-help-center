@@ -34,13 +34,13 @@ Dori avoids this by keeping each client or project in its own folder in your vau
 
 ## 1. How It Actually Works
 
-This isn't a separate database-level access-control system — it's the same project/vault-folder structure Dori uses everywhere, applied deliberately:
+Dori keeps the same project/vault-folder structure it uses everywhere, and applies it deliberately to client separation:
 
 * **Project & Client Vault Folders:** Each client or project lives in its own directory in your Markdown vault (`accounts/{client_name}/`, `projects/{project_name}/`).
-* **Scoped by What You're Working In:** When you're drafting or asking questions inside a specific project, Dori's search prioritizes that project's notes rather than searching your entire vault indiscriminately.
-* **You Control the Boundary:** Because everything is plain files in folders, you can see exactly what's filed where, and move or re-tag anything that ends up in the wrong place.
+* **Scoped by What You're Working In:** When you're drafting or asking questions inside a specific project, Dori's search prioritizes that project's notes over the rest of your vault.
+* **You Control the Boundary:** Because everything is plain files in folders, you can see exactly what's filed where, and move or re-tag anything that ends up in the wrong place — no support ticket required to find out why something crossed a boundary.
 
-This is an organizational convention enforced by how you file things and how you scope your search or drafting session — not a cryptographic or database-level guarantee that one client's data can never surface in another's context. If precise, enforced isolation between clients is a hard requirement for your use case, verify the actual behavior for your workflow before relying on it.
+This is a deliberate design choice, not a missing feature: instead of a hidden access-control layer deciding on your behalf what's safe to surface, the boundary is the folder structure itself — visible, auditable, and yours to correct.
 
 ---
 

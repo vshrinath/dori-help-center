@@ -14,6 +14,15 @@ export default defineConfig({
     },
     text: "Dori Help Center",
   },
+  navigation: {
+    tabs: [
+      {
+        label: "← mydori.app",
+        path: "/",
+        href: "https://mydori.app",
+      },
+    ],
+  },
   theme: {
     accent: {
       // --brand-primary / --brand-primary-light in globals.css

@@ -64,7 +64,7 @@ See [Ask anything](/features/ask-anything) for more search examples.
 Dori respects strict local boundaries so your machine stays fast and private:
 
 - **Explicit Opt-in**: Dori only monitors directories you explicitly add. It never scans your entire drive automatically.
-- **Smart Exclusions**: Code build directories (`node_modules`, `dist`, `.git`), environment credential files (`.env`), and large binary assets are ignored automatically.
+- **Smart Exclusions**: `node_modules` and `.git` directories are ignored automatically, and in-progress downloads (`.tmp`, `.crdownload`, `.part`, `~$*` files) are skipped until they're done.
 - **Local First**: Text extraction and file indexing happen locally on your Mac.
 
 ## Go further

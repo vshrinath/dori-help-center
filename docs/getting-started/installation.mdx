@@ -37,8 +37,8 @@ Dori Desktop includes a signed automatic updater. When a new version is released
 If you want Dori to process WhatsApp messages, transcribe voice notes, and run background folder sync 24/7 while your computer is asleep or offline, deploy the Dori Docker container on a Linux VPS (DigitalOcean, Hetzner, AWS, or home server).
 
 ### Prerequisites
-- A Linux server running Ubuntu 22.04 LTS or Debian 12
-- Docker Engine and `docker-compose` installed
+- A Linux server running Ubuntu 22.04 or 24.04
+- Docker Engine 24+ and Docker Compose v2 (`docker compose`, not the older `docker-compose`)
 
 ### Run via Docker Compose
 
@@ -55,8 +55,8 @@ services:
     ports:
       - "127.0.0.1:8002:8002"
     environment:
-      - DORI_VAULT_PATH=/data/vault
-      - DORI_ENGINE_AUTH_TOKEN=your_secure_bearer_token_here
+      - DORI_VAULT_ROOT=/data/vault
+      - DORI_HOST_TOKEN=your_secure_bearer_token_here
     volumes:
       - ./vault:/data/vault
       - ./config:/data/config
@@ -65,7 +65,7 @@ services:
 Start the container:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 <Callout type="warning">

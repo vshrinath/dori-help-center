@@ -8,14 +8,14 @@ description: Hold a dozen clients' worth of context in one app without notes, pr
 *If you're a consultant, agency lead, or advisor managing multiple clients and terrified of mentioning Client A's strategy during a call with Client B — this is for you.*
 
 <Callout type="note">
-**In short:** use Dori's Accounts and Projects to isolate each client's vault folder (`accounts/{client_name}/`). When you query Dori, take notes, or run reviews, Dori scopes its context strictly to that client's account folder — guaranteeing zero context bleeding across accounts.
+**In short:** use Dori's Accounts and Projects to organize each client into its own vault folder (`accounts/{client_name}/`). When you query Dori, take notes, or run reviews scoped to that account, Dori prioritizes that client's folder instead of searching your whole vault indiscriminately.
 </Callout>
 
 When you use generic AI tools (ChatGPT, Claude web) for multiple clients, context bleeding is a constant risk. If you upload pitch decks, pricing models, and strategy notes for five different clients into the same chat window or account memory, the AI can accidentally reference Client A's internal pricing while helping you draft a proposal for Client B. A slip like that takes a five-second copy-paste to cause and a lot more than five minutes to explain away.
 
 ## How account isolation works
 
-Dori enforces strict local folder boundaries in your Markdown vault. Every client gets a dedicated **Account** folder (`accounts/{client_name}/`) containing their specific notes, contacts, meeting summaries, and linked projects. When you work inside an Account or ask Dori a question scoped to a client, Dori only reads files from that client's vault boundary.
+Every client gets a dedicated **Account** folder (`accounts/{client_name}/`) containing their specific notes, contacts, meeting summaries, and linked projects. When you work inside an Account or ask Dori a question scoped to a client, Dori prioritizes files from that client's folder. This is a vault-organization convention, not a hard database-level access boundary — everything is plain files you can see and re-file if something lands in the wrong place.
 
 <svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow: client accounts isolated in vault, query or task initiated, Dori scopes context strictly to account, zero context bleed">
   <defs>

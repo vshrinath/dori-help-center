@@ -37,9 +37,9 @@ Dori takes the opposite approach: **Frugal AI**. At the core of Dori is the **To
     <text x="290" y="110">Egress privacy shield</text>
 
     <text x="490" y="45" font-weight="bold">POST-LLM HARNESS</text>
-    <text x="490" y="70">Edge verifiers (@guard)</text>
-    <text x="490" y="90">Test evidence check</text>
-    <text x="490" y="110">Convergence loop</text>
+    <text x="490" y="70">Output guardrails</text>
+    <text x="490" y="90">Groundedness check</text>
+    <text x="490" y="110">Approval gate</text>
 
     <text x="675" y="95" font-weight="bold">Verified Vault</text>
     <text x="675" y="115">Result Snapshot</text>
@@ -66,9 +66,9 @@ In Dori, Frugal AI is enforced by three core principles:
 ### A. Pre-LLM Harness Engineering (Pre-Flight)
 Before a request leaves your machine:
 * **Zero-Token Gatekeeper:** If a query can be solved via local SQLite lookup or CLI execution (`./dori`), Dori short-circuits execution with **0 tokens spent**.
-* **Tiered Model Routing:** Routes routine classification or data extraction to fast models (`flash_lite` / `flash`), reserving frontier models (`pro`) strictly for complex synthesis.
+* **Tiered Model Routing:** Routes routine classification or data extraction to a `fast` model tier, reserving the `reasoning` tier strictly for complex synthesis. Tiers (`fast` / `standard` / `reasoning` / `inherit`) are provider-agnostic — the engine resolves each to a concrete model per configured provider (Anthropic, OpenAI, OpenRouter, or Groq).
 * **Context Compression:** Uses SQLite FTS5 BM25 and vector search to extract only the exact relevant note sections rather than dumping entire files into context.
-* **Prompt Cache Normalization:** Freezes static system prompt headers so LLM providers hit **Prompt Caching** (reducing token costs by up to 90% and latency by up to 80%).
+* **Prompt Cache Normalization:** Freezes static system prompt headers so LLM providers hit **Prompt Caching** — cached reads run at roughly a tenth of base input cost under Anthropic's published caching economics.
 
 ### B. In-Flight Harness Engineering (Execution)
 During LLM execution:
@@ -77,6 +77,6 @@ During LLM execution:
 
 ### C. Post-LLM Harness Engineering (Verification & Convergence)
 After the LLM responds:
-* **Edge Verifiers:** Execution outputs pass through mandatory `@guard` (security review) and `@qa` (test verification) nodes.
-* **Test Evidence Harnesses:** Document conversions, Whisper audio transcripts, and OCR extractions run through automated test evidence pipelines to verify output fidelity.
-* **Cyclic Convergence Loops:** If a verifier node rejects an output, the post-LLM harness feeds the exact failure log back into a retry loop (`@guard → @dev`) until verifiable criteria pass.
+* **Output Guardrails:** Results pass through mandatory output-kind guards before a workflow step commits — an `ApprovalGuard` for human sign-off, a `PermissionGuard` for authorization checks, and an `EvidenceGuard` that runs a groundedness check.
+* **Cross-Model Groundedness Judging:** `EvidenceGuard` sends the generated text and its source excerpts to a judge model deliberately pinned to a different provider family than the one that generated the text, so the same model never grades its own output. The judge flags any factual claim not supported by the sources.
+* **Cyclic Convergence Loops:** If a guardrail returns a `warn` or `fail` verdict, the workflow surfaces the failure and can retry the step until it passes.

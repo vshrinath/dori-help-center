@@ -23,7 +23,7 @@ Exposing web ports (`8002`) to the public internet opens your server to port sca
 2. **End-to-End Encryption**: Data between your phone and Dori is encrypted using peer-to-peer WireGuard® tunnels.
 3. **MagicDNS Device Names**: Access Dori using simple human-readable names like `http://dori-mac:8002` or `http://dori-vps:8002`.
 
-<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Network topology: Mobile Device connects via WireGuard Encrypted Tunnel over Tailnet to Local Mac/VPS loopback 127.0.0.1:8002 with Engine Auth Token">
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Network topology: Mobile Device connects via WireGuard Encrypted Tunnel over Tailnet to Local Mac/VPS loopback 127.0.0.1:8002 with Host Token">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
@@ -101,7 +101,7 @@ Once both devices are connected to Tailscale:
 1. Open Tailscale on your host machine to find its **100.x.y.z** Tailscale IP or MagicDNS hostname (e.g. `dori-mac`).
 2. On your mobile browser or remote laptop, navigate to:
    - `http://100.x.y.z:8002` or `http://dori-mac:8002`
-3. Enter your **Engine Auth Token** (found under **Settings → Connections** in Dori Desktop).
+3. Enter your **Host Token** (found under **Settings → Connections** in Dori Desktop).
 
 <Callout type="tip">
 **Pro Tip: Combined with WhatsApp for Mobile Capture**  
@@ -113,7 +113,7 @@ You can use Tailscale for full web portal browsing on your mobile browser, while
 ## Troubleshooting & Security Check
 
 - **Device status check**: Run `tailscale status` in a terminal to confirm host and client devices are active.
-- **Engine Auth Token**: Keep Engine Host Auth enabled under **Settings → Connections** in Dori so even devices on your Tailnet require a bearer token.
+- **Host Token**: Keep Engine Host Auth enabled under **Settings → Connections** in Dori so even devices on your Tailnet require a bearer token.
 
 ---
 

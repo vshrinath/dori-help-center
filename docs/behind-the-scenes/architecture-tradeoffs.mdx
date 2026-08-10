@@ -15,7 +15,7 @@ Here is our record of architectural decisions, benchmark findings, and refused p
 We initially evaluated dedicated vector engines (such as LanceDB and Qdrant) for indexing personal vault notes, transcripts, and web captures.
 
 ### Why We Refused
-* **Memory & Binary Footprint:** Running a separate vector DB daemon added 200MB+ of background RAM usage and increased desktop installer size.
+* **Memory & Binary Footprint:** Running a separate vector DB daemon means a second always-on process alongside the engine — extra background RAM and a larger desktop installer, for a capability SQLite's own vector extension already covers.
 * **The Proper Noun Problem:** Vector-only semantic search frequently fails on exact proper nouns (e.g. searching for a specific client name like `"Shrinath"` or project tag `"PRJ-402"` returns conceptually similar notes rather than the exact match).
 * **Schema Migration Complexity:** Synchronizing vector indexes with relational task/project states across app upgrades required complex dual-database migrations.
 
@@ -47,12 +47,12 @@ A local **Tauri v2 + Node 24 engine daemon (`./dori`)** running background jobs 
 We benchmarked Electron as the desktop wrapper for the Next.js portal frontend.
 
 ### Why We Refused
-* **Resource Bloat:** Electron bundles an entire Chromium browser instance and Node runtime per window, pushing baseline RAM consumption past **500 MB** at idle.
-* **Slow Cold Boots:** Startup latency averaged 1.8 to 3.2 seconds.
+* **Resource Bloat:** Electron bundles an entire Chromium browser instance and Node runtime per window, which structurally pushes baseline RAM consumption well above a native-webview shell before the app has done anything.
+* **Slower Cold Boots:** Booting a full bundled Chromium instance before the app renders adds startup latency that a native OS webview doesn't pay.
 
 ### What We Built Instead
-Migrated to **Tauri v2** with a native Rust desktop shell.
-* **Result:** Total memory footprint dropped to **&lt;120 MB RAM**, installer size shrank by 80%, and cold boot latency dropped to **&lt;250 ms**.
+Migrated to **Tauri v2** with a native Rust desktop shell that uses the OS's own webview instead of bundling Chromium.
+* **Result:** A meaningfully smaller memory footprint and installer size, and a cold boot that skips spinning up a second browser runtime.
 
 ---
 
@@ -77,5 +77,5 @@ Migrated engine runtime to **Node 24 native `node:sqlite`**.
 | --- | --- | --- | --- | --- |
 | **Search** | Standalone Vector DBs | Heavy RAM, weak proper-noun recall | SQLite FTS5 + Local Vector | Zero RAM bloat, exact BM25 + semantic recall |
 | **Execution** | Serverless Edge Workers | High API costs, privacy leakage | Local `./dori` Engine Daemon | 100% offline, $0 execution bill |
-| **Desktop Host** | Electron Framework | &gt;500 MB idle RAM, slow boot | Tauri v2 (Rust Shell) | &lt;120 MB idle RAM, &lt;250ms boot |
+| **Desktop Host** | Electron Framework | Bundles a full Chromium + Node runtime per window | Tauri v2 (Rust Shell) | Native OS webview, no bundled browser to boot |
 | **Database Driver** | `better-sqlite3` | Native C++ cross-compile pain | Node 24 native `node:sqlite` | Pure JS engine, zero native dependencies |

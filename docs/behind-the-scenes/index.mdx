@@ -28,7 +28,7 @@ Dori was built from day one refusing to treat personal memory or AI interaction 
     <text x="120" y="105">System Tray & IPC</text>
 
     <text x="380" y="60" font-weight="bold">Dori Engine Daemon</text>
-    <text x="380" y="80">Node 24 `node:sqlite`</text>
+    <text x="380" y="80">Node 24 node:sqlite</text>
     <text x="380" y="100">Task Queue & DAG</text>
 
     <text x="640" y="65" font-weight="bold">User Markdown Vault</text>
@@ -41,9 +41,9 @@ Dori was built from day one refusing to treat personal memory or AI interaction 
 
 | Architectural Layer | Implementation Detail | Systems Benefit |
 | --- | --- | --- |
-| **Token-Conscious Engine** | **Frugal AI & Harness Engineering** pipeline wrapping pre-LLM, in-flight, and post-LLM turns. | **Up to 90% reduction in API token spend** and 80% lower latency via prompt caching & zero-token bypass. |
+| **Token-Conscious Engine** | **Frugal AI & Harness Engineering** pipeline wrapping pre-LLM, in-flight, and post-LLM turns. | Zero-token bypass for anything resolvable locally, plus **cache reads at roughly a tenth of base input cost** under Anthropic's published prompt-caching economics. |
 | **Engine Runtime** | Replaced `better-sqlite3` native bindings with Node 24 built-in `node:sqlite`. | **Zero native C++ binary dependencies**. Engine packages as pure JS across all OS targets without cross-compilation builds. |
-| **Memory & Boot Latency** | Engine daemon consumes **&lt;120 MB RAM** with a cold boot time of **&lt;250 ms**. | Instant responsiveness on desktop startup without heavy Electron overhead. |
+| **Memory & Boot Latency** | Tauri v2's native Rust shell replaces a bundled-Chromium desktop host, and the engine daemon runs as a lightweight Node process rather than a second Electron/Node stack. | Meaningfully lower idle memory and cold-boot latency than an Electron-based equivalent, without a bundled browser runtime to boot first. |
 | **Token Economy** | Markdown indexing, OCR, Whisper audio transcription, and hybrid search run at **0 API token cost**. | Sub-millisecond search without spending LLM tokens on parsing or formatting. |
 | **State Consistency** | Single-writer SQLite WAL (Write-Ahead Logging) mode with explicit `BEGIN/COMMIT/ROLLBACK` boundaries. | Crash-safe atomic mutations even during unexpected lid closes or process restarts. |
 
@@ -56,5 +56,5 @@ Dori was built from day one refusing to treat personal memory or AI interaction 
 - **[Alternatives Considered & Refused](/behind-the-scenes/architecture-tradeoffs)**: Retrospectives on why we refused LanceDB, Cloudflare Workers, Electron, and `better-sqlite3`.
 - **[Automated Triage & Confidence Thresholds](/behind-the-scenes/triage-and-thresholds)**: Confidence thresholds, severity states, and pattern absorption.
 - **[Offline-First & Zero-Native Engine](/behind-the-scenes/offline-first-architecture)**: Node 24 native SQLite, Tauri IPC, `./dori` CLI, and vault synchronization.
-- **[LLM Cost & Context Optimization](/behind-the-scenes/llm-cost-optimization)**: Prompt caching, context pruning, model tiering (`flash` vs `pro`), and schema contracts.
+- **[LLM Cost & Context Optimization](/behind-the-scenes/llm-cost-optimization)**: Prompt caching, context pruning, model tiering (`fast` vs `reasoning`), and schema contracts.
 - **[Storage, Indexing & Hybrid Search](/behind-the-scenes/storage-and-search)**: Content-addressable SHA-256 fingerprinting, SQLite FTS5 BM25, and local vector embeddings.

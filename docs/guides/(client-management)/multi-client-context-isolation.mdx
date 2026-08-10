@@ -1,13 +1,13 @@
 ---
-title: "Multi-Client Context Isolation (Zero Context Leakage)"
-description: "How Dori strictly separates project, client, and vault contexts so confidential data never bleeds across client accounts."
+title: "Organizing Multiple Clients Without Cross-Contamination"
+description: "How Dori keeps client, project, and account context organized by folder so drafting for one client doesn't accidentally pull in another's notes."
 ---
 
-If you manage multiple clients, projects, or separate business entities, context leakage is a major risk. Standard AI chat tools merge all your past conversations into a global memory pool, risking a situation where Client A's financial numbers or strategy end up in a draft for Client B.
+If you manage multiple clients, projects, or separate business entities, context leakage is a real risk. Standard AI chat tools merge all your past conversations into a global memory pool, risking a situation where Client A's financial numbers or strategy end up in a draft for Client B.
 
-Dori solves this with **Multi-Client Context Isolation**.
+Dori avoids this by keeping each client or project in its own folder in your vault, and by scoping what it reads to the project you're working in.
 
-<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing isolated Client A and Client B workspace vaults feeding isolated prompt retrieval pipelines with zero cross-contamination">
+<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing Client A and Client B as separate project folders in the vault">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
@@ -18,35 +18,37 @@ Dori solves this with **Multi-Client Context Isolation**.
     <rect x="400" y="20" width="340" height="120" rx="10" />
   </g>
   <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
-    <text x="190" y="45" font-weight="bold">Client A Vault Scope</text>
-    <text x="190" y="70">Isolated Notes & FTS5 Index</text>
-    <text x="190" y="90">Strict Boundary Enforcement</text>
-    <text x="190" y="115" font-style="italic">→ Prompts Client A Context Only</text>
+    <text x="190" y="45" font-weight="bold">accounts/client-a/</text>
+    <text x="190" y="70">Notes, files, meeting transcripts</text>
+    <text x="190" y="90">Own folder in your Markdown vault</text>
+    <text x="190" y="115" font-style="italic">→ Referenced when you work in Client A's project</text>
 
-    <text x="570" y="45" font-weight="bold">Client B Vault Scope</text>
-    <text x="570" y="70">Isolated Notes & FTS5 Index</text>
-    <text x="570" y="90">Strict Boundary Enforcement</text>
-    <text x="570" y="115" font-style="italic">→ Prompts Client B Context Only</text>
+    <text x="570" y="45" font-weight="bold">accounts/client-b/</text>
+    <text x="570" y="70">Notes, files, meeting transcripts</text>
+    <text x="570" y="90">Own folder in your Markdown vault</text>
+    <text x="570" y="115" font-style="italic">→ Referenced when you work in Client B's project</text>
   </g>
 </svg>
 
 ---
 
-## 1. How Context Isolation Works
+## 1. How It Actually Works
 
-Dori enforces strict security and context boundaries at the database and prompt retrieval layers:
+This isn't a separate database-level access-control system — it's the same project/vault-folder structure Dori uses everywhere, applied deliberately:
 
-* **Project & Client Vault Silos:** Each client or project lives in its own designated directory and tag scope within your Markdown vault.
-* **Siloed Retrieval-Augmented Generation (RAG):** When you execute a query or draft a document inside Client A's workspace, Dori's search index explicitly restricts vector search and FTS5 keyword lookups to Client A's context window.
-* **Zero Cross-Contamination:** Financial figures, strategic plans, and meeting notes from other clients are filtered out before the prompt is assembled.
+* **Project & Client Vault Folders:** Each client or project lives in its own directory in your Markdown vault (`accounts/{client_name}/`, `projects/{project_name}/`).
+* **Scoped by What You're Working In:** When you're drafting or asking questions inside a specific project, Dori's search prioritizes that project's notes rather than searching your entire vault indiscriminately.
+* **You Control the Boundary:** Because everything is plain files in folders, you can see exactly what's filed where, and move or re-tag anything that ends up in the wrong place.
+
+This is an organizational convention enforced by how you file things and how you scope your search or drafting session — not a cryptographic or database-level guarantee that one client's data can never surface in another's context. If precise, enforced isolation between clients is a hard requirement for your use case, verify the actual behavior for your workflow before relying on it.
 
 ---
 
-## 2. Setting Up Client Isolation
+## 2. Setting Up Client Organization
 
 1. Go to **Projects → New Project** and create dedicated project spaces for each client.
 2. When capturing notes, voice memos, or files, assign them to their respective project tags (or let Dori auto-file them based on client domain rules).
-3. When drafting proposals or running meeting prep, select the target project scope. Dori guarantees that only that project's memory is referenced.
+3. When drafting proposals or running meeting prep, select the target project scope so Dori prioritizes that project's notes.
 
 ---
 

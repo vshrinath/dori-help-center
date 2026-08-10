@@ -7,45 +7,34 @@ One of the biggest failures of traditional notification systems is **alert fatig
 
 Dori solves this with an **Automated Triage & Confidence Threshold Engine**. Instead of notifying you about every raw event, Dori categorizes incoming captures along strict confidence thresholds.
 
-<svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Triage and confidence threshold routing flow chart showing high confidence silent auto-sort, medium confidence Needs-You approval, and low confidence triage review">
+<svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Confidence guard flow chart showing a capture scored, checked against a single default threshold, and routed to either silent auto-filing or a Needs You review">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
     </marker>
   </defs>
   <g fill="none" stroke="currentColor" stroke-opacity="0.25">
-    <rect x="10" y="40" width="130" height="80" rx="10" />
-    <rect x="180" y="40" width="140" height="80" rx="10" />
-    <rect x="370" y="10" width="115" height="40" rx="8" />
-    <rect x="370" y="60" width="115" height="40" rx="8" />
-    <rect x="370" y="110" width="115" height="40" rx="8" />
-    <rect x="520" y="10" width="220" height="40" rx="8" />
-    <rect x="520" y="60" width="220" height="40" rx="8" />
-    <rect x="520" y="110" width="220" height="40" rx="8" />
+    <rect x="10" y="25" width="140" height="80" rx="10" />
+    <rect x="190" y="25" width="150" height="80" rx="10" />
+    <rect x="480" y="5" width="260" height="45" rx="8" />
+    <rect x="480" y="80" width="260" height="45" rx="8" />
   </g>
-  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
-    <line x1="140" y1="80" x2="176" y2="80" marker-end="url(#arrow)" />
-    <path d="M320 80 L345 80 L345 30 L366 30" marker-end="url(#arrow)" />
-    <line x1="320" y1="80" x2="366" y2="80" marker-end="url(#arrow)" />
-    <path d="M320 80 L345 80 L345 130 L366 130" marker-end="url(#arrow)" />
-    <line x1="485" y1="30" x2="516" y2="30" marker-end="url(#arrow)" />
-    <line x1="485" y1="80" x2="516" y2="80" marker-end="url(#arrow)" />
-    <line x1="485" y1="130" x2="516" y2="130" marker-end="url(#arrow)" />
+  <g fill="none" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="150" y1="65" x2="186" y2="65" marker-end="url(#arrow)" />
+    <path d="M340 65 L400 65 L400 27 L476 27" marker-end="url(#arrow)" />
+    <path d="M340 65 L400 65 L400 102 L476 102" marker-end="url(#arrow)" />
   </g>
   <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
-    <text x="75" y="73">Incoming Event</text>
-    <text x="75" y="93">/ Capture</text>
+    <text x="80" y="58">Incoming Event</text>
+    <text x="80" y="78">/ Capture</text>
 
-    <text x="250" y="73">Confidence</text>
-    <text x="250" y="93">Scoring Engine</text>
+    <text x="265" y="58">ConfidenceGuard</text>
+    <text x="265" y="78">vs. default 0.6</text>
 
-    <text x="427" y="35">High (≥0.85)</text>
-    <text x="427" y="85">Med (0.5-0.84)</text>
-    <text x="427" y="135">Low (&lt;0.50)</text>
-
-    <text x="630" y="35">Silent Vault Auto-Filing</text>
-    <text x="630" y="85">Needs-You Approval Strip</text>
-    <text x="630" y="135">Triage Review Queue</text>
+    <text x="610" y="22">pass -&gt; Silent Vault Auto-Filing</text>
+    <text x="610" y="42">(or attention-state routing)</text>
+    <text x="610" y="97">warn -&gt; Needs-You Review</text>
+    <text x="610" y="117">before it proceeds automatically</text>
   </g>
 </svg>
 
@@ -63,21 +52,12 @@ Dori evaluates every situation across three severity states:
 
 ## 2. Confidence Threshold Routing
 
-When a voice memo, document, or capture enters Dori, the classification engine assigns a **Confidence Score ($0.00$ to $1.00$)** based on entity matching, project affinity, and historical filing patterns:
+When a workflow or action produces a result with a numeric **confidence score (0.00 to 1.00)** — based on entity matching, project affinity, and filing patterns — Dori's `ConfidenceGuard` checks it against a single default threshold (currently **0.6**, not yet configurable per workflow):
 
-### High Confidence ($\ge 0.85$): Silent Auto-Filing
-If Dori is highly confident about entity mapping (e.g. a meeting transcript matching an existing calendar event and project folder), it files the note directly into your Markdown vault without interrupting you.
+### Pass ($\ge 0.6$): Proceeds Automatically
+If confidence clears the threshold, the guard passes silently and the result proceeds — e.g. filed into your Markdown vault, or routed through the normal `quiet` / `waiting` / `needs_you` attention states without extra friction.
 
-### Medium Confidence ($0.50 - 0.84$): "Needs You" Approval Strip
-If an item has ambiguity (e.g. a decision note mentioning two potential client accounts), Dori routes it to the **Needs You** strip on your home dashboard. It prepares a draft recommendation so you can approve it with one click (`⌘+Enter`).
+### Warn ($< 0.6$): Flagged for Review
+If confidence falls short, the guard returns a `warn` verdict instead of blocking outright, and the item is surfaced for you to review before it's trusted to proceed automatically — rather than being silently auto-filed.
 
-### Low Confidence ($< 0.50$): Misfile Triage Queue
-If a capture cannot be mapped to any known entity, Dori holds it in the **Triage Inbox** so you can assign it manually or dismiss it.
-
----
-
-## 3. Self-Correction & Pattern Absorb
-
-Dori monitors manual triage corrections:
-* If you manually move a file from Project A to Project B, Dori's **Pattern Absorb Engine** updates its local routing heuristics.
-* Future captures with matching attributes automatically hit the high-confidence auto-filing threshold, reducing manual triage effort over time.
+Separately, in the portal UI, ambiguous entity matches (e.g. a decision note that could belong to two client accounts) are shown with simplified categorical confidence labels (`high` / `medium`) rather than raw scores, so you can approve or correct the match quickly (`⌘+Enter`) from the **Needs You** strip.

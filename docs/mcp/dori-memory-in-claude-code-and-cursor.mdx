@@ -28,8 +28,8 @@ With Dori's MCP server, your coding assistants (Claude Code, Cursor, Windsurf, R
     <text x="120" y="105">Windsurf, Roo Code</text>
 
     <text x="380" y="60" font-weight="bold">Dori MCP Memory Server</text>
-    <text x="380" y="80">`search_vault`, `read_project`</text>
-    <text x="380" y="100">`get_meeting_decisions`</text>
+    <text x="380" y="80">memory_search, tasks_list</text>
+    <text x="380" y="100">workflow_start, vault_write_markdown</text>
 
     <text x="640" y="65" font-weight="bold">Dori Local Vault</text>
     <text x="640" y="85">Markdown Files &</text>
@@ -41,40 +41,46 @@ With Dori's MCP server, your coding assistants (Claude Code, Cursor, Windsurf, R
 
 ## 1. Connecting Dori MCP to Claude Code
 
-Add Dori's MCP server configuration to your `~/.claude.json` or project `.mcp.json`:
+Dori's MCP server runs over Streamable HTTP on the local engine — there's no separate CLI to install. Under **Settings → Connections → Use Dori elsewhere** the app generates a ready-to-paste snippet, or you can run this directly:
 
-```json
-{
-  "mcpServers": {
-    "dori-memory": {
-      "command": "dori",
-      "args": ["mcp", "serve"]
-    }
-  }
-}
+```bash
+claude mcp add --transport http dori http://127.0.0.1:8002/mcp
 ```
 
 Now inside **Claude Code**, you can ask:
 > *"What were the key database performance constraints we agreed on in yesterday's meeting?"*
 
-Claude Code will query Dori's MCP memory server, pull the exact meeting transcript snippet from your local vault, and apply those constraints to your code without you copy-pasting notes!
+Claude Code will call Dori's `memory_search` tool, pull the matching note or transcript excerpt from your local vault, and apply those constraints to your code without you copy-pasting notes.
 
 ---
 
 ## 2. Connecting Dori MCP to Cursor / Windsurf
 
-In Cursor settings (**Features → MCP Servers**):
-1. Name: `dori-memory`
-2. Type: `command`
-3. Command: `dori mcp serve`
+Merge this into `~/.cursor/mcp.json` (or the equivalent config for Windsurf/Roo Code) under `"mcpServers"`:
+
+```json
+{
+  "mcpServers": {
+    "dori": {
+      "url": "http://127.0.0.1:8002/mcp"
+    }
+  }
+}
+```
+
+By default the engine binds to loopback (`127.0.0.1`) and no token is required. If you've turned on engine host auth, add the bearer token shown on the Connections page as an `Authorization` header.
 
 ---
 
 ## Available MCP Tools Exposed by Dori
 
+Dori exposes a curated subset of its own actions to external MCP clients — not raw database or filesystem access. The most relevant for coding tools:
+
 | MCP Tool Name | Description |
 | --- | --- |
-| `search_vault` | Runs hybrid FTS5 BM25 + vector search across all Markdown vault notes. |
-| `get_meeting_decisions` | Returns tracked commitments and decisions for a given person or project. |
-| `read_project_context` | Fetches active project specs, background briefs, and linked documents. |
-| `query_domain_records` | Queries local SQLite domain records for structured entity summaries. |
+| `memory_search` | Hybrid FTS5 + vector search across indexed vault content, returning ranked text chunks with source references. |
+| `tasks_list` | Lists pending tasks from the vault. |
+| `tasks_create_many` | Creates one or more tasks in the vault. |
+| `vault_write_markdown` | Creates a Markdown file in the vault, with optional frontmatter. |
+| `workflow_list` | Lists active workflows (system and custom), including the input schema each expects for `workflow_start`. |
+| `workflow_start` | Starts a workflow manually and returns the execution ID. |

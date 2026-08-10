@@ -40,8 +40,8 @@ Complex AI applications break when built as simple linear prompt chains. Dori us
     <text x="410" y="73">Sync Barrier</text>
     <text x="410" y="93">(Aggregate)</text>
 
-    <text x="555" y="73">Edge Verifier</text>
-    <text x="555" y="93">(@guard)</text>
+    <text x="555" y="73">Output Guardrail</text>
+    <text x="555" y="93">(evidence check)</text>
 
     <text x="695" y="73">CQRS Snapshot</text>
     <text x="695" y="93">& SSE Stream</text>
@@ -62,10 +62,10 @@ To eliminate sequential latency bottlenecks:
 - **Parallel Fan-Out:** Document parsing, OCR, and audio transcription fan out concurrently across worker pools.
 - **Fan-In Synchronization Barriers:** Parent synthesis nodes wait at explicit barrier nodes to aggregate payloads before running state updates.
 
-### 3. Edge Verifiers & Cyclic Convergence Loops
+### 3. Output Guardrails & Convergence Loops
 Outputs are never assumed to be valid without empirical verification:
-- **Verifier Nodes:** Structured outputs and code edits must pass mandatory review (`@guard`) and testing (`@qa`) verifiers before state transition commits.
-- **Convergence Loops:** If a verifier node rejects an output, the workflow cycles back to the execution node with specific error logs, repeating until criteria pass.
+- **Guardrail Nodes:** Workflow outputs pass through typed guardrails (`ApprovalGuard`, `PermissionGuard`, `EvidenceGuard`) before a state transition commits. `EvidenceGuard` runs a cross-model groundedness check, sending generated text and its sources to a judge model from a different provider family than the one that generated it.
+- **Convergence Loops:** If a guardrail returns a `warn` or `fail` verdict, the workflow surfaces the failure and can cycle back to the execution node, repeating until criteria pass.
 
 ### 4. Content-Addressable Short-Circuiting
 To minimize unnecessary re-indexing:

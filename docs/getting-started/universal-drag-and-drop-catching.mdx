@@ -30,10 +30,10 @@ Opening app file pickers or dragging files into specific UI upload boxes breaks 
     <text x="290" y="83">& Confidence Score</text>
     <text x="290" y="101">(Markitdown/Whisper)</text>
 
-    <text x="500" y="35">High Conf (≥0.85)</text>
+    <text x="500" y="35">High Conf (≥ 0.6)</text>
     <text x="500" y="53">Silent Auto-Sort</text>
 
-    <text x="500" y="115">Lower Conf (&lt;0.85)</text>
+    <text x="500" y="115">Lower Conf (&lt; 0.6)</text>
     <text x="500" y="133">Needs-You Triage</text>
   </g>
 </svg>
@@ -58,8 +58,8 @@ Dori runs a lightweight, native screen listener on macOS (`app/floating-capture.
 
 Once parsed, Dori evaluates the content against your active vault memory and projects:
 
-* **High Confidence ($\ge 0.85$):** If the file strongly matches a specific project or client account (e.g. mentions a project key or known client), Dori **automatically files and indexes it silently** into that project's Markdown folder.
-* **Ambiguous or Low Confidence ($< 0.85$):** If Dori isn't completely certain where the file belongs, it routes it to the **Needs You / Triage** bar on your home screen. Dori suggests its best recommendation so you can confirm or re-route it with a single click.
+* **High Confidence ($\ge 0.6$):** If the file strongly matches a specific project or client account (e.g. mentions a project key or known client), Dori **automatically files and indexes it silently** into that project's Markdown folder.
+* **Ambiguous or Low Confidence ($< 0.6$):** If Dori isn't completely certain where the file belongs, it routes it to the **Needs You / Triage** bar on your home screen. Dori suggests its best recommendation so you can confirm or re-route it with a single click.
 
 ---
 

@@ -8,9 +8,9 @@ Running personal AI workflows continuously can lead to excessive costs and high 
 ## Optimization Strategies
 
 ### 1. Tiered Model Selection
-Not every job requires a expensive reasoning model. Dori routes tasks based on node complexity:
-- **Fast / Lightweight Models (`flash_lite` / `flash`):** Used for classification, intent detection, and data extraction.
-- **Frontier Reasoning Models (`pro`):** Reserved for complex architectural synthesis, deep summary generation, and planning.
+Not every job requires an expensive reasoning model. Dori routes tasks by a provider-agnostic model tier (`fast` / `standard` / `reasoning` / `inherit`), resolved to a concrete model per configured provider (Anthropic, OpenAI, OpenRouter, or Groq):
+- **`fast` tier:** Used for classification, intent detection, and data extraction.
+- **`reasoning` tier:** Reserved for complex architectural synthesis, deep summary generation, and planning.
 
 ### 2. Context Window Discipline
 To prevent context inflation:

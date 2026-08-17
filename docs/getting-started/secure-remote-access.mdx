@@ -1,0 +1,110 @@
+---
+title: Secure Remote Access with Cloudflare Tunnel
+description: Access Dori from your phone or laptop anywhere in the world, over a public URL that needs zero app install — powered by Cloudflare Tunnel.
+---
+
+*How to reach Dori from your phone, laptop, or any other device — no app to install, just a link.*
+
+<Callout type="note">
+**Why Cloudflare Tunnel?**  
+Dori runs [`cloudflared`](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) alongside your Engine to open a secure, outbound-only tunnel to Cloudflare's edge. That gives you a public `https://<slug>.mydori.app` URL you can open **in any browser, on any device — no app install required**.
+</Callout>
+
+---
+
+## Why Cloudflare Tunnel Keeps Dori Private
+
+When running Dori Desktop on your Mac or Dori Engine on a Linux VPS, your vault files, meeting transcripts, and project notes contain sensitive business data.
+
+**With Cloudflare Tunnel:**
+1. **Zero Open Ports**: `cloudflared` makes an outbound-only connection to Cloudflare's edge. Nothing inbound is exposed, and there's no router port forwarding to configure.
+2. **A Real Public URL, Not a Private Network**: Unlike a mesh VPN, the URL works for anyone you share it with, on any device, without installing anything first.
+3. **Your Own Login, Every Time**: Opening the tunnel URL does not sign you in automatically. Whoever visits signs in with their own Dori account, the same way they would at `app.mydori.app`.
+
+<svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Network topology: Any Device with a browser connects over public HTTPS to Cloudflare Edge, which tunnels through an outbound-only connection to the local Dori Engine on 127.0.0.1:8002">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-opacity="0.25">
+    <rect x="10" y="30" width="160" height="80" rx="10" />
+    <rect x="210" y="30" width="160" height="80" rx="10" />
+    <rect x="410" y="30" width="160" height="80" rx="10" />
+    <rect x="590" y="30" width="160" height="80" rx="10" />
+  </g>
+  <g stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5">
+    <line x1="172" y1="70" x2="206" y2="70" marker-end="url(#arrow)" />
+    <line x1="372" y1="70" x2="406" y2="70" marker-end="url(#arrow)" />
+    <line x1="572" y1="70" x2="586" y2="70" marker-end="url(#arrow)" />
+  </g>
+  <g fill="currentColor" font-size="13" font-family="inherit" text-anchor="middle">
+    <text x="90" y="62">Any Device,</text>
+    <text x="90" y="80">Any Browser</text>
+    <text x="290" y="55">Public HTTPS</text>
+    <text x="290" y="73">slug.mydori.app</text>
+    <text x="290" y="91">(Cloudflare Edge)</text>
+    <text x="490" y="55">Dori Host (Mac/VPS)</text>
+    <text x="490" y="73">Outbound Tunnel</text>
+    <text x="490" y="91">127.0.0.1:8002</text>
+    <text x="670" y="62">Dori Account</text>
+    <text x="670" y="80">Sign-In Required</text>
+  </g>
+</svg>
+
+---
+
+## Setup Guide
+
+### Step 1: Enable Remote Access
+
+In Dori, go to **Settings → Connect your devices** and click **Enable remote access**. Dori Portal provisions a Cloudflare Tunnel and a DNS record for you automatically — you don't need a Cloudflare account or to run any commands.
+
+<Tabs inline param="host-os">
+  <Tab title="macOS (Dori Desktop)">
+    Provisioning happens entirely from the Settings page. Once it finishes, your public URL appears there.
+  </Tab>
+  <Tab title="Linux VPS (Docker)">
+    Install the `cloudflared` binary (the Docker installer offers to do this for you), then run:
+
+    ```bash
+    cloudflared tunnel run --token <token>
+    ```
+
+    The `<token>` comes from **Settings → Connect your devices** in Dori Portal — copy it from there rather than running `cloudflared tunnel login`.
+  </Tab>
+</Tabs>
+
+---
+
+### Step 2: Share the URL
+
+Your vault is now reachable at `https://<slug>.mydori.app`. The slug is auto-assigned but renameable from the same **Settings → Connect your devices** page.
+
+Send that link to any device — phone, tablet, another laptop. There's nothing to install on the receiving end; opening the URL in a browser is the whole setup.
+
+---
+
+### Step 3: Sign In on That Device
+
+Visiting the tunnel URL is not an automatically-shared session with `app.mydori.app` or any other Dori surface. Sign in with your own Dori account on that device, the same way you would anywhere else.
+
+<Callout type="tip">
+**Pro Tip: Combined with WhatsApp for Mobile Capture**  
+Use your tunnel URL for full web portal browsing on your phone, while using [WhatsApp Integration](/guides/use-dori-over-whatsapp) for quick on-the-go voice note and text capture!
+</Callout>
+
+---
+
+## Troubleshooting & Security Check
+
+- **Tunnel status**: Under **Settings → Connect your devices**, Dori shows whether the tunnel is currently active and its public URL.
+- **Renaming your slug**: Change `<slug>.mydori.app` to something memorable from the same Settings page at any time.
+- **Account required**: Anyone opening the URL still needs a valid Dori account — the public URL alone does not grant access to your vault.
+
+---
+
+## Next Steps
+
+- **Capture voice notes from mobile**: See [Reach Dori from your phone](/guides/reach-dori-from-your-phone).
+- **Set up WhatsApp messaging**: See [Capture on the go with WhatsApp](/guides/use-dori-over-whatsapp).

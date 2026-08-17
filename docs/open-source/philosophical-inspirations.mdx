@@ -58,13 +58,13 @@ Dori avoids monolithic, opaque AI architecture. Instead, Dori is built as a set 
 
 ---
 
-## 5. Tailscale & WireGuard Zero-Trust Mesh
+## 5. Cloudflare Tunnel Zero-Trust Networking
 
 ### The Philosophy
-[Tailscale](https://tailscale.com) revolutionized private networking by making WireGuard® zero-trust mesh networks effortless. It allowed devices to communicate securely peer-to-peer without opening public firewall ports or routing traffic through central cloud servers.
+[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) revolutionized exposing private services by making outbound-only, zero-open-port tunnels effortless. It allowed a server to publish itself to the public internet without opening firewall ports or routing traffic through a self-managed reverse proxy.
 
 ### How Dori Extends It
-Dori leverages Tailscale mesh networking to give you **secure remote access to your Mac vault from your phone or laptop anywhere in the world**. You can record a voice note on your phone or query your vault remotely while keeping 100% of your data encrypted on your own hardware.
+Dori leverages Cloudflare Tunnel to give you **secure remote access to your Mac vault from your phone or laptop anywhere in the world**. You get a real public URL, with zero app install for whoever you share it with, while your data stays on your own hardware behind a tunnel with no open inbound ports.
 
 ---
 
@@ -95,7 +95,7 @@ Dori is the synthesis of these core ideas:
 - **Code-Driven Video Composition** from Remotion & HyperFrames.
 - **Open Agentic Protocols** from MCP & Claude Code.
 - **Single-Purpose Utility Composition** from the Unix Philosophy.
-- **Encrypted Private Mesh Networking** from Tailscale.
+- **Zero-Open-Port Public Tunneling** from Cloudflare Tunnel.
 - **Multi-Agent Critique Theater** from Open Design & The Council.
 - **Fast Keyboard & Bento Interaction** from modern executive UI patterns.
 

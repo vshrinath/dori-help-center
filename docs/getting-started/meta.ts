@@ -7,7 +7,7 @@ export default defineMeta({
   pages: [
     "index",
     "installation",
-    "secure-remote-access-with-tailscale",
+    "secure-remote-access",
     "finding-your-way-around",
     "floating-action-bar",
     "universal-drag-and-drop-catching",

@@ -9,11 +9,11 @@ description: Everything Dori is allowed to read from, write to, or act through �
 
 ## Connect your devices
 
-If you're running Dori Desktop, **Settings → Connections → Connect your devices** lets your phone or another device reach this instance over [Tailscale](https://tailscale.com/download):
+If you're running Dori Desktop, **Settings → Connections → Connect your devices** lets your phone or another device reach this instance over [Cloudflare Tunnel](/getting-started/secure-remote-access):
 
-1. Install Tailscale on the machine running Dori, if you haven't already.
-2. Once Tailscale shows connected, click **Enable remote access**.
-3. Scan the QR code (or copy the URL) from another device on your Tailscale network — no Tailscale install needed on that device, since it goes through a funnel.
+1. Click **Enable remote access**. Dori provisions a public `https://<slug>.mydori.app` URL for you — no Cloudflare account needed on your end.
+2. Scan the QR code (or copy the URL) from another device — no app install needed on that device, just open the link in any browser.
+3. Sign in with your Dori account on that device; opening the URL doesn't automatically share your session.
 
 ## Sources
 

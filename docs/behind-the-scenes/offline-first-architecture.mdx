@@ -1,18 +1,15 @@
 ---
-title: "Offline-First & Zero-Native Architecture"
-description: "How Dori achieves local-first isolation using Node 24 node:sqlite, Tauri v2, and crash-safe vault synchronization."
+title: "Local-First Desktop Architecture"
+description: "What Dori Desktop runs locally, what can use remote providers, and how local operational state is recovered."
 ---
 
-Building a true offline-first application requires avoiding heavy cloud reliance, avoiding brittle binary builds, and ensuring data integrity on disk.
+The supported Dori Desktop path keeps the application shell, portal, engine, operational database, and search index on the user's machine. “Local-first” does not mean every configured capability works without a network connection.
 
-## 1. Zero-Native Binary Dependency Engine
+## 1. Node 24 SQLite Runtime
 
-Most desktop Node.js background services rely on native C++ addons like `better-sqlite3` or `canvas`. This creates build fragmentation, cross-compilation headaches across macOS (ARM/x86), Linux, and Windows, and risk of native segfault crashes.
+Dori's operational and search stores use Node.js 24's built-in `node:sqlite` module instead of `better-sqlite3`. This removes a separately compiled database-driver addon from Dori's own SQLite layer and provides the bundled FTS5 feature used for keyword search.
 
-Dori solved this by leveraging **Node.js 24's native `node:sqlite` module**:
-- **Pure JavaScript Package:** The engine dropped all native C++ build targets, allowing the daemon to be packaged as pure JavaScript/TypeScript.
-- **Embedded FTS5 Support:** Uses Node 24's bundled SQLite build including FTS5 full-text indexing out of the box.
-- **Zero Cross-Compilation Overhead:** Single artifact distribution across all OS targets.
+The complete engine is not free of native dependencies. Local embeddings use `onnxruntime-node`, and other installed packages can include platform-specific binaries such as `sharp`. Desktop releases also contain a platform-specific Tauri executable.
 
 ```typescript
 // dori-engine/src/sqlite.ts
@@ -47,12 +44,16 @@ export default class Database {
 ## 2. Tauri v2 Desktop IPC & `./dori` CLI
 
 Dori uses Tauri v2 as its native desktop host:
-- **Low Footprint:** Renders through the OS's own webview instead of bundling a second Chromium + Node runtime the way a standard Electron app does — a structurally smaller memory and installer footprint by design.
-- **Headless `./dori` CLI:** The engine daemon exposes a native CLI executable (`./dori`) for diagnostics (`doctor.ts`), domain queries, and script automation without spawning the visual UI.
-- **Fail-Fast Engine Guardrails:** Missing environment variables or corrupted DB schemas trigger explicit process termination with diagnostic logs rather than swallowing errors silently.
+- **Desktop host:** Tauri renders through the operating system webview and supervises the local portal, engine, and optional processing services.
+- **Command-line access:** `./dori` exposes supported diagnostics and domain views without requiring the visual interface.
+- **Local services:** The portal and engine communicate over local authenticated boundaries owned by the Desktop installation.
 
-## 3. Crash-Safe Vault Synchronization & Conflict Recovery
+## 3. Local Data and Remote Boundaries
 
-User knowledge stays stored in plain Markdown files in a local directory or Git repo:
-- **Write-Ahead Logging (WAL):** SQLite operates in WAL mode with atomic transactional boundaries to ensure zero corruption on sudden process termination or lid closes.
-- **Conflict Handling:** When syncing across devices via Git or cloud backup providers, Dori treats raw disk Markdown files as source-of-truth, automatically re-projecting local SQLite indexes when file SHA-256 fingerprints change.
+User content remains a Markdown and asset tree behind the configured vault provider. A local-filesystem vault can be read without a remote content service. GitHub, Google Drive, and OneDrive vaults exchange content with those providers, and provider capabilities are not identical.
+
+Configured cloud AI providers receive prompts and context required for inference. Local coding-agent CLIs may also use their own network services. OCR, transcription, conversion, and media tools have separate capability and installation requirements.
+
+## 4. Recovery Properties
+
+Engine SQLite stores use WAL mode and explicit transaction boundaries. Derived search indexes can be cleared and rebuilt from vault content. These choices improve recovery from interruption, but they are not a promise of zero corruption under every filesystem, hardware, or process failure.

@@ -1,11 +1,9 @@
 ---
 title: "Behind the Scenes"
-description: "Frugal AI, Harness Engineering, and system architecture behind Dori."
+description: "How Dori Desktop separates its local app, engine, user-owned vault, and derived indexes."
 ---
 
-When engineers look under the hood of Dori, they find an application built with strict systems discipline: **Frugal AI**, **Harness Engineering**, **zero native binary dependencies**, **offline-first execution**, and **graph-engineered AI workflows**.
-
-Dori was built from day one refusing to treat personal memory or AI interaction as an ephemeral, wasteful cloud service.
+The supported Dori Desktop path runs a Tauri shell, a local Next.js portal, and a local Node.js engine. Your durable content lives in a provider-backed Markdown and asset tree; SQLite databases and search indexes are operational read models, not replacements for that content.
 
 <svg viewBox="0 0 760 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Systems architecture overview showing Tauri v2 desktop shell, Node 24 engine daemon with node:sqlite, and local markdown vault">
   <defs>
@@ -29,32 +27,33 @@ Dori was built from day one refusing to treat personal memory or AI interaction 
 
     <text x="380" y="60" font-weight="bold">Dori Engine Daemon</text>
     <text x="380" y="80">Node 24 node:sqlite</text>
-    <text x="380" y="100">Task Queue & DAG</text>
+    <text x="380" y="100">Jobs & Workflows</text>
 
     <text x="640" y="65" font-weight="bold">User Markdown Vault</text>
     <text x="640" y="85">Plain Files on Disk</text>
-    <text x="640" y="105">Zero Lock-In</text>
+    <text x="640" y="105">Provider-Backed Files</text>
   </g>
 </svg>
 
-## Key Technical Benchmark & Design Highlights
+## Current Architecture at a Glance
 
-| Architectural Layer | Implementation Detail | Systems Benefit |
+| Layer | Current implementation | Important boundary |
 | --- | --- | --- |
-| **Token-Conscious Engine** | **Frugal AI & Harness Engineering** pipeline wrapping pre-LLM, in-flight, and post-LLM turns. | Zero-token bypass for anything resolvable locally, plus **cache reads at roughly a tenth of base input cost** under Anthropic's published prompt-caching economics. |
-| **Engine Runtime** | Replaced `better-sqlite3` native bindings with Node 24 built-in `node:sqlite`. | **Zero native C++ binary dependencies**. Engine packages as pure JS across all OS targets without cross-compilation builds. |
-| **Memory & Boot Latency** | Tauri v2's native Rust shell replaces a bundled-Chromium desktop host, and the engine daemon runs as a lightweight Node process rather than a second Electron/Node stack. | Meaningfully lower idle memory and cold-boot latency than an Electron-based equivalent, without a bundled browser runtime to boot first. |
-| **Token Economy** | Markdown indexing, OCR, Whisper audio transcription, and hybrid search run at **0 API token cost**. | Sub-millisecond search without spending LLM tokens on parsing or formatting. |
-| **State Consistency** | Single-writer SQLite WAL (Write-Ahead Logging) mode with explicit `BEGIN/COMMIT/ROLLBACK` boundaries. | Crash-safe atomic mutations even during unexpected lid closes or process restarts. |
+| **Desktop host** | Tauri v2 supervises the portal and engine and renders through the operating system webview. | Dori does not bundle Electron's Chromium runtime, although some engine dependencies still include platform-specific binaries. |
+| **User content** | Markdown and assets are accessed through a configured vault provider. GitHub is the supported default remote; local filesystem, Google Drive, and OneDrive providers also exist. | Provider capabilities differ, and remote providers necessarily exchange data with their services. |
+| **Operational state** | The engine uses SQLite for jobs and domain state; the portal has a separate SQLite store for portal-owned metadata. | These databases are not the canonical store for user-authored content. |
+| **Search** | A separate `vectors.db` combines SQLite FTS5 keyword search with locally computed embeddings and cosine similarity. | The index is derived and rebuildable. It is not the vault. |
+| **AI calls** | Configured CLI or API providers are selected through an ordered provider chain, with optional `fast`, `standard`, and `reasoning` model tiers. | Cloud API providers receive the prompt and context needed for the request. Dori does not currently configure provider prompt caching. |
+| **Workflows** | Ordered workflow steps support conditions, branches, bounded parallel `foreach`, pauses, and optional guardrails. | Output guardrails run after an action and can halt or pause subsequent work; they cannot undo a completed side effect. |
 
 ---
 
 ## Technical Deep Dives
 
-- **[The Token-Conscious Engine](/behind-the-scenes/token-conscious-engine)**: Frugal AI philosophy, Pre-LLM, In-Flight, and Post-LLM Harness Engineering.
-- **[Graph Engineering](/behind-the-scenes/graph-engineering)**: DAG topologies, zero-token edge contracts, fan-out/fan-in barriers, and cyclic verifiers.
-- **[Alternatives Considered & Refused](/behind-the-scenes/architecture-tradeoffs)**: Retrospectives on why we refused LanceDB, Cloudflare Workers, Electron, and `better-sqlite3`.
-- **[Automated Triage & Confidence Thresholds](/behind-the-scenes/triage-and-thresholds)**: Confidence thresholds, severity states, and pattern absorption.
-- **[Offline-First & Zero-Native Engine](/behind-the-scenes/offline-first-architecture)**: Node 24 native SQLite, Tauri IPC, `./dori` CLI, and vault synchronization.
-- **[LLM Cost & Context Optimization](/behind-the-scenes/llm-cost-optimization)**: Prompt caching, context pruning, model tiering (`fast` vs `reasoning`), and schema contracts.
-- **[Storage, Indexing & Hybrid Search](/behind-the-scenes/storage-and-search)**: Content-addressable SHA-256 fingerprinting, SQLite FTS5 BM25, and local vector embeddings.
+- **[AI Calls and Guardrails](/behind-the-scenes/token-conscious-engine)** explains provider selection, model tiers, tools, validation, and the limits of the current safeguards.
+- **[Workflow Execution](/behind-the-scenes/graph-engineering)** covers ordered steps, branches, parallel iteration, pauses, and optional guardrails.
+- **[Current Architecture Choices](/behind-the-scenes/architecture-tradeoffs)** records the practical boundaries behind the present design.
+- **[Attention and Confidence](/behind-the-scenes/triage-and-thresholds)** separates portal attention labels from the optional workflow confidence guard.
+- **[Local-First Desktop Architecture](/behind-the-scenes/offline-first-architecture)** describes what stays local and which configured features use remote services.
+- **[LLM Cost and Context](/behind-the-scenes/llm-cost-optimization)** documents the cost controls that exist today.
+- **[Storage and Hybrid Search](/behind-the-scenes/storage-and-search)** explains operational SQLite, FTS5, local embeddings, and the rebuildable search index.

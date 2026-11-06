@@ -1,22 +1,20 @@
 ---
-title: "Hybrid SQLite Storage & Local Vector Search"
-description: "How Dori combines relational database models with local semantic search."
+title: "Storage & Hybrid Search"
+description: "How Dori separates user-owned files, operational SQLite state, and a rebuildable local search index."
 ---
 
-Dori bridges the gap between structured relational data (projects, tasks, meetings) and unstructured knowledge (notes, transcripts, documents).
+Dori separates durable user content from operational state and derived search data.
 
 ## Storage & Search Architecture
 
-### 1. Embedded Relational SQLite DB
-Relational entities, workflow states, and system projections live in an embedded SQLite database running locally within the desktop process space:
-- Low latency queries for UI rendering.
-- Foreign key constraints and transactional integrity.
+### 1. User-Owned Content
+Markdown files and assets live behind the configured vault provider. The local filesystem is one provider; GitHub, Google Drive, and OneDrive are remote provider options. These files remain the canonical user-content layer.
 
-### 2. SQLite FTS5 + Local Vector Search
-Searching personal data requires precision for exact names as well as recall for conceptual topics:
-- **BM25 Exact Match (FTS5):** Instant keyword lookup for specific names, tags, and titles.
-- **Semantic Vector Indexing:** Computes vector embeddings locally to match related concepts even when keywords differ.
-- **Hybrid Ranker:** Combines keyword score and vector similarity to return highly relevant results.
+### 2. Operational SQLite
+On the supported Desktop path, the engine stores jobs, workflows, and domain state in SQLite behind its data-layer stores. The portal maintains a separate SQLite database for portal-owned metadata. These databases are not a single store and do not replace the vault.
 
-### 3. Content Fingerprinting
-Files are tracked via SHA-256 content hashes. Idle editing overhead is minimal because unchanged files bypass re-indexing and vector re-embedding.
+### 3. Rebuildable Hybrid Search
+The engine keeps a separate `vectors.db` cache. It indexes text in SQLite FTS5, computes embeddings locally with a Transformers model, compares vectors in-process with cosine similarity, and combines keyword and vector result lists with reciprocal-rank fusion. If embedding fails, a chunk remains keyword-searchable.
+
+### 4. Index Updates
+Search rows include a truncated SHA-256 content hash for provenance. Current incremental backfill skips files using modification time; ordinary ingestion can recompute embeddings when a file is re-ingested. The search database is therefore a disposable cache that can be cleared and rebuilt, not a content-addressable store that guarantees hash-based short-circuiting.

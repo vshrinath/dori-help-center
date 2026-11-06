@@ -1,22 +1,20 @@
 ---
-title: "LLM Cost, Latency & Context Optimization"
-description: "How Dori optimizes token spend, context windows, and model routing."
+title: "LLM Cost, Latency & Context"
+description: "The model tiers, provider routing, and validation behavior Dori uses today."
 ---
 
-Running personal AI workflows continuously can lead to excessive costs and high latency if not carefully managed. Dori implements multi-tiered optimization techniques under the hood.
+LLM cost depends on the selected provider, model, prompt size, tool loop, retries, and output length. Dori exposes a few controls at those boundaries, but it does not promise a fixed saving.
 
 ## Optimization Strategies
 
 ### 1. Tiered Model Selection
-Not every job requires an expensive reasoning model. Dori routes tasks by a provider-agnostic model tier (`fast` / `standard` / `reasoning` / `inherit`), resolved to a concrete model per configured provider (Anthropic, OpenAI, OpenRouter, or Groq):
-- **`fast` tier:** Used for classification, intent detection, and data extraction.
-- **`reasoning` tier:** Reserved for complex architectural synthesis, deep summary generation, and planning.
+Callers may request `fast`, `standard`, `reasoning`, or `inherit`. Dori resolves that hint to a concrete model for the configured Anthropic, OpenAI, OpenRouter, or Groq provider. Workflows that do not specify a tier use the provider's configured/default model.
 
 ### 2. Context Window Discipline
-To prevent context inflation:
-- Raw tool logs and conversation histories are pruned and compressed before sending requests.
-- Large output streams are summarized on the fly to retain core intent without ballooning context size.
+Chat sends its current conversation history to the selected provider. When the model uses `memory.search` or another registered Universal Action, the tool can return targeted evidence instead of requiring an entire vault file in the prompt. That is an available retrieval path, not a guarantee that every request is automatically compressed.
 
-### 3. Prompt Caching & Schema Enforcement
-- Structural prompt headers remain static to leverage provider-level prompt caching.
-- Tool responses enforce strict JSON schemas, preventing costly invalid-format retry cycles.
+### 3. Validation and Retries
+Registered tools expose input schemas, and selected single-turn calls may validate generated text as JSON with required keys. Invalid structured output can trigger a bounded retry, so validation improves reliability but can add cost when a model responds incorrectly.
+
+### 4. Prompt Caching
+Dori does not currently add provider cache controls or report cache-hit usage in its API-provider path. Prompt caching should only be described as a Dori cost control after it is enabled and measured for the relevant provider.

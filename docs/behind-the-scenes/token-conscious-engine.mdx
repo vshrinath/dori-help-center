@@ -1,13 +1,11 @@
 ---
-title: "Frugal AI & Harness Engineering: The Token-Conscious Engine"
-description: "How Dori uses Frugal AI principles and Harness Engineering to minimize token waste, maximize prompt caching, and enforce deterministic reliability."
+title: "AI Calls, Tools & Guardrails"
+description: "How Dori selects AI providers, exposes Universal Actions as tools, validates selected outputs, and applies optional workflow guardrails."
 ---
 
-Most AI applications treat LLM APIs like infinite resources—sending massive context windows, re-parsing raw files on every turn, and burning millions of unnecessary tokens. 
+Dori has one provider boundary for product AI calls. It can use configured local coding-agent CLIs or API providers, while registered Universal Actions remain the execution path for Dori tools.
 
-Dori takes the opposite approach: **Frugal AI**. At the core of Dori is the **Token-Conscious Engine**, built using **Harness Engineering** to ensure that every LLM call is lean, schema-bounded, and necessary.
-
-<svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram showing the Token-Conscious Engine with Pre-LLM, In-Flight, and Post-LLM verification harnesses">
+<svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI request flow showing prompt and history, provider selection, Dori tool execution, and optional result guardrails">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
@@ -25,58 +23,47 @@ Dori takes the opposite approach: **Frugal AI**. At the core of Dori is the **To
     <line x1="570" y1="105" x2="596" y2="105" marker-end="url(#arrow)" />
   </g>
   <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
-    <text x="90" y="45" font-weight="bold">PRE-LLM HARNESS</text>
-    <text x="90" y="70">Zero-token bypass</text>
-    <text x="90" y="90">Model tiering</text>
-    <text x="90" y="110">FTS5 context trim</text>
-    <text x="90" y="130">Prompt cache norm</text>
+    <text x="90" y="45" font-weight="bold">REQUEST</text>
+    <text x="90" y="70">Prompt & history</text>
+    <text x="90" y="90">Model tier hint</text>
+    <text x="90" y="110">Optional tools</text>
 
-    <text x="290" y="45" font-weight="bold">IN-FLIGHT HARNESS</text>
-    <text x="290" y="70">Zod schema guard</text>
-    <text x="290" y="90">Sandboxed RPC</text>
-    <text x="290" y="110">Egress privacy shield</text>
+    <text x="290" y="45" font-weight="bold">PROVIDER</text>
+    <text x="290" y="70">Configured CLI / API</text>
+    <text x="290" y="90">Explicit fallback policy</text>
 
-    <text x="490" y="45" font-weight="bold">POST-LLM HARNESS</text>
-    <text x="490" y="70">Output guardrails</text>
-    <text x="490" y="90">Groundedness check</text>
-    <text x="490" y="110">Approval gate</text>
+    <text x="490" y="45" font-weight="bold">DORI ACTIONS</text>
+    <text x="490" y="70">Schema-checked input</text>
+    <text x="490" y="90">Scoped execution</text>
+    <text x="490" y="110">Tool results</text>
 
-    <text x="675" y="95" font-weight="bold">Verified Vault</text>
-    <text x="675" y="115">Result Snapshot</text>
+    <text x="675" y="95" font-weight="bold">Result</text>
+    <text x="675" y="115">Optional guards</text>
   </g>
 </svg>
 
 ---
 
-## 1. The Frugal AI Philosophy
+## 1. Provider Selection
 
-**Frugal AI** means designing intelligence systems that accomplish maximum work with minimal compute, latency, and cloud dependency.
+Dori keeps an ordered provider list. A call can also pin one provider, in which case Dori fails loudly when that provider is unavailable instead of silently substituting another. Unpinned fallback to a later provider requires the configured workflow-AI consent.
 
-In Dori, Frugal AI is enforced by three core principles:
-1. **Never use an LLM for what code can do in 0ms.**
-2. **Never resend raw files when targeted snippets suffice.**
-3. **Never accept unverified output that requires manual human cleanup.**
+Callers can request a provider-agnostic model tier: `fast`, `standard`, `reasoning`, or `inherit`. The selected provider resolves the tier to a concrete model when its catalog supports that distinction.
 
 ---
 
-## 2. Harness Engineering: Pre-LLM, In-Flight & Post-LLM
+## 2. Tools and Context
 
-**Harness Engineering** is the technical discipline of wrapping non-deterministic LLMs in deterministic software boundaries before, during, and after model invocation.
+Chat can expose scope-filtered Universal Actions as tools. The model may call actions such as memory search, and Dori executes those calls through the same registered action boundary used elsewhere. A memory-search result can supply targeted vault excerpts and record them as sources for the turn.
 
-### A. Pre-LLM Harness Engineering (Pre-Flight)
-Before a request leaves your machine:
-* **Zero-Token Gatekeeper:** If a query can be solved via local SQLite lookup or CLI execution (`./dori`), Dori short-circuits execution with **0 tokens spent**.
-* **Tiered Model Routing:** Routes routine classification or data extraction to a `fast` model tier, reserving the `reasoning` tier strictly for complex synthesis. Tiers (`fast` / `standard` / `reasoning` / `inherit`) are provider-agnostic — the engine resolves each to a concrete model per configured provider (Anthropic, OpenAI, OpenRouter, or Groq).
-* **Context Compression:** Uses SQLite FTS5 BM25 and vector search to extract only the exact relevant note sections rather than dumping entire files into context.
-* **Prompt Cache Normalization:** Freezes static system prompt headers so LLM providers hit **Prompt Caching** — cached reads run at roughly a tenth of base input cost under Anthropic's published caching economics.
+The current chat path sends the conversation history supplied by the caller. Retrieval is available through tools, but there is no universal pre-LLM gate that automatically replaces every locally answerable request with a zero-token lookup.
 
-### B. In-Flight Harness Engineering (Execution)
-During LLM execution:
-* **Strict Schema Boundaries:** All tool calls and output objects are validated against Zod schemas (`guardrails.ts`). Invalid structures trigger immediate internal parameter corrections.
-* **Egress Privacy Shield:** Redacts local API secrets and machine credentials before sending payloads over the network.
+## 3. Validation and Guardrails
 
-### C. Post-LLM Harness Engineering (Verification & Convergence)
-After the LLM responds:
-* **Output Guardrails:** Results pass through mandatory output-kind guards before a workflow step commits — an `ApprovalGuard` for human sign-off, a `PermissionGuard` for authorization checks, and an `EvidenceGuard` that runs a groundedness check.
-* **Cross-Model Groundedness Judging:** `EvidenceGuard` sends the generated text and its source excerpts to a judge model deliberately pinned to a different provider family than the one that generated the text, so the same model never grades its own output. The judge flags any factual claim not supported by the sources.
-* **Cyclic Convergence Loops:** If a guardrail returns a `warn` or `fail` verdict, the workflow surfaces the failure and can retry the step until it passes.
+Tool inputs are schema-checked at the action boundary. Some single-turn AI calls request JSON and required keys; malformed responses can trigger bounded retries.
+
+Workflow guardrails are opt-in. Input guards run before the first step. Output guards run after a non-read-only action has already taken effect, so they can stop or pause later execution but cannot undo that action. `EvidenceGuard` uses a pinned OpenAI judge for groundedness when configured and passes with a recorded skip reason when the judge is unavailable.
+
+## 4. Current Limits
+
+Dori does not currently configure provider prompt caching, report cache-hit usage, redact arbitrary prompt content at the provider boundary, or automatically retry a failed guardrail until it passes. Those behaviors should not be inferred from the presence of schemas, local search, or guardrail definitions.

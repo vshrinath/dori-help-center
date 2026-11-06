@@ -17,22 +17,22 @@ Dori can be installed locally on your Mac or deployed 24/7 on a remote Linux ser
 
 Dori Desktop bundles the engine and portal into a signed Mac app — there is no separate server to configure.
 
-### Download and Install
+### Download and install
 1. Download the latest signed build from the Dori releases page.
 2. Open the `.dmg` installer and drag Dori to your **Applications** folder.
 3. Launch Dori. macOS may ask to confirm opening an app from an identified developer on first launch.
 
-### What Starts Automatically
+### What starts automatically
 When Dori Desktop launches, it supervises two background processes:
 - **The Engine**: Manages captures, background jobs, transcription, and folder syncing.
 - **The Portal**: The user interface you interact with.
 
-### Automatic Updates
+### Automatic updates
 Dori Desktop includes a signed automatic updater. When a new version is released, Dori prompts you to update automatically.
 
 ---
 
-## Option 2: 24/7 VPS Deployment (Docker)
+## Option 2: 24/7 VPS deployment (Docker)
 
 If you want Dori to process WhatsApp messages, transcribe voice notes, and run background folder sync 24/7 while your computer is asleep or offline, deploy the Dori Docker container on a Linux VPS (DigitalOcean, Hetzner, AWS, or home server).
 
@@ -69,12 +69,12 @@ docker compose up -d
 ```
 
 <Callout type="warning">
-**Keep Docker Ports Private**: Never bind Dori's ports directly to `0.0.0.0` on a public VPS. Keep ports bound to `127.0.0.1` and connect remotely via **Cloudflare Tunnel** (see [Secure Remote Access with Cloudflare Tunnel](/getting-started/secure-remote-access)).
+**Keep Docker ports private**: Never bind Dori's ports directly to `0.0.0.0` on a public VPS. Keep ports bound to `127.0.0.1` and connect remotely via **Cloudflare Tunnel** (see [Secure Remote Access with Cloudflare Tunnel](/getting-started/secure-remote-access)).
 </Callout>
 
 ---
 
-## Next Steps
+## Next steps
 
 - **Secure your connection**: Set up [Secure Remote Access with Cloudflare Tunnel](/getting-started/secure-remote-access).
 - **Connect your file storage**: See [Connect your vault](/getting-started/connect-your-vault).

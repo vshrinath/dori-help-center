@@ -25,9 +25,9 @@ export default defineConfig({
   },
   theme: {
     accent: {
-      // --brand-primary / --brand-primary-light in globals.css
+      // --brand-primary in globals.css (:root / .dark)
       light: "#1a1f4e",
-      dark: "#6f7fd0",
+      dark: "#91a0e8",
     },
     background: {
       // --brand-canvas in globals.css
@@ -39,6 +39,8 @@ export default defineConfig({
       body: "figtree",
       mono: "jetbrains-mono",
     },
+    // --radius-control: 13px in globals.css — closer to blume's rounder scale.
+    radius: "lg",
   },
   deployment: {
     site: "https://help.mydori.app",

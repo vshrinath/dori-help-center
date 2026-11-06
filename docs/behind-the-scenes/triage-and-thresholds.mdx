@@ -1,13 +1,11 @@
 ---
-title: "Automated Triage & Confidence Thresholds"
-description: "How Dori uses confidence scoring, severity levels, and the Attention Model to filter noise and surface 'Needs You' items."
+title: "Attention & Confidence"
+description: "How the portal derives attention labels and how workflows may opt into a numeric confidence guard."
 ---
 
-One of the biggest failures of traditional notification systems is **alert fatigue**. Every incoming message, email, or capture triggers a ding, forcing humans to act as manual triage routers.
+Dori has two related but separate mechanisms: portal situation summaries use categorical attention labels, while workflows can optionally run a numeric confidence guard. The labels are not a universal machine-learning score assigned to every capture.
 
-Dori solves this with an **Automated Triage & Confidence Threshold Engine**. Instead of notifying you about every raw event, Dori categorizes incoming captures along strict confidence thresholds.
-
-<svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Confidence guard flow chart showing a capture scored, checked against a single default threshold, and routed to either silent auto-filing or a Needs You review">
+<svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Optional workflow confidence guard checking a supplied score against 0.6 and either beginning the workflow or requesting review">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5" />
@@ -25,39 +23,42 @@ Dori solves this with an **Automated Triage & Confidence Threshold Engine**. Ins
     <path d="M340 65 L400 65 L400 102 L476 102" marker-end="url(#arrow)" />
   </g>
   <g fill="currentColor" font-size="12" font-family="inherit" text-anchor="middle">
-    <text x="80" y="58">Incoming Event</text>
-    <text x="80" y="78">/ Capture</text>
+    <text x="80" y="58">Workflow</text>
+    <text x="80" y="78">Trigger</text>
 
     <text x="265" y="58">ConfidenceGuard</text>
     <text x="265" y="78">vs. default 0.6</text>
 
-    <text x="610" y="22">pass -&gt; Silent Vault Auto-Filing</text>
-    <text x="610" y="42">(or attention-state routing)</text>
-    <text x="610" y="97">warn -&gt; Needs-You Review</text>
-    <text x="610" y="117">before it proceeds automatically</text>
+    <text x="610" y="22">pass -&gt; Begin Workflow</text>
+    <text x="610" y="42">(or pass when score absent)</text>
+    <text x="610" y="97">warn -&gt; Waiting Review</text>
+    <text x="610" y="117">before the first step</text>
   </g>
 </svg>
 
 ---
 
-## 1. The Attention Model & Severity Levels
+## 1. Situation Attention Labels
 
-Dori evaluates every situation across three severity states:
+Dori's portal maps project, thread, and trip state into presentation labels:
 
-- **`quiet`**: High-confidence routine actions (e.g. automatically transcribing a note, linking a file to a project, updating indexes). Runs 100% silently in the background.
-- **`waiting`**: Asynchronous tasks executing on your behalf (e.g. background document parsing, research bundle generation).
-- **`needs_you`**: Items that require explicit human judgment, confirmation, or decision approval.
+- **`needs_you`** indicates a concrete attention signal the portal should surface prominently.
+- **`waiting`** indicates work or a dependency that has not completed.
+- **`quiet`** indicates a situation without an immediate attention signal.
+- **`done`** indicates resolved or completed state where the mapper supports it.
+
+These labels are deterministic projections from the current domain data. They help order and explain UI surfaces; they are not evidence that an AI confidence model evaluated the item.
 
 ---
 
-## 2. Confidence Threshold Routing
+## 2. Optional Workflow Confidence Guard
 
-When a workflow or action produces a result with a numeric **confidence score (0.00 to 1.00)** — based on entity matching, project affinity, and filing patterns — Dori's `ConfidenceGuard` checks it against a single default threshold (currently **0.6**, not yet configurable per workflow):
+A workflow can include `ConfidenceGuard` in its `inputGuardrails`. The guard reads `confidence` from the trigger context when it is a number and compares it with the current default threshold of 0.6.
 
-### Pass ($\ge 0.6$): Proceeds Automatically
-If confidence clears the threshold, the guard passes silently and the result proceeds — e.g. filed into your Markdown vault, or routed through the normal `quiet` / `waiting` / `needs_you` attention states without extra friction.
+### Pass ($\ge 0.6$): Begin the Workflow
+The workflow proceeds to its first step. If the trigger has no numeric `confidence`, the current guard also passes; it does not calculate a score itself.
 
-### Warn ($< 0.6$): Flagged for Review
-If confidence falls short, the guard returns a `warn` verdict instead of blocking outright, and the item is surfaced for you to review before it's trusted to proceed automatically — rather than being silently auto-filed.
+### Warn ($< 0.6$): Request Review
+The execution enters `waiting_review` before running its first step. The engine records an approval-style attention request so the run can be reviewed and resumed.
 
-Separately, in the portal UI, ambiguous entity matches (e.g. a decision note that could belong to two client accounts) are shown with simplified categorical confidence labels (`high` / `medium`) rather than raw scores, so you can approve or correct the match quickly (`⌘+Enter`) from the **Needs You** strip.
+The guard does not currently learn from manual corrections, assign confidence to every capture, or implement separate high/medium/low routing bands.
